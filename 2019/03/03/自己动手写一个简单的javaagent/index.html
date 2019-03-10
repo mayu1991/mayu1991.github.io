@@ -1,99 +1,318 @@
-extends includes/layout.pug
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
 
-block top_img
-  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
-  if (top_img && page.top_img !== false)
-    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
-    - var flag = top_img === true ? 'no-bg' : ''
-    div#top-container(style=bg_img class=flag)
-      include ./includes/header.pug
-      #post-info
-        #post-title= page.title || _p('no_title')
-        #post-meta
-          if (theme.post_meta.date_type)
-            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
-            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
-          if (theme.post_meta.categories && page.categories.data.length > 0)
-            if (theme.post_meta.date_type)
-              span.post-meta__separator |
-            each item, index in page.categories.data
-              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
-              a(href=url_for(item.path)).post-meta__categories #[=item.name]
-              if (index < page.categories.data.length - 1)
-                 i.fa.fa-angle-right(aria-hidden="true")
-          if (theme.disqus.enable && theme.disqus.count)
-            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
-              span.post-meta__separator |
-            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
-            a(href=url_for(page.path) + '#disqus_thread')
-              span.disqus-comment-count(data-disqus-identifier=page.path)
-          if (theme.wordcount && theme.wordcount.enable)
-            .post-meta-wordcount
-              span= _p('post.wordcount') + ': '
-              span.word-count= wordcount(page.content)
-              span.post-meta__separator |
-              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
-  else
-    div#top-container.plain
-      include ./includes/header.pug
+  
+  <title>自己动手写一个简单的探针 | Manoo`s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="需求 实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。 实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。 实现agent的心跳检测。 实现根据采样率调节数据收集量。  需求分析 怎么在代码无侵入的要求下运行监控程序？  如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务">
+<meta name="keywords" content="链路监控,javaagent,java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己动手写一个简单的探针">
+<meta property="og:url" content="http://blog.myimy.site/2019/03/03/自己动手写一个简单的javaagent/index.html">
+<meta property="og:site_name" content="Manoo`s Blog">
+<meta property="og:description" content="需求 实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。 实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。 实现agent的心跳检测。 实现根据采样率调节数据收集量。  需求分析 怎么在代码无侵入的要求下运行监控程序？  如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-10T03:35:46.919Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自己动手写一个简单的探针">
+<meta name="twitter:description" content="需求 实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。 实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。 实现agent的心跳检测。 实现根据采样率调节数据收集量。  需求分析 怎么在代码无侵入的要求下运行监控程序？  如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务">
+  
+    <link rel="alternate" href="/atom.xml" title="Manoo`s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Manoo`s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">总览</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.myimy.site"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-自己动手写一个简单的javaagent" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/03/自己动手写一个简单的javaagent/" class="article-date">
+  <time datetime="2019-03-02T16:00:00.000Z" itemprop="datePublished">2019-03-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/链路监控/">链路监控</a>
+  </div>
 
-block content
-  article#post(class="")
-    if (!top_img)
-      #post-title.plain= page.title || _p('no_title')
-      #post-meta
-        if (theme.post_meta.date_type)
-          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
-          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
-        if (theme.post_meta.categories && page.categories.data.length > 0)
-          if (theme.post_meta.date_type)
-            span.post-meta__separator |
-          each item, index in page.categories.data
-            i.fa.fa-inbox(aria-hidden="true")
-            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
-            if (index < page.categories.data.length - 1)
-                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
-        if (theme.disqus.enable && theme.disqus.count)
-          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
-            span.post-meta__separator |
-          i.fa.fa-comment-o(aria-hidden="true")
-          a(href=url_for(page.path) + '#disqus_thread')
-            span.disqus-comment-count(data-disqus-identifier=page.path)
-        if (theme.wordcount && theme.wordcount.enable)
-          span.post-meta__separator |
-          span.post-meta-wordcount
-            span= _p('post.wordcount') + ': '
-            span.word-count= wordcount(page.content)
-            span.post-meta__separator |
-            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
-    #post-content.article-container!= page.content
-  if (theme.post_copyright && theme.post_copyright.enable)
-    .post-copyright
-      .post-copyright__author
-        span.post-copyright-meta= _p('post.copyright.author') + ": "
-        span.post-copyright-info
-          a(href=`mailto:${config.email}`) #[=config.author]
-      .post-copyright__type
-        span.post-copyright-meta= _p('post.copyright.link') + ": "
-        span.post-copyright-info
-          a(href=url_for(page.permalink)) #[=page.permalink]
-      .post-copyright__notice
-        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
-        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
-  if (theme.post_meta.tags)
-    .post-meta__tag-list
-      each item, index in page.tags.data
-        a(href=url_for(item.path)).post-meta__tags #[=item.name]
-  if (theme.QR_code)
-    if (theme.QR_code.length > 0)
-      .post-qr-code
-        each item in theme.QR_code
-          .post-qr-code-item
-            img.post-qr-code__img(src=(item.itemlist||item).img)
-            .post-qr-code__desc=(item.itemlist||item).text
-  include includes/share/index.pug
-  include includes/pagination.pug
-  if (theme.adv && theme.adv.enable)
-    .post-adv!= theme.adv.info
-  if page.comments !== false
-    include includes/comments/index.pug
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      自己动手写一个简单的探针
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
+<li>实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。</li>
+<li>实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。</li>
+<li>实现agent的心跳检测。</li>
+<li>实现根据采样率调节数据收集量。</li>
+</ol>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><ol>
+<li><p>怎么在代码无侵入的要求下运行监控程序？</p>
+<ul>
+<li>如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务进行交互。</li>
+<li>如何将探针的程序注入到应用程序里呢？利用 <a href="https://www.infoq.cn/article/javaagent-illustrated" target="_blank" rel="noopener">javaagent的Instrument</a>。</li>
+</ul>
+</li>
+<li><p>怎么收集当前容器信息？</p>
+<ul>
+<li>用javaagent实现无侵入部署，在启动应用程序的同时，注入探针的代码，探针会启动一个定时器，由定时器来控制触发系统指标收集的任务。</li>
+<li>同时再启动一个定时器，实现心跳机制<a href="为什么要做心跳？因为agent是单独部署在客户端的，服务端是开发者自己能够hold住的，客户端就有点鞭长莫及。所以需要用心跳来知晓agent的运行情况。">^1</a></li>
+</ul>
+</li>
+<li><p>用什么方式上传到服务端？</p>
+</li>
+<li>服务端数据结构怎么设计，用什么样的DB保存数据？</li>
+<li>如何实现采样率的动态调节？</li>
+</ol>
+<h2 id="技术准备"><a href="#技术准备" class="headerlink" title="技术准备"></a>技术准备</h2><ol>
+<li><p>利用instrument agent实现探针无侵入</p>
+<p> Instrument</p>
+<p> “java.lang.instrument”包的具体实现，依赖于JVMTI。在Java SE 5 及其后续版本当中，开发者可以在一个普通 Java 程序（带有 main 函数的 Java 类）运行时，通过 <code>- javaagent</code>参数指定一个特定的jar文件来启动 Instrumentation的代理程序。</p>
+<p> Instrumentation 的最大作用，就是类定义动态改变和操作。而且指令里也可以加上一些启动参数<a href="[怎么获取启动参数？](https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html)">^2</a>。</p>
+<p> JVMTI</p>
+<p> JVMTI全称 JVM Tool Interface，是 JVM 暴露出来的一些供用户扩展的接口集合。JVMTI 是基于事件驱动的，JVM 每执行到一定的逻辑就会调用一些事件的回调接口（如果有的话），这些接口可以供开发者扩展自己的逻辑。</p>
+<pre><code>JVMTIAgent 其实就是一个动态库，利用 JVMTI 暴露出来的一些接口来干一些我们想做、但是正常情况下又做不到的事情。
+</code></pre><p> JVMTIAgent有三个回调函数，分别是：</p>
+<ul>
+<li>Agent_OnLoad，启动时加载。</li>
+<li>Agent_OnAttach，运行时加载，这里还需要利用java的attach原理。</li>
+<li><p>Agent_OnUnload，卸载时加载。</p>
+<p>个人感觉这里应该用启动时加载，因为监控程序应该是7*24小时运行，必须与被监控应用相同的生命周期。如果是运行时加载，在什么样的节点启动监控也是很难定义。</p>
+</li>
+</ul>
+</li>
+<li><p>利用Byte buddy实现了类的运行时动态加载和类的加强</p>
+</li>
+</ol>
+<h2 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h2><ol>
+<li>加载agent配置</li>
+<li>加载agent插件</li>
+<li>初始化agent服务管理<ol>
+<li>SPI<br>JDK内置的一种服务提供发现机制</li>
+<li>动态加载BootService接口的实现类</li>
+<li>插件加载、匹配和拦截</li>
+</ol>
+</li>
+</ol>
+<h2 id="agent插件体系"><a href="#agent插件体系" class="headerlink" title="agent插件体系"></a>agent插件体系</h2><ol>
+<li>插件的加载<ol>
+<li>自定义的类加载器AgentClassLoader </li>
+<li>注册</li>
+<li>动态加载</li>
+</ol>
+</li>
+<li>插件的匹配</li>
+<li>插件的拦截<ol>
+<li>指定需要拦截的类：在AgentBuilder.type处，这里可以指定需要拦截的类</li>
+<li>指定需要拦截的方法：在builder.method处，这里可以指定需要拦截的方法</li>
+<li>将需要拦截的<a href="https://www.jianshu.com/p/fe1448bf7d31" target="_blank" rel="noopener">类重新定义加载【ByteBuddy】</a>       </li>
+</ol>
+</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>PluginFinder<br>初始化方法：遍历所有pluginDefine，并获取classMatch，放到不同的map中</p>
+<h2 id="TIPS："><a href="#TIPS：" class="headerlink" title="TIPS："></a>TIPS：</h2><ol>
+<li>类的加载</li>
+<li>类与对象的关系</li>
+<li>创建一个对象的实例</li>
+</ol>
+<h2 id="Agent要搞清楚以下几个问题"><a href="#Agent要搞清楚以下几个问题" class="headerlink" title="Agent要搞清楚以下几个问题"></a>Agent要搞清楚以下几个问题</h2><ol>
+<li>代理的类和执行main的类是一个classloader吗？<br>是的，用的是一个类加载器</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DEFAULT_LOADER = <span class="keyword">new</span> </span><br><span class="line">AgentClassLoader(PluginBootstrap.class.getClassLoader());</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>Instrumentation、ByteBubble、OpenTracing、Grpc</p>
+</li>
+<li><p>怎么知道拦截了哪些类</p>
+</li>
+<li><p>拦截了之后如何加强这些类</p>
+</li>
+<li><p><a href="https://blog.myimy.site/2019/03/01/%E9%87%87%E6%A0%B7%E7%8E%87/">采样率</a>是什么作用<br> 性能和采集效率的一个综合指标，采集率高了对客户端的CPU压力自然会上升，但是采集的数据多了，对业务使用自然是更好的。</p>
+</li>
+<li><p>一定要引入这么多插件的jar</p>
+</li>
+<li><p>怎么兼容不同版本的插件</p>
+</li>
+<li><p>Grpc传输和http传输的区别</p>
+</li>
+</ol>
+<h2 id="次要问题："><a href="#次要问题：" class="headerlink" title="次要问题："></a>次要问题：</h2><ol>
+<li>PluginDefine和AbstractClassEnhancePluginDefine有什么区别？</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html" target="_blank" rel="noopener">Instrumentation介绍</a><br><a href="https://blog.csdn.net/fengyuzhengfan/article/details/38086743" target="_blank" rel="noopener">class类简介</a><br><a href="https://www.jianshu.com/p/32d3e108f30a" target="_blank" rel="noopener">SPI和ServiceLoader</a><br><a href="https://blog.csdn.net/github_35180164/article/details/52118286" target="_blank" rel="noopener">公用API的安全狂街-自定义注解生命周期</a><br><a href="https://wu-sheng.gitbooks.io/opentracing-io/content/" target="_blank" rel="noopener">openTracing文档</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.myimy.site/2019/03/03/自己动手写一个简单的javaagent/" data-id="cjt2lfuab000l3k00gy1ct4o7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaagent/">javaagent</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/02/分布式事务常见解决方案/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">分布式事务常见解决方案</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/03/自己动手写一个简单的javaagent/">自己动手写一个简单的探针</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/02/分布式事务常见解决方案/">分布式事务常见解决方案</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/01/采样率/">采样率</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/23/Elasticsearch运维的思考/">Elasticsearch运维的思考</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/18/RPC与REST/">RPC与REST理解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/elasticsearch/">elasticsearch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/代码整洁/">代码整洁</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/分布式/">分布式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客搭建/">博客搭建</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/链路监控/">链路监控</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JAVA/" style="font-size: 15px;">JAVA</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/REST/" style="font-size: 12.5px;">REST</a> <a href="/tags/RPC/" style="font-size: 12.5px;">RPC</a> <a href="/tags/elasticsearch/" style="font-size: 15px;">elasticsearch</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/javaagent/" style="font-size: 10px;">javaagent</a> <a href="/tags/todo/" style="font-size: 17.5px;">todo</a> <a href="/tags/代码整洁/" style="font-size: 10px;">代码整洁</a> <a href="/tags/分布式/" style="font-size: 20px;">分布式</a> <a href="/tags/博客搭建/" style="font-size: 15px;">博客搭建</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/运维/" style="font-size: 10px;">运维</a> <a href="/tags/链路监控/" style="font-size: 15px;">链路监控</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 manoo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">总览</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
