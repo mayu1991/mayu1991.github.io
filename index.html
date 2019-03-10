@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Manoo`s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Manoo`s Blog">
+<meta property="og:url" content="http://blog.myimy.site/index.html">
+<meta property="og:site_name" content="Manoo`s Blog">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Manoo`s Blog">
+  
+    <link rel="alternate" href="/atom.xml" title="Manoo`s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Manoo`s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">总览</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.myimy.site"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-自己动手写一个简单的javaagent" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/03/自己动手写一个简单的javaagent/" class="article-date">
+  <time datetime="2019-03-02T16:00:00.000Z" itemprop="datePublished">2019-03-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/链路监控/">链路监控</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/03/自己动手写一个简单的javaagent/">自己动手写一个简单的探针</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
+<li>实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。</li>
+<li>实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。</li>
+<li>实现agent的心跳检测。</li>
+<li>实现根据采样率调节数据收集量。</li>
+</ol>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><ol>
+<li><p>怎么在代码无侵入的要求下运行监控程序？</p>
+<ul>
+<li>如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务进行交互。</li>
+<li>如何将探针的程序注入到应用程序里呢？利用 <a href="https://www.infoq.cn/article/javaagent-illustrated" target="_blank" rel="noopener">javaagent的Instrument</a>。</li>
+</ul>
+</li>
+<li><p>怎么收集当前容器信息？</p>
+<ul>
+<li>用javaagent实现无侵入部署，在启动应用程序的同时，注入探针的代码，探针会启动一个定时器，由定时器来控制触发系统指标收集的任务。</li>
+<li>同时再启动一个定时器，实现心跳机制<a href="为什么要做心跳？因为agent是单独部署在客户端的，服务端是开发者自己能够hold住的，客户端就有点鞭长莫及。所以需要用心跳来知晓agent的运行情况。">^1</a></li>
+</ul>
+</li>
+<li><p>用什么方式上传到服务端？</p>
+</li>
+<li>服务端数据结构怎么设计，用什么样的DB保存数据？</li>
+<li>如何实现采样率的动态调节？</li>
+</ol>
+<h2 id="技术准备"><a href="#技术准备" class="headerlink" title="技术准备"></a>技术准备</h2><ol>
+<li><p>利用instrument agent实现探针无侵入</p>
+<p> Instrument</p>
+<p> “java.lang.instrument”包的具体实现，依赖于JVMTI。在Java SE 5 及其后续版本当中，开发者可以在一个普通 Java 程序（带有 main 函数的 Java 类）运行时，通过 <code>- javaagent</code>参数指定一个特定的jar文件来启动 Instrumentation的代理程序。</p>
+<p> Instrumentation 的最大作用，就是类定义动态改变和操作。而且指令里也可以加上一些启动参数<a href="[怎么获取启动参数？](https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html)">^2</a>。</p>
+<p> JVMTI</p>
+<p> JVMTI全称 JVM Tool Interface，是 JVM 暴露出来的一些供用户扩展的接口集合。JVMTI 是基于事件驱动的，JVM 每执行到一定的逻辑就会调用一些事件的回调接口（如果有的话），这些接口可以供开发者扩展自己的逻辑。</p>
+<pre><code>JVMTIAgent 其实就是一个动态库，利用 JVMTI 暴露出来的一些接口来干一些我们想做、但是正常情况下又做不到的事情。
+</code></pre><p> JVMTIAgent有三个回调函数，分别是：</p>
+<ul>
+<li>Agent_OnLoad，启动时加载。</li>
+<li>Agent_OnAttach，运行时加载，这里还需要利用java的attach原理。</li>
+<li><p>Agent_OnUnload，卸载时加载。</p>
+<p>个人感觉这里应该用启动时加载，因为监控程序应该是7*24小时运行，必须与被监控应用相同的生命周期。如果是运行时加载，在什么样的节点启动监控也是很难定义。</p>
+</li>
+</ul>
+</li>
+<li><p>利用Byte buddy实现了类的运行时动态加载和类的加强</p>
+</li>
+</ol>
+<h2 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h2><ol>
+<li>加载agent配置</li>
+<li>加载agent插件</li>
+<li>初始化agent服务管理<ol>
+<li>SPI<br>JDK内置的一种服务提供发现机制</li>
+<li>动态加载BootService接口的实现类</li>
+<li>插件加载、匹配和拦截</li>
+</ol>
+</li>
+</ol>
+<h2 id="agent插件体系"><a href="#agent插件体系" class="headerlink" title="agent插件体系"></a>agent插件体系</h2><ol>
+<li>插件的加载<ol>
+<li>自定义的类加载器AgentClassLoader </li>
+<li>注册</li>
+<li>动态加载</li>
+</ol>
+</li>
+<li>插件的匹配</li>
+<li>插件的拦截<ol>
+<li>指定需要拦截的类：在AgentBuilder.type处，这里可以指定需要拦截的类</li>
+<li>指定需要拦截的方法：在builder.method处，这里可以指定需要拦截的方法</li>
+<li>将需要拦截的<a href="https://www.jianshu.com/p/fe1448bf7d31" target="_blank" rel="noopener">类重新定义加载【ByteBuddy】</a>       </li>
+</ol>
+</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>PluginFinder<br>初始化方法：遍历所有pluginDefine，并获取classMatch，放到不同的map中</p>
+<h2 id="TIPS："><a href="#TIPS：" class="headerlink" title="TIPS："></a>TIPS：</h2><ol>
+<li>类的加载</li>
+<li>类与对象的关系</li>
+<li>创建一个对象的实例</li>
+</ol>
+<h2 id="Agent要搞清楚以下几个问题"><a href="#Agent要搞清楚以下几个问题" class="headerlink" title="Agent要搞清楚以下几个问题"></a>Agent要搞清楚以下几个问题</h2><ol>
+<li>代理的类和执行main的类是一个classloader吗？<br>是的，用的是一个类加载器</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DEFAULT_LOADER = <span class="keyword">new</span> </span><br><span class="line">AgentClassLoader(PluginBootstrap.class.getClassLoader());</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>Instrumentation、ByteBubble、OpenTracing、Grpc</p>
+</li>
+<li><p>怎么知道拦截了哪些类</p>
+</li>
+<li><p>拦截了之后如何加强这些类</p>
+</li>
+<li><p><a href="https://blog.myimy.site/2019/03/01/%E9%87%87%E6%A0%B7%E7%8E%87/">采样率</a>是什么作用<br> 性能和采集效率的一个综合指标，采集率高了对客户端的CPU压力自然会上升，但是采集的数据多了，对业务使用自然是更好的。</p>
+</li>
+<li><p>一定要引入这么多插件的jar</p>
+</li>
+<li><p>怎么兼容不同版本的插件</p>
+</li>
+<li><p>Grpc传输和http传输的区别</p>
+</li>
+</ol>
+<h2 id="次要问题："><a href="#次要问题：" class="headerlink" title="次要问题："></a>次要问题：</h2><ol>
+<li>PluginDefine和AbstractClassEnhancePluginDefine有什么区别？</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html" target="_blank" rel="noopener">Instrumentation介绍</a><br><a href="https://blog.csdn.net/fengyuzhengfan/article/details/38086743" target="_blank" rel="noopener">class类简介</a><br><a href="https://www.jianshu.com/p/32d3e108f30a" target="_blank" rel="noopener">SPI和ServiceLoader</a><br><a href="https://blog.csdn.net/github_35180164/article/details/52118286" target="_blank" rel="noopener">公用API的安全狂街-自定义注解生命周期</a><br><a href="https://wu-sheng.gitbooks.io/opentracing-io/content/" target="_blank" rel="noopener">openTracing文档</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.myimy.site/2019/03/03/自己动手写一个简单的javaagent/" data-id="cjt2dkvqj000lx2003iv2ycsi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaagent/">javaagent</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-分布式事务常见解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/02/分布式事务常见解决方案/" class="article-date">
+  <time datetime="2019-03-01T16:00:00.000Z" itemprop="datePublished">2019-03-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/分布式/">分布式</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/02/分布式事务常见解决方案/">分布式事务常见解决方案</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Fescar"><a href="#Fescar" class="headerlink" title="Fescar"></a>Fescar</h2><p><a href="https://github.com/alibaba/fescar/" target="_blank" rel="noopener">Fescar: Fast &amp; Easy Commit And Rollback</a><br><a href="http://os.51cto.com/art/201901/590738.htm" target="_blank" rel="noopener">关于开源分布式事务中间件Fescar的提问</a><br><a href="https://www.jianshu.com/p/82b98f037034" target="_blank" rel="noopener">FESCAR：阿里重磅开源分布式事务解决方案</a></p>
+<h2 id="XA"><a href="#XA" class="headerlink" title="XA"></a>XA</h2><h2 id="基于消息的最终一致"><a href="#基于消息的最终一致" class="headerlink" title="基于消息的最终一致"></a>基于消息的最终一致</h2><h2 id="TCC"><a href="#TCC" class="headerlink" title="TCC"></a>TCC</h2><h2 id="Saga"><a href="#Saga" class="headerlink" title="Saga"></a>Saga</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.myimy.site/2019/03/02/分布式事务常见解决方案/" data-id="cjt2dkvqd000fx200f04dre0b" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/REST/">REST</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RPC/">RPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-采样率" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/01/采样率/" class="article-date">
+  <time datetime="2019-02-28T16:00:00.000Z" itemprop="datePublished">2019-03-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/分布式/">分布式</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/01/采样率/">采样率</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>采样最直接的目的有两个：减少计算量和降低描述难度。</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g0l49r7s3ij30k00mzwew.jpg" alt></p>
+<p>在APM厂商中，普遍采用这样一种采样算法来计算Apdex（Application Performance Index）。</p>
+<p>Apdex的计算公式是： Apdex ＝ ( 1 x 满意 ＋0.5 x 容忍 ＋ 0 x 失望 ) / 样本数。</p>
+<p>我们套一下上面的公式： 假定样本为：小于2s的请求次数为10次，满意； 大于2s，小于8s的请求次数为20次，容忍；大于等于8s的请求次数为10次，失望。 那么得到 Apdex = ( 1 x 10 + 0.5 x 20 + 0 x 10 ) / 40 = 0.5 ，结果是Unacceptable 不能接受的，说明这次采样的这个系统就在GG 的边缘了。</p>
+<p>但是Apdex公式的计算只是在一个<code>宏观上判断一个服务的综合状态</code>，如果细化的话，这个计算公式是一个加权的结果，如果有5个请求都是大于等于8s,但是其他35个都是小于2s的，那么得出的Apdex为0.875，已经是Good的状态了，但是如果这8s的5个请求是服务的主入口或者重要接口，那么这Good的表面价值就会带来巨大隐患，所以对于采样率的计算，需要对于宏观上有一套计算方案，也需要对于细节处进行探查。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://zhuanlan.zhihu.com/p/40623010" target="_blank" rel="noopener">全链路分布式跟踪系统与APM</a><br><a href="https://segmentfault.com/a/1190000007370525" target="_blank" rel="noopener">浅述APM采样与端到端</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.myimy.site/2019/03/01/采样率/" data-id="cjt2dkvqm000qx200uf2brvqb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Elasticsearch运维的思考" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/23/Elasticsearch运维的思考/" class="article-date">
+  <time datetime="2019-02-22T16:00:00.000Z" itemprop="datePublished">2019-02-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/elasticsearch/">elasticsearch</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/23/Elasticsearch运维的思考/">Elasticsearch运维的思考</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="当前的情况"><a href="#当前的情况" class="headerlink" title="当前的情况"></a>当前的情况</h2><ul>
+<li><p>当前每一个租户一共会创建95个索引。</p>
+</li>
+<li><p>分片的设置是：indexShardsNumber=2，indexReplicasNumber=0。</p>
+</li>
+<li><p>集群一共有四个节点，每一个节点有60G的空间。</p>
+</li>
+<li><p>目前线上共有6个租户，计算下来一共是1,140个分片</p>
+</li>
+</ul>
+<h2 id="产生了哪些问题"><a href="#产生了哪些问题" class="headerlink" title="产生了哪些问题"></a>产生了哪些问题</h2><ul>
+<li><p>副本数为0，没有备份，当主分区出现故障的时候，容错缺失。</p>
+</li>
+<li><p>分区数设置不合理，一般情况下分区数应该是节点数的1.5——3倍（因为es的分区数设置之后再调整很麻烦，所以评估好数据规模很重要），目前有4个节点，合理的分区数应该是6-18之间。</p>
+</li>
+<li><p>目前节点的容量以及数量很有可能跟不上业务的发展，如果大规模推广，存储机器的成本压力很大。</p>
+</li>
+</ul>
+<h2 id="如何解决这些问题"><a href="#如何解决这些问题" class="headerlink" title="如何解决这些问题"></a>如何解决这些问题</h2><h3 id="1-预估集群大小"><a href="#1-预估集群大小" class="headerlink" title="1. 预估集群大小"></a>1. 预估集群大小</h3><blockquote>
+<p>TODO</p>
+</blockquote>
+<p>索引吞吐量<br>文档大小<br>搜索吞吐量<br>查询类型<br>热点索引文档数量<br>保留策略<br>响应时间需求<br>SLA 级别  </p>
+<h3 id="2-优化索引设计"><a href="#2-优化索引设计" class="headerlink" title="2. 优化索引设计"></a>2. 优化索引设计</h3><h3 id="3-扩大集群容量"><a href="#3-扩大集群容量" class="headerlink" title="3. 扩大集群容量"></a>3. 扩大集群容量</h3><ul>
+<li><p>数据迁移</p>
+<p>  步骤1：按照新需求，创建你需要分片的索引。<br>  步骤2：<a href="https://blog.csdn.net/u013613428/article/details/78227277" target="_blank" rel="noopener">reindex迁移</a></p>
+</li>
+</ul>
+<h2 id="解决了这些问题之后，带来的变化"><a href="#解决了这些问题之后，带来的变化" class="headerlink" title="解决了这些问题之后，带来的变化"></a>解决了这些问题之后，带来的变化</h2><h2 id="问题解决之后的思考"><a href="#问题解决之后的思考" class="headerlink" title="问题解决之后的思考"></a>问题解决之后的思考</h2><h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://blog.csdn.net/alan_liuyue/article/details/79585345" target="_blank" rel="noopener">Elasticsearch之如何合理分配索引分片</a><br><a href="https://cloud.tencent.com/developer/article/1361274" target="_blank" rel="noopener">Elasticsearch最佳实践之分片使用优化</a><br><a href="http://www.cnblogs.com/richaaaard/p/5227477.html" target="_blank" rel="noopener">深入理解Shard和Lucene Index</a><br><a href="https://www.infoq.cn/article/elasticsearch-performance-tuning-practice-at-ebay" target="_blank" rel="noopener">ebay的Elasticsearch调优实践</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.myimy.site/2019/02/23/Elasticsearch运维的思考/" data-id="cjt2dkvq40004x2000rfsb8lr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/运维/">运维</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-RPC与REST" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/18/RPC与REST/" class="article-date">
+  <time datetime="2019-02-17T16:00:00.000Z" itemprop="datePublished">2019-02-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/分布式/">分布式</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/18/RPC与REST/">RPC与REST理解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://thyrsi.com/t6/676/1551776303x2728279033.png" alt="OSI七层协议"></p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="Web-Service"><a href="#Web-Service" class="headerlink" title="Web Service"></a>Web Service</h3><p>简单地说, 也就是服务器如何向客户端提供服务.</p>
+<p>常用的方法有:</p>
+<ul>
+<li>RPC 所谓的远程过程调用 (面向方法)</li>
+<li>SOA 所谓的面向服务的架构(面向消息)</li>
+<li>REST 所谓的 Representational state transfer (面向资源)</li>
+</ul>
+<h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3><p>RPC是Remote Procedure Call的缩写，字面意思是远程过程调用。但是说白了就是从本地机器去执行服务器上的一个函数。所以说 RPC 指的是一类日常的操作，是个很宽泛的概念。</p>
+<p>RPC的思想是把本地函数映射到API，也就是说一个API对应的是一个方法。比如本地有一个getAllUsers，远程也能通过某种约定的协议来调用这个getAllUsers。至于这个协议是Socket、是HTTP还是别的什么并不重要（gRPC就是基于Http2.0的RPC框架）。</p>
+<p>RPC中的主体都是动作，是个动词。</p>
+<p>RPC像调用本地方法一样调用远程方法，通信协议大多采用二进制方式</p>
+<h3 id="REST"><a href="#REST" class="headerlink" title="REST"></a>REST</h3><p>REST是Representational State Transfer的缩写，翻译过来是表现层状态转换。如果一个架构符合<a href="https://blog.csdn.net/ruojingzhang/article/details/79443329" target="_blank" rel="noopener">REST原则</a>，就称它为RESTful架构。</p>
+<p>REST是一种架构风格，汲取了WWW的成功经验：无状态，以资源为中心，充分利用HTTP协议和URI协议，提供统一的接口定义，使得它作为一种设计Web服务的方法而变得流行。在某种意义上，通过强调URI和HTTP等早期Internet标准，REST是对大型应用程序服务器时代之前的Web方式的回归。</p>
+<p>REST的主体都是资源，是名词。</p>
+<p>REST通常是Http+json、Http+xml，常见的http api都可以称为Rest接口。</p>
+<h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><ol>
+<li>什么是资源呢？就是我们平常上网访问的一张图片、一个文档、一个视频等。这些资源我们通过URI来定位，也就是一个URI表示一个资源。</li>
+<li>面向资源是什么意思？和面向动作比较优劣点在哪里？</li>
+</ol>
+<h2 id="差异"><a href="#差异" class="headerlink" title="差异"></a>差异</h2><h3 id="主体"><a href="#主体" class="headerlink" title="主体"></a>主体</h3><p>HTTP请求往往围绕资源，而RPC的请求往往围绕一个动作。</p>
+<h3 id="调用协议"><a href="#调用协议" class="headerlink" title="调用协议"></a>调用协议</h3><p>接口调用通常包含两个部分，序列化和通信协议。</p>
+<ul>
+<li>常见的序列化协议包括Json、Xml、Hession、Protobuf、Thrift、Text、Bytes等；
+　　</li>
+<li>通信比较流行的是HTTP、soap、websockect、TCP等。　</li>
+</ul>
+<h4 id="通信协议"><a href="#通信协议" class="headerlink" title="通信协议"></a>通信协议</h4><ul>
+<li><p>RPC通常基于<a href="http://www.ruanyifeng.com/blog/2017/06/tcp-protocol.html" target="_blank" rel="noopener">TCP协议</a>实现，常用框架例如gRpc，Netty、Mina、Thrift。</p>
+</li>
+<li><p>RESTful是基于<a href="feng.com/blog/2016/08/http.html">HTTP</a>协议实现。</p>
+</li>
+<li><p>RPC和RESTful的差别很大程度上是使用<a href="https://www.jianshu.com/p/947a2673102a" target="_blank" rel="noopener">HTTP和TCP协议的区别</a>。</p>
+</li>
+</ul>
+<h4 id="序列化协议"><a href="#序列化协议" class="headerlink" title="序列化协议"></a>序列化协议</h4><ul>
+<li><p>HTTP通常使用Json。</p>
+</li>
+<li><p>RPC通常是使用RPC框架，这些RPC框架采用的序列化协议比如Protobuf、Thrift性能都高于Json或者XML。</p>
+</li>
+<li><p><a href="https://tech.meituan.com/2015/02/26/serialization-vs-deserialization.html" target="_blank" rel="noopener">几种序列化协议的比较</a></p>
+</li>
+</ul>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li><p>Http相对更规范，更标准，更通用，无论哪种语言都支持Http协议。</p>
+</li>
+<li><p>RPC服务则需要客户端接口与服务端保持一致（会带来一些耦合），服务端提供一个方法，客户端通过接口直接发起调用，业务开发人员仅需要关注业务方法的调用即可，不再关注网络传输的细节，在开发上更为高效。</p>
+</li>
+<li><p>通常在公司内部接口调用会选择RPC，简单高效。对外开放的API通常选择REST，标准规范通用。</p>
+</li>
+</ul>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="http://www.cnblogs.com/mindsbook/archive/2009/11/17/web_service_RESTvsRPC.html" target="_blank" rel="noopener">Web Service实践之REST vs RPC</a><br><a href="https://zhuanlan.zhihu.com/p/44096204" target="_blank" rel="noopener">HTTP 请求和 JSON-RPC</a><br><a href="https://tech.meituan.com/2015/02/26/serialization-vs-deserialization.html" target="_blank" rel="noopener">序列化和反序列化</a><br><a href="http://www.ruanyifeng.com/blog/2016/08/http.html" target="_blank" rel="noopener">HTTP协议入门</a><br><a href="http://www.ruanyifeng.com/blog/2017/06/tcp-protocol.html" target="_blank" rel="noopener">TCP协议入门</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.myimy.site/2019/02/18/RPC与REST/" data-id="cjt2dkvq60006x200p5wy1zcn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/REST/">REST</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RPC/">RPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Elasticsearch的集群节点和分区" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/13/Elasticsearch的集群节点和分区/" class="article-date">
+  <time datetime="2019-02-12T16:00:00.000Z" itemprop="datePublished">2019-02-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/elasticsearch/">elasticsearch</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/13/Elasticsearch的集群节点和分区/">Elasticsearch的集群节点和分区</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在存储方面，elasticsearch可以看作一个分布式数据库。<br>每一个节点可以看作是一个库，这些节点（分库）在集群内协同工作。一个索引可以看作是库里的表。</p>
+<h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><p>一个节点(node)就是一个Elasticsearch实例。</p>
+<h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><p>一个集群(cluster)由一个或多个节点组成，它们具有相同<code>cluster.name</code>，它们协同工作，分享数据和负载。当加入新的节点或者删除一个节点时，集群就会感知到并平衡数据。</p>
+<p>集群中一个节点会被选举为主节点(master)，它将临时管理集群级别的一些变更，例如<strong>新建或删除索引、增加或移除节点</strong>等。主节点不参与文档级别的变更或搜索，这意味着在流量增长的时候，该主节点不会成为集群的瓶颈。任何节点都可以成为主节点。</p>
+<p>做为用户，我们能够与集群中的任何节点通信，包括主节点。每一个节点都知道文档存在于哪个节点上，它们可以转发请求到相应的节点上。我们访问的节点负责收集各节点返回的数据，最后一起返回给客户端。这一切都由Elasticsearch处理。</p>
+<ul>
+<li>主节点是否保存数据？</li>
+<li>因为节点之间存在负载均衡，所以我们访问的节点可以是集群中的任意一个节点，当我们请求一个节点时，我们需要的文档不一定在该节点上，此时该节点负责收集各节点返回的数据。如果是这样的原理，那么确实要求每一个节点都知道文档的存放位置。</li>
+</ul>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h2 id="添加索引"><a href="#添加索引" class="headerlink" title="添加索引"></a>添加索引</h2><p>为了将数据添加到Elasticsearch，我们需要索引(index)——一个存储关联数据的地方。实际上，索引只是一个用来指向一个或多个分片(shards)的“逻辑命名空间(logical namespace)”.</p>
+<p>一个分片(shard)是一个最小级别“工作单元(worker unit)”,它只是保存了<strong>索引中所有数据的一部分</strong><a href="水平切分还是垂直切分？应该是垂直切分的，这样才有意义。"> ^如何切分</a>。我们的文档存储在分片中，并且在分片中被索引，但是我们的应用程序不会直接与它们通信，取而代之的是，直接与索引通信。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.myimy.site/2019/02/13/Elasticsearch的集群节点和分区/" data-id="cjt2dkvq00001x200enddgec9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/索引/">索引</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Elasticsearch的分布式设计原理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/28/Elasticsearch的分布式设计原理/" class="article-date">
+  <time datetime="2019-01-27T16:00:00.000Z" itemprop="datePublished">2019-01-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/elasticsearch/">elasticsearch</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/28/Elasticsearch的分布式设计原理/">Elasticsearch的分布式设计原理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://www.jianshu.com/p/61dd9fb7d785" target="_blank" rel="noopener">ElasticSearch 如何保证数据一致性,实时性</a><br><a href="https://blog.csdn.net/wzdxt/article/details/50868031" target="_blank" rel="noopener">为什么ES不适合做数据存储</a></p>
+<p>Elastic主节点选举算法？？？</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.myimy.site/2019/01/28/Elasticsearch的分布式设计原理/" data-id="cjt2dkvpu0000x20076oxzuxz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-如何避免过多的ifelse" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/10/如何避免过多的ifelse/" class="article-date">
+  <time datetime="2019-01-09T16:00:00.000Z" itemprop="datePublished">2019-01-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/代码整洁/">代码整洁</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/10/如何避免过多的ifelse/">如何避免过多的ifelse</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>一般的if/else判断大多集中在以下三种情型</strong></p>
+<ol>
+<li>空值判断</li>
+<li>业务判断</li>
+<li>状态判断</li>
+</ol>
+<p><strong>处理方法</strong></p>
+<ol>
+<li>对控制判断的处理，可以把接口分为内接口和外接口，将空值判断都放在外接口，这样进入内接口的时候就不需要考虑空值判断。</li>
+<li>利用多态，抽象出处理基类，对每一种业务类型，用专门的实现类来处理对应逻辑。<br> 这里会带来一个问题，暴露给用户的类就多了，因为需要根据不同的业务场景创建不同的业务实现类，这时解决的方法：<ol>
+<li>再封装一层，将实现类的权限降低，只暴露给用户创建实现类的方法。</li>
+<li>用工厂模式产生类。</li>
+<li>用map将类型与类加载到map中，在使用时根据业务类型动态加载实现类。</li>
+</ol>
+</li>
+</ol>
+<p><strong>参考</strong><br><a href="https://mp.weixin.qq.com/s/aT2vH2H8biq3Fh0-lSjqOQ" target="_blank" rel="noopener">减少该死的 if else 嵌套</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.myimy.site/2019/01/10/如何避免过多的ifelse/" data-id="cjt2dkvqf000jx200dvfzayzd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码整洁/">代码整洁</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Dapper的学习与思考" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/05/Dapper的学习与思考/" class="article-date">
+  <time datetime="2019-01-04T16:00:00.000Z" itemprop="datePublished">2019-01-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/链路监控/">链路监控</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/05/Dapper的学习与思考/">Dapper的学习与思考</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="链路监控的设计目标"><a href="#链路监控的设计目标" class="headerlink" title="链路监控的设计目标"></a>链路监控的设计目标</h2><ol>
+<li><p>低消耗</p>
+<p> 在低消耗层面，Dapper提出采样率这个概念，用采样率来调节Agent的资源消耗。</p>
+</li>
+<li><p>应用级的透明</p>
+<p> 无处不在的部署，应用级别的透明。</p>
+</li>
+<li><p>延展性</p>
+</li>
+</ol>
+<p><strong>Q：采样率是什么？如何能够调节Agent的资源消耗。</strong><br><strong>Q：如何实现代码的无侵入，或者极低的侵入？</strong></p>
+<h2 id="Dapper的分布式跟踪"><a href="#Dapper的分布式跟踪" class="headerlink" title="Dapper的分布式跟踪"></a>Dapper的分布式跟踪</h2><h3 id="跟踪树和调用链"><a href="#跟踪树和调用链" class="headerlink" title="跟踪树和调用链"></a>跟踪树和调用链</h3><blockquote>
+<p>跟踪树</p>
+</blockquote>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g0kyg23o32j30jc0egwfm.jpg" alt="图1:跟踪树"></p>
+<blockquote>
+<p>调用链</p>
+</blockquote>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g0kyiq1353j30iu08dq40.jpg" alt="图2:图1中的某一个span"></p>
+<p>调用链从字面上就很好理解，即一次完整的调用过程，可以看作是一条调用链路。<br>一条调用链上会有很多的节点（span）。在分布式环境下，这些节点这些节点可能有很多差异。</p>
+<ol>
+<li>跨技术架构，RPC、HTTP、MYSQL、MQ等等；</li>
+<li>跨线程甚至跨主机，可能是在一个线程内，也可能是跨线程，甚至跨主机；</li>
+<li>调用方式不同，可能是同步，也可能是异步。</li>
+<li>跨语言，如JAVA、C、C++等</li>
+</ol>
+<p>所以，我们可以推断出，如果要画出一个链路，需要在span（节点）中需要记录哪些数据：</p>
+<ol>
+<li>TraceId 链路ID，记录节点和链路的关系；</li>
+<li>spanId和spanName 节点的ID和NAME，标识本节点；</li>
+<li>parentId 父节点的ID，标识节点间的层级关系；</li>
+<li>times 节点消耗时间，这个我觉得是可选的。</li>
+</ol>
+<p><strong>Q：span的维度，即在什么情况下程序会创建一个新的span？<br>Q：节点的通信，即本节点怎么将自己的ID传递给下一个span以做为下一个节点的parentId？<br>A：见植入点章节</strong></p>
+<h3 id="植入点"><a href="#植入点" class="headerlink" title="植入点"></a>植入点</h3><ol>
+<li>同一个线程内的span，用ThreadLocal进行存储。</li>
+<li>延迟调用或者异步调用，通过线程池或者其他执行器，在回调里存储这次跟踪的上下文，在回调函数被触发的时候，这次跟踪的上下文会与适当的线程关联上。</li>
+<li>跨语言，google的技术架构中进程间通信几乎都是C++或者Java开发的RPC框架，Dapper做为google自用的监控工具，把跟踪植入了google的RPC框架（估计是<a href="https://www.infoq.cn/article/2015%2F03%2Fgrpc-google-http2-protobuf" target="_blank" rel="noopener">gRPC</a>）里，非google的RPC框架估计目前还不支持。</li>
+</ol>
+<h3 id="Annotation"><a href="#Annotation" class="headerlink" title="Annotation"></a>Annotation</h3><p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g0kz0z9xklj30j30aaq3q.jpg" alt="图3:Dapper中注解的实现"></p>
+<ol>
+<li><p>通过加一个注解，将某个方法强制加入到链路中去，猜测是跟采样率有关，强行生成一个span？</p>
+</li>
+<li><p>用法</p>
+<ol>
+<li><p>添加简单文本文本</p>
+<p> 像是自定义监控的功能。<br> 比如：下单的方法createOrder()上加注解@Annotation(“createOrder”)</p>
+</li>
+<li><p>添加key-value健值对</p>
+<p> 这是官方文档的解释，Dapper也支持的key-value映射的 Annotation，提供给开发人员更强的跟踪能力，如持续的计数器，二进制消息记录和在一个进程上跑着的任意的用户数据。键值对的Annotation方式用来在分布式追踪的上下文中定义某个特定应用程序的相关类型。<br> @Annotation(“createOrder”,”1”)</p>
+</li>
+</ol>
+</li>
+<li><p>为了避免滥用的风险，每一个跟踪span有一个可配置的总Annotation量的上限。</p>
+</li>
+</ol>
+<p><strong>Q：Annotation注解有什么作用？<br>A：估计要看Tracer.record这个方法做了什么事情…<br>Q：Annotation注解有哪些应用场景？<br>相当于是Dapper提供出来的API？注解应该只能加在方法上，不如直接调用Trace.record()方法来得方便，但是直接调用方法，会有滥用的风险。</strong></p>
+<h3 id="采样率"><a href="#采样率" class="headerlink" title="采样率"></a>采样率</h3><h3 id="跟踪的收集"><a href="#跟踪的收集" class="headerlink" title="跟踪的收集"></a>跟踪的收集</h3><p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g0kzx9958oj30jg0d10uy.jpg" alt="图4:span数据的收集过程"></p>
+<ol>
+<li><p>首先，span数据写入（1）本地日志文件中【Agent】。 </p>
+</li>
+<li><p>然后Dapper的守护进程和收集组件把这些数据从生产环境的主机中拉出来（2）【Collector】。</p>
+</li>
+<li><p>最终写到（3）Dapper的Bigtable仓库中【Storage】。</p>
+</li>
+<li><p>监控数据可视化，Dapper提供API来访问Storage中的数据【Analysis &amp;&amp; UI】。</p>
+</li>
+</ol>
+<p><strong>Q：日志文件打印在客户端，传输完之后即删除，还是日志文件到达一定大小的时候再删除？</strong></p>
+<h3 id="带外数据跟踪收集"><a href="#带外数据跟踪收集" class="headerlink" title="带外数据跟踪收集"></a>带外数据跟踪收集</h3><p><strong>怎么理解带外数据（out-of-band）呢？</strong><br>out-of-band是通过其他的链路进行跟踪数据的收集，比如将span的跟踪数据写到日志里，由Daemon线程进行收集，这就是带外策略。与之相反的，in-band策略是把跟踪数据随着调用链传送下去。</p>
+<p><strong>为什么要采用带外数据收集呢？</strong></p>
+<ol>
+<li><p>首先，如果采用带内收集方案，会影响应用程序网络动态。<br> 如果采用带内方案，跟踪数据势必要以RPC响应头的形式被返回，通常RPC回应小于10K，但是在Google里的许多规模较大的系统中，一次跟踪成千上万的span并不少见，在这种调用链路非常深的情况下，带内收集方案产生的跟踪数据会造成比较大的网络传输负担，整个跟踪的时间也会变得特别长，失去了数据的实时性。</p>
+</li>
+<li><p>其次，带内收集方案假定所有的RPC是完美嵌套的。我们发现，在所有的后端的系统返回的最终结果之前，有许多中间件会把结果返回给他们的调用者。带内收集系统是无法解释这种非嵌套的分布式执行模式的。</p>
+</li>
+</ol>
+<h3 id="安全和隐私考虑"><a href="#安全和隐私考虑" class="headerlink" title="安全和隐私考虑"></a>安全和隐私考虑</h3><p>没看懂原文的这部分内容。</p>
+<h2 id="Dapper部署状况"><a href="#Dapper部署状况" class="headerlink" title="Dapper部署状况"></a>Dapper部署状况</h2><h3 id="Dapper运行库"><a href="#Dapper运行库" class="headerlink" title="Dapper运行库"></a>Dapper运行库</h3><p>对基础RPC、线程控制和流程控制的组件库的植入。<br>包括span的创建，采样率的设置，以及把日志写入本地磁盘。</p>
+<h3 id="生产环境下的涵盖面"><a href="#生产环境下的涵盖面" class="headerlink" title="生产环境下的涵盖面"></a>生产环境下的涵盖面</h3><ol>
+<li>应用使用支持的组件库，支持无侵入开发的跟踪。</li>
+<li>应用使用非标准的组件库，需要应该手动控制，或者将非标准的组件可以接入Dapper。</li>
+<li>支持关闭Dapper跟踪。</li>
+</ol>
+<h3 id="跟踪Annotation的使用"><a href="#跟踪Annotation的使用" class="headerlink" title="跟踪Annotation的使用"></a>跟踪Annotation的使用</h3><p>感觉是自定义监控，将业务代码加入到监控中。</p>
+<h2 id="处理跟踪损耗"><a href="#处理跟踪损耗" class="headerlink" title="处理跟踪损耗"></a>处理跟踪损耗</h2><p>跟踪系统的成本由两部分组成：</p>
+<ol>
+<li>正在被监控的系统在<code>生成</code>和<code>收集</code>追踪数据的消耗导致系统性能下降。</li>
+<li>需要使用一部分资源来<code>存储</code>和<code>分析</code>跟踪数据。</li>
+</ol>
+<h3 id="生成跟踪的损耗"><a href="#生成跟踪的损耗" class="headerlink" title="生成跟踪的损耗"></a>生成跟踪的损耗</h3><p>生成跟踪的开销是Dapper性能影响中最关键的部分，因为收集和分析可以更容易在紧急情况下被关闭。</p>
+<ol>
+<li><p>创建和销毁span和annotation<br> 创建根span的消耗要大于其他span，原因是在创建根span的时候，需要生成整个链路的traceId。</p>
+</li>
+<li><p>记录到本地磁盘供后续的收集<br> 写入磁盘是最大的消耗，可以通过异步写入减少对应用系统的影响。但是在大流量的情况下，这部分的消耗还是需要重视。</p>
+</li>
+</ol>
+<h3 id="收集跟踪的损耗"><a href="#收集跟踪的损耗" class="headerlink" title="收集跟踪的损耗"></a>收集跟踪的损耗</h3><ol>
+<li><p>CPU使用率</p>
+<ul>
+<li>守护进程的单核cpu使用率很低，没超过0.3%</li>
+<li>限制了Dapper守护进程为内核scheduler最低的优先级，防止发生CPU竞争</li>
+</ul>
+</li>
+<li><p>带宽资源<br> Dapper的数据收集在Google的生产环境中的只占用了0.01%的网络资源</p>
+</li>
+</ol>
+<h3 id="在生产环境下对负载的影响"><a href="#在生产环境下对负载的影响" class="headerlink" title="在生产环境下对负载的影响"></a>在生产环境下对负载的影响</h3><p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g0l2sh2i7yj30jl09tab4.jpg" alt="图5:不同采样率对网络延迟和吞吐的影响"></p>
+<p>（延迟和吞吐的实验误差分别是2.5%和0.15%）</p>
+<p>我们看到，虽然对吞吐量的影响不是很明显，但为了避免明显的延迟，跟踪的采样还是必要的。然而，延迟和吞吐量的带来的损失在把采样率调整到小于1/16之后就全部在实验误差范围内。在实践中，我们发现即便采样率调整到1/1024仍然是有足够量的跟踪数据的用来跟踪大量的服务。保持Dapper的性能损耗基线在一个非常低的水平是很重要的，因为它为那些应用提供了一个宽松的环境使用完整的Annotation API而无惧性能损失。使用较低的采样率还有额外的好处，可以让持久化到硬盘中的跟踪数据在垃圾回收机制处理之前保留更长的时间，这样为Dapper的收集组件给了更多的灵活性。</p>
+<h3 id="可变采样"><a href="#可变采样" class="headerlink" title="可变采样"></a>可变采样</h3><p>我们在部署可变采样的过程中，参数化配置采样率时，不是使用一个统一的采样方案，而是使用一个<code>采样期望率</code>来标识单位时间内采样的追踪。这样一来，低流量低负载自动提高采样率，而在高流量高负载的情况下会降低采样率，使损耗一直保持在控制之下。实际使用的采样率会随着跟踪本身记录下来，这有利于从Dapper的跟踪数据中准确的分析。</p>
+<p><strong>Q：怎么实现这种可变采样的？<br>A：我们充分利用所有span都来自一个特定的跟踪并分享同一个跟踪ID这个事实，虽然这些span有可能横跨了数千个主机。对于在收集系统中的每一个span，我们用hash算法把跟踪ID转成一个标量Z，这里0&lt;=Z&lt;=1。如果Z比我们收集系统中的系数低的话，我们就保留这个span信息，并写入到Bigtable中。反之，我们就抛弃他。通过在采样决策中的跟踪ID，我们要么保存、要么抛弃整个跟踪，而不是单独处理跟踪内的span。我们发现，有了这个额外的配置参数使管理我们的收集管道变得简单多了，因为我们可以很容易地在配置文件中调整我们的全局写入率这个参数。</strong></p>
+<h2 id="其他收获"><a href="#其他收获" class="headerlink" title="其他收获"></a>其他收获</h2><p>Dapper的不足：</p>
+<ol>
+<li><p>合并的影响：我们的模型隐含的前提是不同的子系统在处理的都是来自同一个被跟踪的请求。在某些情况下，缓冲一部分请求，然后一次性操作一个请求集会更加有效。（比如，磁盘上的一次合并写入操作）。在这种情况下，一个被跟踪的请求可以看似是一个大型工作单元。此外，<code>当有多个追踪请求被收集在一起，他们当中只有一个会用来生成那个唯一的跟踪ID，用来给其他span使用，所以就无法跟踪下去了</code>。我们正在考虑的解决方案，希望在可以识别这种情况的前提下，用尽可能少的记录来解决这个问题。</p>
+</li>
+<li><p>跟踪批处理负载：Dapper的设计，主要是针对在线服务系统，最初的目标是了解一个用户请求产生的系统行为。然而<code>离线的密集型负载例如符合MapReduce[10]模型的情况，也可以受益于性能挖潜</code>。在这种情况下，我们需要把跟踪ID与一些其他的有意义的工作单元做关联，诸如输入数据中的键值（或键值的范围），或是一个MapReduce shard。</p>
+</li>
+<li><p>寻找根源-与业务数据结合不紧密：Dapper可以有效地确定系统中的哪一部分致使系统整个速度变慢，但并不总是能够找出问题的根源。例如，一个请求很慢有可能不是因为它自己的行为，而是由于队列中其他排在它前面的(queued ahead of)请求还没处理完。程序可以使用应用级的annotation把队列的大小或过载情况写入跟踪系统。此外，如果这种情况屡见不鲜，那么在ProfileMe[11]中提到的成对的采样技术可以解决这个问题。它由两个时间重叠的采样率组成，并观察它们在整个系统中的相对延迟。</p>
+</li>
+<li><p>记录内核级的信息：一些内核可见的事件的详细信息有时对确定问题根源是很有用的。我们有一些工具，能够跟踪或以其他方式描述内核的执行，但是，想用通用的或是不那么突兀的方式，是很难把这些信息到捆绑到用户级别的跟踪上下文中。我们正在研究一种妥协的解决方案，我们在用户层面上把一些内核级的活动参数做快照，然后绑定他们到一个活动的span上。</p>
+</li>
+</ol>
+<h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><ol>
+<li>ThreadLocal</li>
+<li>线程池</li>
+<li>RPC框架</li>
+<li>自定义注解</li>
+<li>Bigtable</li>
+<li>MapReduce模型</li>
+<li>采样率<br><br>参考<a href="https://segmentfault.com/a/1190000007370525" target="_blank" rel="noopener">浅述APM采样与端到端</a></li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://bigbully.github.io/Dapper-translation/" target="_blank" rel="noopener">1. Dapper，大规模分布式系统的跟踪系统</a><br><a href="https://juejin.im/post/5a7a9e0af265da4e914b46f1#heading-9" target="_blank" rel="noopener">2. 全链路监控（一）：方案概述与比较</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.myimy.site/2019/01/05/Dapper的学习与思考/" data-id="cjt2dkvrj002lx2009amljgf3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Linux常用指令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/01/Linux常用指令/" class="article-date">
+  <time datetime="2018-06-30T16:00:00.000Z" itemprop="datePublished">2018-07-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/01/Linux常用指令/">Linux常用指令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="给目录设置用户和用户组"><a href="#给目录设置用户和用户组" class="headerlink" title="给目录设置用户和用户组"></a>给目录设置用户和用户组</h2><p><code>chown -R admin:admin admin/</code></p>
+<h2 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h2><p>userdel [用户名]<br>删除某一个用户，eg：删除admin用户<code>userdel admin</code> </p>
+<h2 id="修改账户密码"><a href="#修改账户密码" class="headerlink" title="修改账户密码"></a>修改账户密码</h2><p>passwd [账户名]<br>    修改某一个账户的密码，eg：修改admin的密码<code>passwd admin</code> </p>
+<p>passwd<br>    修改root账户的密码</p>
+<h2 id="新增账户"><a href="#新增账户" class="headerlink" title="新增账户"></a>新增账户</h2><p>adduser [用户名]<br>    创建用户密码和目录</p>
+<p>useradd [用户名]<br>    只创建用户，不创建目录</p>
+<h2 id="安装lsrz"><a href="#安装lsrz" class="headerlink" title="安装lsrz"></a>安装lsrz</h2><p>yum -y install lrzsz;</p>
+<h2 id="压缩和解压"><a href="#压缩和解压" class="headerlink" title="压缩和解压"></a>压缩和解压</h2><h3 id="安装zip命令"><a href="#安装zip命令" class="headerlink" title="安装zip命令"></a>安装zip命令</h3><p>yum -y install unzip zip</p>
+<h3 id="解压到指定目录"><a href="#解压到指定目录" class="headerlink" title="解压到指定目录"></a>解压到指定目录</h3><p>tar xvf filename.tar -C /specific dir</p>
+<p>##给admin账号sudo权限<br>vi /etc/sudoers<br>admin    ALL=(ALL)       ALL</p>
+<h2 id="修改别名"><a href="#修改别名" class="headerlink" title="修改别名"></a>修改别名</h2><p>vi ~/.bashrc<br>source ~/.bashrc</p>
+<h2 id="查看目录树下各个文件的大小"><a href="#查看目录树下各个文件的大小" class="headerlink" title="查看目录树下各个文件的大小"></a>查看目录树下各个文件的大小</h2><p>du -m [文件目录]<br><code>-m</code> 表示以M为单位</p>
+<h2 id="查看监听端口"><a href="#查看监听端口" class="headerlink" title="查看监听端口"></a>查看监听端口</h2><p>netstat -tulpn | grep LISTEN</p>
+<h2 id="文件夹复制"><a href="#文件夹复制" class="headerlink" title="文件夹复制"></a>文件夹复制</h2><p>cp -r [source] [target]<br>将source文件夹下的内容复制到target文件夹下。<br><code>-r</code> 遍历文件夹下所有目录</p>
+<p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -r /home/admin/kk-apm-web /home/admin/kk-apm/1.0.3/</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.myimy.site/2018/07/01/Linux常用指令/" data-id="cjt2dkvq50005x200i4do7vr3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/03/自己动手写一个简单的javaagent/">自己动手写一个简单的探针</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/02/分布式事务常见解决方案/">分布式事务常见解决方案</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/01/采样率/">采样率</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/23/Elasticsearch运维的思考/">Elasticsearch运维的思考</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/18/RPC与REST/">RPC与REST理解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/elasticsearch/">elasticsearch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/代码整洁/">代码整洁</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/分布式/">分布式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客搭建/">博客搭建</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/链路监控/">链路监控</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JAVA/" style="font-size: 15px;">JAVA</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/REST/" style="font-size: 12.5px;">REST</a> <a href="/tags/RPC/" style="font-size: 12.5px;">RPC</a> <a href="/tags/elasticsearch/" style="font-size: 15px;">elasticsearch</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/javaagent/" style="font-size: 10px;">javaagent</a> <a href="/tags/todo/" style="font-size: 17.5px;">todo</a> <a href="/tags/代码整洁/" style="font-size: 10px;">代码整洁</a> <a href="/tags/分布式/" style="font-size: 20px;">分布式</a> <a href="/tags/博客搭建/" style="font-size: 15px;">博客搭建</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/运维/" style="font-size: 10px;">运维</a> <a href="/tags/链路监控/" style="font-size: 15px;">链路监控</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">总览</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
