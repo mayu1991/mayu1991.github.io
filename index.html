@@ -104,11 +104,15 @@
 <li><p>怎么收集当前容器信息？</p>
 <ul>
 <li>用javaagent实现无侵入部署，在启动应用程序的同时，注入探针的代码，探针会启动一个定时器，由定时器来控制触发系统指标收集的任务。</li>
-<li>同时再启动一个定时器，实现心跳机制<a href="为什么要做心跳？因为agent是单独部署在客户端的，服务端是开发者自己能够hold住的，客户端就有点鞭长莫及。所以需要用心跳来知晓agent的运行情况。">^1</a></li>
+<li>同时再启动一个定时器，实现心跳机制。</li>
 </ul>
 </li>
-<li><p>用什么方式上传到服务端？</p>
-</li>
+</ol>
+<blockquote>
+<p>为什么要做心跳？因为agent是单独部署在客户端的，服务端是开发者自己能够hold住的，客户端就有点鞭长莫及。所以需要用心跳来知晓agent的运行情况。</p>
+</blockquote>
+<ol start="3">
+<li>用什么方式上传到服务端？</li>
 <li>服务端数据结构怎么设计，用什么样的DB保存数据？</li>
 <li>如何实现采样率的动态调节？</li>
 </ol>
@@ -116,7 +120,10 @@
 <li><p>利用instrument agent实现探针无侵入</p>
 <p> Instrument</p>
 <p> “java.lang.instrument”包的具体实现，依赖于JVMTI。在Java SE 5 及其后续版本当中，开发者可以在一个普通 Java 程序（带有 main 函数的 Java 类）运行时，通过 <code>- javaagent</code>参数指定一个特定的jar文件来启动 Instrumentation的代理程序。</p>
-<p> Instrumentation 的最大作用，就是类定义动态改变和操作。而且指令里也可以加上一些启动参数<a href="[怎么获取启动参数？](https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html)">^2</a>。</p>
+<p> Instrumentation 的最大作用，就是类定义动态改变和操作。而且指令里也可以加上一些启动参数。</p>
+<blockquote>
+<p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html" target="_blank" rel="noopener">怎么获取启动参数？</a></p>
+</blockquote>
 <p> JVMTI</p>
 <p> JVMTI全称 JVM Tool Interface，是 JVM 暴露出来的一些供用户扩展的接口集合。JVMTI 是基于事件驱动的，JVM 每执行到一定的逻辑就会调用一些事件的回调接口（如果有的话），这些接口可以供开发者扩展自己的逻辑。</p>
 <pre><code>JVMTIAgent 其实就是一个动态库，利用 JVMTI 暴露出来的一些接口来干一些我们想做、但是正常情况下又做不到的事情。
@@ -191,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/03/03/自己动手写一个简单的javaagent/" data-id="cjt2lfuab000l3k00gy1ct4o7" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/03/03/自己动手写一个简单的javaagent/" data-id="cjt3qdl5l000mm2002zekedm2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaagent/">javaagent</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
@@ -234,7 +241,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/03/02/分布式事务常见解决方案/" data-id="cjt2lfua7000f3k002on7vev6" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/03/02/分布式事务常见解决方案/" data-id="cjt3qdl5i000gm200w3w6rkpm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/REST/">REST</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RPC/">RPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
@@ -283,7 +290,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/03/01/采样率/" data-id="cjt2lfuad000q3k00mnq840ie" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/03/01/采样率/" data-id="cjt3qdl5n000rm2009fx0ndei" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
@@ -350,7 +357,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/02/23/Elasticsearch运维的思考/" data-id="cjt2lfu9u00043k00qvdxonwn" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/02/23/Elasticsearch运维的思考/" data-id="cjt3qdl570005m200wcafwxrw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/运维/">运维</a></li></ul>
@@ -444,7 +451,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/02/18/RPC与REST/" data-id="cjt2lfu9x00063k00mv6olffp" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/02/18/RPC与REST/" data-id="cjt3qdl5b0007m200e6yvwokt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/REST/">REST</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RPC/">RPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
@@ -497,7 +504,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/02/13/Elasticsearch的集群节点和分区/" data-id="cjt2lfu9q00013k00sqcnwmm8" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/02/13/Elasticsearch的集群节点和分区/" data-id="cjt3qdl530002m200sf0gg9gc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/索引/">索引</a></li></ul>
@@ -541,7 +548,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/01/28/Elasticsearch的分布式设计原理/" data-id="cjt2lfu9k00003k00dfyte7hg" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/01/28/Elasticsearch的分布式设计原理/" data-id="cjt3qdl4w0000m200yj2oeyor" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
@@ -600,7 +607,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/01/10/如何避免过多的ifelse/" data-id="cjt2lfuaa000j3k00y7gu7ea5" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/01/10/如何避免过多的ifelse/" data-id="cjt3qdl5k000km200nyc5d6wp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码整洁/">代码整洁</a></li></ul>
@@ -775,7 +782,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/01/05/Dapper的学习与思考/" data-id="cjt2lfub9002m3k00z9mxu3t4" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/01/05/Dapper的学习与思考/" data-id="cjt3qdl6g002mm2007ad5xggu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
@@ -833,7 +840,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2018/07/01/Linux常用指令/" data-id="cjt2lfu9v00053k003mox9eqr" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2018/07/01/Linux常用指令/" data-id="cjt3qdl590006m200of82tyz0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
