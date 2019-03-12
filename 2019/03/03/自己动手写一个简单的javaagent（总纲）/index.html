@@ -5,19 +5,19 @@
   
 
   
-  <title>自己动手写一个简单的探针 | Manoo`s Blog</title>
+  <title>自己动手写一个简单的探针(总纲) | Manoo`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="需求 实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。 实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。 实现agent的心跳检测。 实现根据采样率调节数据收集量。  需求分析 怎么在代码无侵入的要求下运行监控程序？  如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务">
 <meta name="keywords" content="链路监控,javaagent,java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自己动手写一个简单的探针">
+<meta property="og:title" content="自己动手写一个简单的探针(总纲)">
 <meta property="og:url" content="http://blog.myimy.site/2019/03/03/自己动手写一个简单的javaagent（总纲）/index.html">
 <meta property="og:site_name" content="Manoo`s Blog">
 <meta property="og:description" content="需求 实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。 实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。 实现agent的心跳检测。 实现根据采样率调节数据收集量。  需求分析 怎么在代码无侵入的要求下运行监控程序？  如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-11T11:14:21.962Z">
+<meta property="og:updated_time" content="2019-03-12T03:10:30.746Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自己动手写一个简单的探针">
+<meta name="twitter:title" content="自己动手写一个简单的探针(总纲)">
 <meta name="twitter:description" content="需求 实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。 实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。 实现agent的心跳检测。 实现根据采样率调节数据收集量。  需求分析 怎么在代码无侵入的要求下运行监控程序？  如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务">
   
     <link rel="alternate" href="/atom.xml" title="Manoo`s Blog" type="application/atom+xml">
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      自己动手写一个简单的探针
+      自己动手写一个简单的探针(总纲)
     </h1>
   
 
@@ -201,7 +201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/03/03/自己动手写一个简单的javaagent（总纲）/" data-id="cjt56hq35000pwm00ubvrla2d" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/03/03/自己动手写一个简单的javaagent（总纲）/" data-id="cjt577bxl000q1z003c4rc40m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaagent/">javaagent</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
@@ -234,7 +234,7 @@
       <ul>
         
           <li>
-            <a href="/2019/03/03/自己动手写一个简单的javaagent（总纲）/">自己动手写一个简单的探针</a>
+            <a href="/2019/03/03/自己动手写一个简单的javaagent（总纲）/">自己动手写一个简单的探针(总纲)</a>
           </li>
         
           <li>
