@@ -62,9 +62,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-自己动手写一个简单的javaagent" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-自己动手写一个简单的javaagent（总纲）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/03/自己动手写一个简单的javaagent/" class="article-date">
+    <a href="/2019/03/03/自己动手写一个简单的javaagent（总纲）/" class="article-date">
   <time datetime="2019-03-02T16:00:00.000Z" itemprop="datePublished">2019-03-03</time>
 </a>
     
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/03/自己动手写一个简单的javaagent/">自己动手写一个简单的探针</a>
+      <a class="article-title" href="/2019/03/03/自己动手写一个简单的javaagent（总纲）/">自己动手写一个简单的探针</a>
     </h1>
   
 
@@ -193,12 +193,94 @@
 <h2 id="次要问题："><a href="#次要问题：" class="headerlink" title="次要问题："></a>次要问题：</h2><ol>
 <li>PluginDefine和AbstractClassEnhancePluginDefine有什么区别？</li>
 </ol>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html" target="_blank" rel="noopener">Instrumentation介绍</a><br><a href="https://blog.csdn.net/fengyuzhengfan/article/details/38086743" target="_blank" rel="noopener">class类简介</a><br><a href="https://www.jianshu.com/p/32d3e108f30a" target="_blank" rel="noopener">SPI和ServiceLoader</a><br><a href="https://blog.csdn.net/github_35180164/article/details/52118286" target="_blank" rel="noopener">公用API的安全狂街-自定义注解生命周期</a><br><a href="https://wu-sheng.gitbooks.io/opentracing-io/content/" target="_blank" rel="noopener">openTracing文档</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html" target="_blank" rel="noopener">Instrumentation介绍</a><br><a href="https://blog.csdn.net/fengyuzhengfan/article/details/38086743" target="_blank" rel="noopener">class类简介</a><br><a href="https://www.jianshu.com/p/32d3e108f30a" target="_blank" rel="noopener">SPI和ServiceLoader</a><br><a href="https://blog.csdn.net/github_35180164/article/details/52118286" target="_blank" rel="noopener">公用API的安全狂街-自定义注解生命周期</a><br><a href="https://wu-sheng.gitbooks.io/opentracing-io/content/" target="_blank" rel="noopener">openTracing文档</a><br><a href="https://www.ibm.com/developerworks/cn/java/j-5things13/index.html" target="_blank" rel="noopener">用 Maven 管理项目文件周期的技巧</a><br><a href="https://blog.csdn.net/belalds/article/details/83105685" target="_blank" rel="noopener">深入理解Java ClassLoader及在 JavaAgent 中的应用</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/03/03/自己动手写一个简单的javaagent/" data-id="cjt433xai000srg00uny1jstv" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/03/03/自己动手写一个简单的javaagent（总纲）/" data-id="cjt56hq35000pwm00ubvrla2d" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaagent/">javaagent</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-自己动手写一个简单的javaagent（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/03/自己动手写一个简单的javaagent（一）/" class="article-date">
+  <time datetime="2019-03-02T16:00:00.000Z" itemprop="datePublished">2019-03-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/链路监控/">链路监控</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/03/自己动手写一个简单的javaagent（一）/">自己动手写一个简单的探针（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
+<li>实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。</li>
+<li>实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。</li>
+<li>实现agent的心跳检测。</li>
+<li>实现根据采样率调节数据收集量。</li>
+</ol>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><ol>
+<li>实现javaagent</li>
+</ol>
+<p>Premain.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class Premain &#123;</span><br><span class="line"></span><br><span class="line">    public static void premain(String agentArgs, Instrumentation inst) throws ClassNotFoundException, UnmodifiableClassException &#123;</span><br><span class="line">        System.out.println(&quot;enter agent premain...&quot;);</span><br><span class="line">        inst.addTransformer(new Transformer());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TransClass.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class TransClass &#123;</span><br><span class="line"></span><br><span class="line">    public int getNumber() &#123;</span><br><span class="line">        System.out.println(&quot;agent TransClass getNumber&quot;);</span><br><span class="line">        return 2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Transformer.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">public class Transformer implements ClassFileTransformer &#123;</span><br><span class="line"></span><br><span class="line">    public static final String classNumberReturns2 = &quot;TransClass.class&quot;;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 根据文件名读入二进制字符流</span><br><span class="line">     *</span><br><span class="line">     * @param fileName 文件名</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static byte[] getBytesFromFile(String fileName) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            // precondition</span><br><span class="line">            File file = new File(fileName);</span><br><span class="line">            InputStream is = new FileInputStream(file);</span><br><span class="line">            long length = file.length();</span><br><span class="line">            byte[] bytes = new byte[(int) length];</span><br><span class="line"></span><br><span class="line">            // Read in the bytes</span><br><span class="line">            int offset = 0;</span><br><span class="line">            int numRead = 0;</span><br><span class="line">            while (offset &lt; bytes.length</span><br><span class="line">                    &amp;&amp; (numRead = is.read(bytes, offset, bytes.length - offset)) &gt;= 0) &#123;</span><br><span class="line">                offset += numRead;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (offset &lt; bytes.length) &#123;</span><br><span class="line">                throw new IOException(&quot;Could not completely read file &quot;</span><br><span class="line">                        + file.getName());</span><br><span class="line">            &#125;</span><br><span class="line">            is.close();</span><br><span class="line">            return bytes;</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            System.out.println(&quot;error occurs in _ClassTransformer!&quot;</span><br><span class="line">                    + e.getClass().getName());</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 每加载一个类都会调用？</span><br><span class="line">     *</span><br><span class="line">     * @param l</span><br><span class="line">     * @param className</span><br><span class="line">     * @param c</span><br><span class="line">     * @param pd</span><br><span class="line">     * @param b</span><br><span class="line">     * @return</span><br><span class="line">     * @throws IllegalClassFormatException</span><br><span class="line">     */</span><br><span class="line">    public byte[] transform(ClassLoader l, String className, Class&lt;?&gt; c,</span><br><span class="line">                            ProtectionDomain pd, byte[] b) throws IllegalClassFormatException &#123;</span><br><span class="line">        //判断当前的类是否需要转换</span><br><span class="line">        if (!className.equals(&quot;TransClass&quot;)) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        return getBytesFromFile(classNumberReturns2);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>pom.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;finalName&gt;myagent&lt;/finalName&gt;</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.4&lt;/version&gt;</span><br><span class="line">            &lt;configuration&gt;</span><br><span class="line">                &lt;archive&gt;</span><br><span class="line">                    &lt;manifestEntries&gt;</span><br><span class="line">                        &lt;Premain-Class&gt;com.manoo.agent.Premain&lt;/Premain-Class&gt;</span><br><span class="line">                    &lt;/manifestEntries&gt;</span><br><span class="line">                &lt;/archive&gt;</span><br><span class="line">            &lt;/configuration&gt;</span><br><span class="line">        &lt;/plugin&gt;</span><br><span class="line">    &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+<p>新建了一个springboot项目，在VM options里加上以下指令测试javaagent</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-javaagent:/Users/mayu/Documents/mycodes/myagent/target/myagent.jar</span><br></pre></td></tr></table></figure>
+<p>程序报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.ClassNotFoundException: com.manoo.agent.Premain</span><br><span class="line">	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)</span><br><span class="line">	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)</span><br><span class="line">	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)</span><br><span class="line">	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)</span><br><span class="line">	at sun.instrument.InstrumentationImpl.loadClassAndStartAgent(InstrumentationImpl.java:304)</span><br><span class="line">	at sun.instrument.InstrumentationImpl.loadClassAndCallPremain(InstrumentationImpl.java:401)</span><br><span class="line">FATAL ERROR in native method: processing of -javaagent failed</span><br></pre></td></tr></table></figure>
+<p>看了下myagent.jar包里是有这个类的，路径也没有问题。为什么会找不到这个类？</p>
+<ol>
+<li><p>猜测是类加载器的问题。<br>于是研究了下javaagent的类加载原理，发现不是classloader的问题。</p>
+<blockquote>
+<p>因为双亲类加载的原因，javaagent是无法获取应用程序的类，但是我这里是直接获取javaagent自己的类，所以不是classloader的问题。</p>
+</blockquote>
+<p> <a href="http://ifeve.com/classnotfoundexception-is-it-slowing-down-your-jvm/" target="_blank" rel="noopener">ClassNotFoundException: 真的会使你的JVM慢下来吗？</a><br> <a href="https://blog.csdn.net/belalds/article/details/83105685" target="_blank" rel="noopener">深入理解Java ClassLoader及在 JavaAgent 中的应用</a></p>
+</li>
+</ol>
+<ol start="2">
+<li><p>将<code>myagent.jar</code>解压了一下，发现确实没有<code>com.manoo.agent.Premain</code>这个类，再看看发现我的classes类是在BOOT-INF/classes 路径下了。因为为了方便，我是直接用Spring boot创建的项目。<br> 【参考：<a href="https://blog.csdn.net/mameng1988/article/details/84498453" target="_blank" rel="noopener">No main manifest attribute in Spring Boot以jar包部署</a>】</p>
+<p> <img src="https://ws1.sinaimg.cn/large/006tKfTcly1g0z5u8rz00j30ve0hadji.jpg" alt="spring boot项目打包后的MANIFEST"></p>
+<p> 于是把spring boot的依赖注释掉，重新编译了下myagent，拿到jar包之后解压了下，现在正常了。<br> <img src="https://ws2.sinaimg.cn/large/006tKfTcly1g0zt6er9ncj30r007sdgr.jpg" alt="jar解压后的文件夹"></p>
+<p> <img src="https://ws4.sinaimg.cn/large/006tKfTcly1g0ztdruallj30se088q49.jpg" alt="去掉spring boot之后打包生成的MANIFEST"></p>
+</li>
+</ol>
+<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ol>
+<li>研究下classloader加载原理？针对spring boot项目难道需要配置加载路径？</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.myimy.site/2019/03/03/自己动手写一个简单的javaagent（一）/" data-id="cjt56hq32000kwm00um645jdp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaagent/">javaagent</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
@@ -241,7 +323,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/03/02/分布式事务常见解决方案/" data-id="cjt433xac000krg00oo39emr1" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/03/02/分布式事务常见解决方案/" data-id="cjt56hq2x000gwm00uu3a01sd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/REST/">REST</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RPC/">RPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
@@ -290,7 +372,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/03/01/采样率/" data-id="cjt433xaf000nrg005fn4py0j" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/03/01/采样率/" data-id="cjt56hq38000rwm00i1kdb537" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
@@ -357,7 +439,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/02/23/Elasticsearch运维的思考/" data-id="cjt433xa30006rg00evjt8367" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/02/23/Elasticsearch运维的思考/" data-id="cjt56hq2m0005wm00kd8apfds" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/运维/">运维</a></li></ul>
@@ -451,7 +533,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/02/18/RPC与REST/" data-id="cjt433xa50009rg00akf27dar" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/02/18/RPC与REST/" data-id="cjt56hq2p0007wm00nbip5z2j" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/REST/">REST</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RPC/">RPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
@@ -504,7 +586,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/02/13/Elasticsearch的集群节点和分区/" data-id="cjt433xa20005rg00m1b42rg1" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/02/13/Elasticsearch的集群节点和分区/" data-id="cjt56hq290000wm00i9fgjo2y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/索引/">索引</a></li></ul>
@@ -548,7 +630,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/01/28/Elasticsearch的分布式设计原理/" data-id="cjt433x9s0000rg00xgoe45v7" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/01/28/Elasticsearch的分布式设计原理/" data-id="cjt56hq2g0002wm00diminmal" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
@@ -607,7 +689,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/01/10/如何避免过多的ifelse/" data-id="cjt433xaa000grg00hb4kj6wq" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/01/10/如何避免过多的ifelse/" data-id="cjt56hq2w000fwm00cb6c0hkf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码整洁/">代码整洁</a></li></ul>
@@ -782,68 +864,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/01/05/Dapper的学习与思考/" data-id="cjt433xbh002frg00td6k6pgh" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/01/05/Dapper的学习与思考/" data-id="cjt56hq43002vwm0001c10r2q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Linux常用指令" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/01/Linux常用指令/" class="article-date">
-  <time datetime="2018-06-30T16:00:00.000Z" itemprop="datePublished">2018-07-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/01/Linux常用指令/">Linux常用指令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="给目录设置用户和用户组"><a href="#给目录设置用户和用户组" class="headerlink" title="给目录设置用户和用户组"></a>给目录设置用户和用户组</h2><p><code>chown -R admin:admin admin/</code></p>
-<h2 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h2><p>userdel [用户名]<br>删除某一个用户，eg：删除admin用户<code>userdel admin</code> </p>
-<h2 id="修改账户密码"><a href="#修改账户密码" class="headerlink" title="修改账户密码"></a>修改账户密码</h2><p>passwd [账户名]<br>    修改某一个账户的密码，eg：修改admin的密码<code>passwd admin</code> </p>
-<p>passwd<br>    修改root账户的密码</p>
-<h2 id="新增账户"><a href="#新增账户" class="headerlink" title="新增账户"></a>新增账户</h2><p>adduser [用户名]<br>    创建用户密码和目录</p>
-<p>useradd [用户名]<br>    只创建用户，不创建目录</p>
-<h2 id="安装lsrz"><a href="#安装lsrz" class="headerlink" title="安装lsrz"></a>安装lsrz</h2><p>yum -y install lrzsz;</p>
-<h2 id="压缩和解压"><a href="#压缩和解压" class="headerlink" title="压缩和解压"></a>压缩和解压</h2><h3 id="安装zip命令"><a href="#安装zip命令" class="headerlink" title="安装zip命令"></a>安装zip命令</h3><p>yum -y install unzip zip</p>
-<h3 id="解压到指定目录"><a href="#解压到指定目录" class="headerlink" title="解压到指定目录"></a>解压到指定目录</h3><p>tar xvf filename.tar -C /specific dir</p>
-<p>##给admin账号sudo权限<br>vi /etc/sudoers<br>admin    ALL=(ALL)       ALL</p>
-<h2 id="修改别名"><a href="#修改别名" class="headerlink" title="修改别名"></a>修改别名</h2><p>vi ~/.bashrc<br>source ~/.bashrc</p>
-<h2 id="查看目录树下各个文件的大小"><a href="#查看目录树下各个文件的大小" class="headerlink" title="查看目录树下各个文件的大小"></a>查看目录树下各个文件的大小</h2><p>du -m [文件目录]<br><code>-m</code> 表示以M为单位</p>
-<h2 id="查看监听端口"><a href="#查看监听端口" class="headerlink" title="查看监听端口"></a>查看监听端口</h2><p>netstat -tulpn | grep LISTEN</p>
-<h2 id="文件夹复制"><a href="#文件夹复制" class="headerlink" title="文件夹复制"></a>文件夹复制</h2><p>cp -r [source] [target]<br>将source文件夹下的内容复制到target文件夹下。<br><code>-r</code> 遍历文件夹下所有目录</p>
-<p>eg:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -r /home/admin/kk-apm-web /home/admin/kk-apm/1.0.3/</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2018/07/01/Linux常用指令/" data-id="cjt433x9x0001rg00haojuij7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
 
     </footer>
   </div>
@@ -870,7 +894,11 @@
       <ul>
         
           <li>
-            <a href="/2019/03/03/自己动手写一个简单的javaagent/">自己动手写一个简单的探针</a>
+            <a href="/2019/03/03/自己动手写一个简单的javaagent（总纲）/">自己动手写一个简单的探针</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/03/自己动手写一个简单的javaagent（一）/">自己动手写一个简单的探针（一）</a>
           </li>
         
           <li>
@@ -883,10 +911,6 @@
         
           <li>
             <a href="/2019/02/23/Elasticsearch运维的思考/">Elasticsearch运维的思考</a>
-          </li>
-        
-          <li>
-            <a href="/2019/02/18/RPC与REST/">RPC与REST理解</a>
           </li>
         
       </ul>
@@ -908,7 +932,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/JAVA/" style="font-size: 15px;">JAVA</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/REST/" style="font-size: 12.5px;">REST</a> <a href="/tags/RPC/" style="font-size: 12.5px;">RPC</a> <a href="/tags/elasticsearch/" style="font-size: 15px;">elasticsearch</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/javaagent/" style="font-size: 10px;">javaagent</a> <a href="/tags/todo/" style="font-size: 17.5px;">todo</a> <a href="/tags/代码整洁/" style="font-size: 10px;">代码整洁</a> <a href="/tags/分布式/" style="font-size: 20px;">分布式</a> <a href="/tags/博客搭建/" style="font-size: 15px;">博客搭建</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/运维/" style="font-size: 10px;">运维</a> <a href="/tags/链路监控/" style="font-size: 15px;">链路监控</a>
+      <a href="/tags/JAVA/" style="font-size: 15px;">JAVA</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/REST/" style="font-size: 12.5px;">REST</a> <a href="/tags/RPC/" style="font-size: 12.5px;">RPC</a> <a href="/tags/elasticsearch/" style="font-size: 15px;">elasticsearch</a> <a href="/tags/java/" style="font-size: 12.5px;">java</a> <a href="/tags/javaagent/" style="font-size: 12.5px;">javaagent</a> <a href="/tags/todo/" style="font-size: 17.5px;">todo</a> <a href="/tags/代码整洁/" style="font-size: 10px;">代码整洁</a> <a href="/tags/分布式/" style="font-size: 20px;">分布式</a> <a href="/tags/博客搭建/" style="font-size: 15px;">博客搭建</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/运维/" style="font-size: 10px;">运维</a> <a href="/tags/链路监控/" style="font-size: 17.5px;">链路监控</a>
     </div>
   </div>
 
