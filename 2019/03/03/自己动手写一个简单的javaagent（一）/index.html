@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1g0zt6er9ncj30r007sdgr.jpg">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcly1g0ztdruallj30se088q49.jpg">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcly1g10bbfa8x7j312c046ab2.jpg">
-<meta property="og:updated_time" content="2019-03-12T13:10:56.290Z">
+<meta property="og:updated_time" content="2019-03-14T03:02:39.152Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己动手写一个简单的探针（一）">
 <meta name="twitter:description" content="需求 实现一个简单的javaagent。  编码Step1 搭建agent的框架，实现动态加载 Premain.java  1234567public class Premain &amp;#123;    public static void premain(String agentArgs, Instrumentation inst) throws ClassNotFoundException, Un">
@@ -139,16 +139,22 @@
 <p> <img src="https://ws4.sinaimg.cn/large/006tKfTcly1g10bbfa8x7j312c046ab2.jpg" alt="正常运行结果"></p>
 </li>
 </ol>
-<h3 id="Step2-实现被监控类的增强"><a href="#Step2-实现被监控类的增强" class="headerlink" title="Step2 实现被监控类的增强"></a>Step2 实现被监控类的增强</h3><h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ol>
-<li>研究下classloader加载原理？针对spring boot项目难道需要配置加载路径？</li>
-<li>动态代理和静态代理</li>
+<h3 id="Step2-实现被监控类的增强"><a href="#Step2-实现被监控类的增强" class="headerlink" title="Step2 实现被监控类的增强"></a>Step2 实现被监控类的增强</h3><ol>
+<li>判断哪些类需要被监控或者说被增强</li>
+<li>怎么实现被监控类的增强<ul>
+<li>javassist</li>
+<li>byteBuddy<a href="https://notes.diguage.com/byte-buddy-tutorial/" target="_blank" rel="noopener">（教程）</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ol>
 <li>代理模式</li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.myimy.site/2019/03/03/自己动手写一个简单的javaagent（一）/" data-id="cjt5snlwz000elb0015yan8z9" class="article-share-link">Share</a>
+      <a data-url="http://blog.myimy.site/2019/03/03/自己动手写一个简单的javaagent（一）/" data-id="cjt88nf4m000f33008y25objq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaagent/">javaagent</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
@@ -158,6 +164,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/03/13/代理模式/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
   
     <a href="/2019/03/03/自己动手写一个简单的javaagent（总纲）/" id="article-nav-older" class="article-nav-link-wrap">
@@ -181,6 +196,10 @@
       <ul>
         
           <li>
+            <a href="/2019/03/13/代理模式/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/03/03/自己动手写一个简单的javaagent（一）/">自己动手写一个简单的探针（一）</a>
           </li>
         
@@ -194,10 +213,6 @@
         
           <li>
             <a href="/2019/03/01/采样率/">采样率</a>
-          </li>
-        
-          <li>
-            <a href="/2019/02/23/Elasticsearch运维的思考/">Elasticsearch运维的思考</a>
           </li>
         
       </ul>
