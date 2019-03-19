@@ -11,19 +11,19 @@
   
   
   
-  <meta name="description" content="观察者模式和发布-订阅模式参考 -&amp;gt; 观察者模式 vs 发布-订阅模式 观察者模式和发布订阅模式最大的区别应该是，前者的Observer明确的知道Publisher，而后者，Publisher和Observer之间还有一个Coordinator，Publisher和Observer都不知道对方，只通过事件，由Coordinator实现消息的通信。  两者都有松耦合的功效，在一个应用之中，通常">
+  <meta name="description" content="观察者模式和事件监听器的区别，以及各自的使用场景。">
 <meta name="keywords" content="todo,设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="观察者模式与事件监听器">
 <meta property="og:url" content="https://mayu1991.github.io/2019/03/17/观察者模式与事件监听器/index.html">
 <meta property="og:site_name" content="密斯特马的技术笔记">
-<meta property="og:description" content="观察者模式和发布-订阅模式参考 -&amp;gt; 观察者模式 vs 发布-订阅模式 观察者模式和发布订阅模式最大的区别应该是，前者的Observer明确的知道Publisher，而后者，Publisher和Observer之间还有一个Coordinator，Publisher和Observer都不知道对方，只通过事件，由Coordinator实现消息的通信。  两者都有松耦合的功效，在一个应用之中，通常">
+<meta property="og:description" content="观察者模式和事件监听器的区别，以及各自的使用场景。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcly1g16zdl3ykdj30sq0my76i.jpg">
-<meta property="og:updated_time" content="2019-03-19T06:19:56.505Z">
+<meta property="og:updated_time" content="2019-03-19T08:10:52.114Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="观察者模式与事件监听器">
-<meta name="twitter:description" content="观察者模式和发布-订阅模式参考 -&amp;gt; 观察者模式 vs 发布-订阅模式 观察者模式和发布订阅模式最大的区别应该是，前者的Observer明确的知道Publisher，而后者，Publisher和Observer之间还有一个Coordinator，Publisher和Observer都不知道对方，只通过事件，由Coordinator实现消息的通信。  两者都有松耦合的功效，在一个应用之中，通常">
+<meta name="twitter:description" content="观察者模式和事件监听器的区别，以及各自的使用场景。">
 <meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tKfTcly1g16zdl3ykdj30sq0my76i.jpg">
   
     <link rel="alternate" href="/atom.xml" title="密斯特马的技术笔记" type="application/atom+xml">
@@ -194,7 +194,9 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="观察者模式和发布-订阅模式"><a href="#观察者模式和发布-订阅模式" class="headerlink" title="观察者模式和发布-订阅模式"></a>观察者模式和发布-订阅模式</h2><p>参考 -&gt; <a href="https://juejin.im/post/5a14e9edf265da4312808d86" target="_blank" rel="noopener">观察者模式 vs 发布-订阅模式</a></p>
+        <p>观察者模式和事件监听器的区别，以及各自的使用场景。</p>
+<a id="more"></a>
+<h2 id="观察者模式和发布-订阅模式"><a href="#观察者模式和发布-订阅模式" class="headerlink" title="观察者模式和发布-订阅模式"></a>观察者模式和发布-订阅模式</h2><p>参考 -&gt; <a href="https://juejin.im/post/5a14e9edf265da4312808d86" target="_blank" rel="noopener">观察者模式 vs 发布-订阅模式</a></p>
 <p>观察者模式和发布订阅模式最大的<code>区别</code>应该是，前者的Observer明确的知道Publisher，而后者，Publisher和Observer之间还有一个Coordinator，Publisher和Observer都不知道对方，只通过事件，由Coordinator实现消息的通信。</p>
 <p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g16zdl3ykdj30sq0my76i.jpg" alt="观察者模式和发布订阅模式的区别"></p>
 <p>两者都有松耦合的功效，在一个应用之中，通常是使用观察者模式。在跨系统或跨服务的场景下，通常是使用发布订阅模式。</p>

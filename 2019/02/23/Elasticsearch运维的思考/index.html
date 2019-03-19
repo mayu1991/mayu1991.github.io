@@ -11,18 +11,18 @@
   
   
   
-  <meta name="description" content="当前的情况 当前每一个租户一共会创建95个索引。  分片的设置是：indexShardsNumber=2，indexReplicasNumber=0。  集群一共有四个节点，每一个节点有60G的空间。  目前线上共有6个租户，计算下来一共是1,140个分片   产生了哪些问题 副本数为0，没有备份，当主分区出现故障的时候，容错缺失。  分区数设置不合理，一般情况下分区数应该是节点数的1.5——3倍">
+  <meta name="description" content="当前的情况 当前每一个租户一共会创建95个索引。  分片的设置是：indexShardsNumber=2，indexReplicasNumber=0。  集群一共有四个节点，每一个节点有60G的空间。  目前线上共有6个租户，计算下来一共是1,140个分片">
 <meta name="keywords" content="分布式,elasticsearch,todo,运维">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Elasticsearch运维的思考">
 <meta property="og:url" content="https://mayu1991.github.io/2019/02/23/Elasticsearch运维的思考/index.html">
 <meta property="og:site_name" content="密斯特马的技术笔记">
-<meta property="og:description" content="当前的情况 当前每一个租户一共会创建95个索引。  分片的设置是：indexShardsNumber=2，indexReplicasNumber=0。  集群一共有四个节点，每一个节点有60G的空间。  目前线上共有6个租户，计算下来一共是1,140个分片   产生了哪些问题 副本数为0，没有备份，当主分区出现故障的时候，容错缺失。  分区数设置不合理，一般情况下分区数应该是节点数的1.5——3倍">
+<meta property="og:description" content="当前的情况 当前每一个租户一共会创建95个索引。  分片的设置是：indexShardsNumber=2，indexReplicasNumber=0。  集群一共有四个节点，每一个节点有60G的空间。  目前线上共有6个租户，计算下来一共是1,140个分片">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-10T06:29:55.779Z">
+<meta property="og:updated_time" content="2019-03-19T08:11:32.599Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Elasticsearch运维的思考">
-<meta name="twitter:description" content="当前的情况 当前每一个租户一共会创建95个索引。  分片的设置是：indexShardsNumber=2，indexReplicasNumber=0。  集群一共有四个节点，每一个节点有60G的空间。  目前线上共有6个租户，计算下来一共是1,140个分片   产生了哪些问题 副本数为0，没有备份，当主分区出现故障的时候，容错缺失。  分区数设置不合理，一般情况下分区数应该是节点数的1.5——3倍">
+<meta name="twitter:description" content="当前的情况 当前每一个租户一共会创建95个索引。  分片的设置是：indexShardsNumber=2，indexReplicasNumber=0。  集群一共有四个节点，每一个节点有60G的空间。  目前线上共有6个租户，计算下来一共是1,140个分片">
   
     <link rel="alternate" href="/atom.xml" title="密斯特马的技术笔记" type="application/atom+xml">
   
@@ -202,6 +202,7 @@
 <li><p>目前线上共有6个租户，计算下来一共是1,140个分片</p>
 </li>
 </ul>
+<a id="more"></a>
 <h2 id="产生了哪些问题"><a href="#产生了哪些问题" class="headerlink" title="产生了哪些问题"></a>产生了哪些问题</h2><ul>
 <li><p>副本数为0，没有备份，当主分区出现故障的时候，容错缺失。</p>
 </li>

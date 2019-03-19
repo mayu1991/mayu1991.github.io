@@ -240,24 +240,12 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          一般的if/else判断大多集中在以下三种情型
-
-空值判断
-业务判断
-状态判断
-
-处理方法
-
-对控制判断的处理，可以把接口分为内接口和外接口，将空值判断都放在外接口，这样进入内接口的时候就不需要考虑空值判断。
-利用多态，抽象出处理基类，对每一种业务类型，用专门的实现类来处理对应逻辑。 这里会带来一个问题，暴露给用户的类就多了，因为需要根据不同的业务场景创建不同的业务实现类，这时解决的方法：
-再封装一层，将实现类的权限降低，只暴露给用户创建实现类的方法。
-用工厂模式产生类。
-用map将类型与...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/01/10/如何避免过多的ifelse/#more">阅读全文</a>
-        </p>
+        <p><strong>一般的if/else判断大多集中在以下三种情型</strong></p>
+<ol>
+<li>空值判断</li>
+<li>业务判断</li>
+<li>状态判断</li>
+</ol>
       
     </div>
     <footer class="article-footer">
@@ -304,31 +292,16 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          链路监控的设计目标
-低消耗
- 在低消耗层面，Dapper提出采样率这个概念，用采样率来调节Agent的资源消耗。
-
-应用级的透明
- 无处不在的部署，应用级别的透明。
-
-延展性
-
-
-Q：采样率是什么？如何能够调节Agent的资源消耗。Q：如何实现代码的无侵入，或者极低的侵入？
-Dapper的分布式跟踪跟踪树和调用链
-跟踪树
-
-
-
-调用链
-
-
-调用链从字面上就很好理解，即一次完整的调用过程，可以看作是一条调用链路。一条调用链上会有很多的节点（span）。在分布式环境下，这些节点这些节点可能有很...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/01/05/Dapper的学习与思考/#more">阅读全文</a>
-        </p>
+        <h2 id="链路监控的设计目标"><a href="#链路监控的设计目标" class="headerlink" title="链路监控的设计目标"></a>链路监控的设计目标</h2><ol>
+<li><p>低消耗</p>
+<p> 在低消耗层面，Dapper提出采样率这个概念，用采样率来调节Agent的资源消耗。</p>
+</li>
+<li><p>应用级的透明</p>
+<p> 无处不在的部署，应用级别的透明。</p>
+</li>
+<li><p>延展性</p>
+</li>
+</ol>
       
     </div>
     <footer class="article-footer">
@@ -375,18 +348,7 @@ Dapper的分布式跟踪跟踪树和调用链
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          给目录设置用户和用户组chown -R admin:admin admin/
-删除用户userdel [用户名]删除某一个用户，eg：删除admin用户userdel admin 
-修改账户密码passwd [账户名]    修改某一个账户的密码，eg：修改admin的密码passwd admin 
-passwd    修改root账户的密码
-新增账户adduser [用户名]    创建用户密码和目录
-useradd [用户名]    只创建用户，不创建目录
-安装lsrzyum -y i...
-        </p>
-        <p class="article-more-link">
-          <a href="/2018/07/01/Linux常用指令/#more">阅读全文</a>
-        </p>
+        <h2 id="给目录设置用户和用户组"><a href="#给目录设置用户和用户组" class="headerlink" title="给目录设置用户和用户组"></a>给目录设置用户和用户组</h2><p><code>chown -R admin:admin admin/</code></p>
       
     </div>
     <footer class="article-footer">
@@ -433,30 +395,7 @@ useradd [用户名]    只创建用户，不创建目录
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          指令alias [别名]=’[指令名称]’
-临时有效（重启失效）
-在命令行中输入别名指令，如：alias ll=&#39;ls -alh
-
-
-
-取消的命令为：unalias ll
-
-永久生效
-在bash_profile文件中vim ~/.bash_profile加入别名指令，如： 
-
-等号两边均无空格，指令名称中如有空格，需用引号包裹
-
-
-source ~/.bash_profile使其生效
-
-也可以修改 /etc/profile文件，不过这个是全家配置脚本，修改了所有用户都会生效。
-
-登...
-        </p>
-        <p class="article-more-link">
-          <a href="/2018/06/20/Mac下增加指令别名/#more">阅读全文</a>
-        </p>
+        <h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>alias [别名]=’[指令名称]’</p>
       
     </div>
     <footer class="article-footer">
@@ -503,69 +442,7 @@ source ~/.bash_profile使其生效
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          参考文章1. GitHub+Hexo 搭建个人网站详细教程2. 我的博客是如何搭建的（github pages + HEXO + 域名绑定）3. melody主题博客接入文档4. hexo教程5. 在mac上安装node.js
-准备git安装git，并将本地的公钥维护到github，这样可以免密提交代码【MAC上Git安装与GitHub基本使用】
-
-在本机安装git
-设置user.name和user.email配置信息，加global是全局变量，也可以在单个项目目录里单独设置局部变量，去掉...
-        </p>
-        <p class="article-more-link">
-          <a href="/2018/06/10/从零搭建个人博客/#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-hello-hexo" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/06/01/hello-hexo/">hello hexo</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2018/06/01/hello-hexo/" class="article-date">
-	  <time datetime="2018-05-31T16:00:00.000Z" itemprop="datePublished">2018-06-01</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/博客搭建/">博客搭建</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p class="article-excerpt-content">
-          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new &quot;My New...
-        </p>
-        <p class="article-more-link">
-          <a href="/2018/06/01/hello-hexo/#more">阅读全文</a>
-        </p>
+        <p>从零开始搭建一个个人博客系统记录。</p>
       
     </div>
     <footer class="article-footer">

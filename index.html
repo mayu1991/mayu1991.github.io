@@ -240,16 +240,7 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          观察者模式和发布-订阅模式参考 -&gt; 观察者模式 vs 发布-订阅模式
-观察者模式和发布订阅模式最大的区别应该是，前者的Observer明确的知道Publisher，而后者，Publisher和Observer之间还有一个Coordinator，Publisher和Observer都不知道对方，只通过事件，由Coordinator实现消息的通信。
-
-两者都有松耦合的功效，在一个应用之中，通常是使用观察者模式。在跨系统或跨服务的场景下，通常是使用发布订阅模式。
-监听器模式监听器入门看这...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/03/17/观察者模式与事件监听器/#more">阅读全文</a>
-        </p>
+        <p>观察者模式和事件监听器的区别，以及各自的使用场景。</p>
       
     </div>
     <footer class="article-footer">
@@ -296,24 +287,10 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          优缺点优点
-协调调用者和被调用者，降低了系统的耦合度
-代理对象作为客户端和目标对象之间的中介，起到了保护目标对象的作用
-
-缺点
-由于在客户端和真实主题之间增加了代理对象，因此会造成请求的处理速度变慢；
-实现代理模式需要额外的工作（有些代理模式的实现非常复杂），从而增加了系统实现的复杂度。 
-
-使用场景其实就是针对优点的一些使用场景：
-
-因为安全原因需要屏蔽客户端直接访问对象。
-在远程调用中需要使用代理类处理远程方法调用的技术细节 (如 RMI)。
-为了提升系统性能，对真实对象进行封装，从而...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/03/13/代理模式/#more">阅读全文</a>
-        </p>
+        <h2 id="代理模式的优缺点"><a href="#代理模式的优缺点" class="headerlink" title="代理模式的优缺点"></a>代理模式的优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>协调调用者和被调用者，降低了系统的耦合度</li>
+<li>代理对象作为客户端和目标对象之间的中介，起到了保护目标对象的作用</li>
+</ol>
       
     </div>
     <footer class="article-footer">
@@ -360,18 +337,9 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          需求
-实现一个简单的javaagent。
-
-编码Step1 搭建agent的框架，实现动态加载
-Premain.java
-
-1234567public class Premain &#123;    public static void premain(String agentArgs, Instrumentation inst) throws ClassNotFoundException, UnmodifiableClassException &#123;        System.o...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/03/04/自己动手写一个简单的javaagent（一）/#more">阅读全文</a>
-        </p>
+        <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
+<li>实现一个简单的javaagent。</li>
+</ol>
       
     </div>
     <footer class="article-footer">
@@ -418,22 +386,12 @@ Premain.java
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          需求
-实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。
-实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。
-实现agent的心跳检测。
-实现根据采样率调节数据收集量。
-
-需求分析
-怎么在代码无侵入的要求下运行监控程序？
-
-如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务进行交互。
-如何将探针的程序注入到应用程序里呢？利用 javaagent的Instrument...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/03/03/自己动手写一个简单的javaagent（总纲）/#more">阅读全文</a>
-        </p>
+        <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
+<li>实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。</li>
+<li>实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。</li>
+<li>实现agent的心跳检测。</li>
+<li>实现根据采样率调节数据收集量。</li>
+</ol>
       
     </div>
     <footer class="article-footer">
@@ -480,13 +438,7 @@ Premain.java
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          FescarFescar: Fast &amp; Easy Commit And Rollback关于开源分布式事务中间件Fescar的提问FESCAR：阿里重磅开源分布式事务解决方案
-XA基于消息的最终一致TCCSaga
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/03/02/分布式事务常见解决方案/#more">阅读全文</a>
-        </p>
+        <h2 id="Fescar"><a href="#Fescar" class="headerlink" title="Fescar"></a>Fescar</h2><p><a href="https://github.com/alibaba/fescar/" target="_blank" rel="noopener">Fescar: Fast &amp; Easy Commit And Rollback</a><br><a href="http://os.51cto.com/art/201901/590738.htm" target="_blank" rel="noopener">关于开源分布式事务中间件Fescar的提问</a><br><a href="https://www.jianshu.com/p/82b98f037034" target="_blank" rel="noopener">FESCAR：阿里重磅开源分布式事务解决方案</a></p>
       
     </div>
     <footer class="article-footer">
@@ -533,16 +485,7 @@ XA基于消息的最终一致TCCSaga
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          采样最直接的目的有两个：减少计算量和降低描述难度。
-
-在APM厂商中，普遍采用这样一种采样算法来计算Apdex（Application Performance Index）。
-Apdex的计算公式是： Apdex ＝ ( 1 x 满意 ＋0.5 x 容忍 ＋ 0 x 失望 ) / 样本数。
-我们套一下上面的公式： 假定样本为：小于2s的请求次数为10次，满意； 大于2s，小于8s的请求次数为20次，容忍；大于等于8s的请求次数为10次，失望。 那么得到 Apdex = ( 1 x 10 +...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/03/01/采样率/#more">阅读全文</a>
-        </p>
+        <p>采样最直接的目的有两个：减少计算量和降低描述难度。</p>
       
     </div>
     <footer class="article-footer">
@@ -589,25 +532,16 @@ Apdex的计算公式是： Apdex ＝ ( 1 x 满意 ＋0.5 x 容忍 ＋ 0 x 失望
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          当前的情况
-当前每一个租户一共会创建95个索引。
-
-分片的设置是：indexShardsNumber=2，indexReplicasNumber=0。
-
-集群一共有四个节点，每一个节点有60G的空间。
-
-目前线上共有6个租户，计算下来一共是1,140个分片
-
-
-产生了哪些问题
-副本数为0，没有备份，当主分区出现故障的时候，容错缺失。
-
-分区数设置不合理，一般情况下分区数应该是节点数的1.5——3倍（因为es的分区数设置之后再调整很麻烦，所以评估好数据规模很重要），目前有4个节点，合理的分区...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/02/23/Elasticsearch运维的思考/#more">阅读全文</a>
-        </p>
+        <h2 id="当前的情况"><a href="#当前的情况" class="headerlink" title="当前的情况"></a>当前的情况</h2><ul>
+<li><p>当前每一个租户一共会创建95个索引。</p>
+</li>
+<li><p>分片的设置是：indexShardsNumber=2，indexReplicasNumber=0。</p>
+</li>
+<li><p>集群一共有四个节点，每一个节点有60G的空间。</p>
+</li>
+<li><p>目前线上共有6个租户，计算下来一共是1,140个分片</p>
+</li>
+</ul>
       
     </div>
     <footer class="article-footer">
@@ -654,21 +588,7 @@ Apdex的计算公式是： Apdex ＝ ( 1 x 满意 ＋0.5 x 容忍 ＋ 0 x 失望
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          
-基本概念Web Service简单地说, 也就是服务器如何向客户端提供服务.
-常用的方法有:
-
-RPC 所谓的远程过程调用 (面向方法)
-SOA 所谓的面向服务的架构(面向消息)
-REST 所谓的 Representational state transfer (面向资源)
-
-RPCRPC是Remote Procedure Call的缩写，字面意思是远程过程调用。但是说白了就是从本地机器去执行服务器上的一个函数。所以说 RPC 指的是一类日常的操作，是个很宽泛的概念。
-RPC的思想是把本...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/02/18/RPC与REST/#more">阅读全文</a>
-        </p>
+        <p>什么是采样率，采样率有什么作用？</p>
       
     </div>
     <footer class="article-footer">
@@ -715,15 +635,7 @@ RPC的思想是把本...
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          在存储方面，elasticsearch可以看作一个分布式数据库。每一个节点可以看作是一个库，这些节点（分库）在集群内协同工作。一个索引可以看作是库里的表。
-节点一个节点(node)就是一个Elasticsearch实例。
-集群一个集群(cluster)由一个或多个节点组成，它们具有相同cluster.name，它们协同工作，分享数据和负载。当加入新的节点或者删除一个节点时，集群就会感知到并平衡数据。
-集群中一个节点会被选举为主节点(master)，它将临时管理集群级别的一些变更，例如新建或...
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/02/13/Elasticsearch的集群节点和分区/#more">阅读全文</a>
-        </p>
+        <p>在存储方面，elasticsearch可以看作一个分布式数据库。<br>每一个节点可以看作是一个库，这些节点（分库）在集群内协同工作。一个索引可以看作是库里的表。</p>
       
     </div>
     <footer class="article-footer">
@@ -770,14 +682,9 @@ RPC的思想是把本...
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p class="article-excerpt-content">
-          ElasticSearch 如何保证数据一致性,实时性为什么ES不适合做数据存储
-Elastic主节点选举算法？？？
+        <p><a href="https://www.jianshu.com/p/61dd9fb7d785" target="_blank" rel="noopener">ElasticSearch 如何保证数据一致性,实时性</a><br><a href="https://blog.csdn.net/wzdxt/article/details/50868031" target="_blank" rel="noopener">为什么ES不适合做数据存储</a></p>
+<p>Elastic主节点选举算法？？？</p>
 
-        </p>
-        <p class="article-more-link">
-          <a href="/2019/01/28/Elasticsearch的分布式设计原理/#more">阅读全文</a>
-        </p>
       
     </div>
     <footer class="article-footer">

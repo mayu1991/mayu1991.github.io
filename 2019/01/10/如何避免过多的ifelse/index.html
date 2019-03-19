@@ -11,18 +11,18 @@
   
   
   
-  <meta name="description" content="一般的if/else判断大多集中在以下三种情型  空值判断 业务判断 状态判断  处理方法  对控制判断的处理，可以把接口分为内接口和外接口，将空值判断都放在外接口，这样进入内接口的时候就不需要考虑空值判断。 利用多态，抽象出处理基类，对每一种业务类型，用专门的实现类来处理对应逻辑。 这里会带来一个问题，暴露给用户的类就多了，因为需要根据不同的业务场景创建不同的业务实现类，这时解决的方法： 再封装">
+  <meta name="description" content="一般的if/else判断大多集中在以下三种情型  空值判断 业务判断 状态判断">
 <meta name="keywords" content="JAVA,代码整洁">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何避免过多的ifelse">
 <meta property="og:url" content="https://mayu1991.github.io/2019/01/10/如何避免过多的ifelse/index.html">
 <meta property="og:site_name" content="密斯特马的技术笔记">
-<meta property="og:description" content="一般的if/else判断大多集中在以下三种情型  空值判断 业务判断 状态判断  处理方法  对控制判断的处理，可以把接口分为内接口和外接口，将空值判断都放在外接口，这样进入内接口的时候就不需要考虑空值判断。 利用多态，抽象出处理基类，对每一种业务类型，用专门的实现类来处理对应逻辑。 这里会带来一个问题，暴露给用户的类就多了，因为需要根据不同的业务场景创建不同的业务实现类，这时解决的方法： 再封装">
+<meta property="og:description" content="一般的if/else判断大多集中在以下三种情型  空值判断 业务判断 状态判断">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-09T08:04:18.000Z">
+<meta property="og:updated_time" content="2019-03-19T08:10:50.232Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何避免过多的ifelse">
-<meta name="twitter:description" content="一般的if/else判断大多集中在以下三种情型  空值判断 业务判断 状态判断  处理方法  对控制判断的处理，可以把接口分为内接口和外接口，将空值判断都放在外接口，这样进入内接口的时候就不需要考虑空值判断。 利用多态，抽象出处理基类，对每一种业务类型，用专门的实现类来处理对应逻辑。 这里会带来一个问题，暴露给用户的类就多了，因为需要根据不同的业务场景创建不同的业务实现类，这时解决的方法： 再封装">
+<meta name="twitter:description" content="一般的if/else判断大多集中在以下三种情型  空值判断 业务判断 状态判断">
   
     <link rel="alternate" href="/atom.xml" title="密斯特马的技术笔记" type="application/atom+xml">
   
@@ -198,6 +198,7 @@
 <li>业务判断</li>
 <li>状态判断</li>
 </ol>
+<a id="more"></a>
 <p><strong>处理方法</strong></p>
 <ol>
 <li>对控制判断的处理，可以把接口分为内接口和外接口，将空值判断都放在外接口，这样进入内接口的时候就不需要考虑空值判断。</li>

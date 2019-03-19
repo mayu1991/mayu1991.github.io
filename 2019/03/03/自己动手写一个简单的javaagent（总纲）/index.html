@@ -11,18 +11,18 @@
   
   
   
-  <meta name="description" content="需求 实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。 实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。 实现agent的心跳检测。 实现根据采样率调节数据收集量。  需求分析 怎么在代码无侵入的要求下运行监控程序？  如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务">
+  <meta name="description" content="需求 实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。 实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。 实现agent的心跳检测。 实现根据采样率调节数据收集量。">
 <meta name="keywords" content="链路监控,javaagent,java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己动手写一个简单的探针(总纲)">
 <meta property="og:url" content="https://mayu1991.github.io/2019/03/03/自己动手写一个简单的javaagent（总纲）/index.html">
 <meta property="og:site_name" content="密斯特马的技术笔记">
-<meta property="og:description" content="需求 实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。 实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。 实现agent的心跳检测。 实现根据采样率调节数据收集量。  需求分析 怎么在代码无侵入的要求下运行监控程序？  如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务">
+<meta property="og:description" content="需求 实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。 实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。 实现agent的心跳检测。 实现根据采样率调节数据收集量。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-12T06:02:15.795Z">
+<meta property="og:updated_time" content="2019-03-19T08:11:02.601Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己动手写一个简单的探针(总纲)">
-<meta name="twitter:description" content="需求 实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。 实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。 实现agent的心跳检测。 实现根据采样率调节数据收集量。  需求分析 怎么在代码无侵入的要求下运行监控程序？  如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务">
+<meta name="twitter:description" content="需求 实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。 实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。 实现agent的心跳检测。 实现根据采样率调节数据收集量。">
   
     <link rel="alternate" href="/atom.xml" title="密斯特马的技术笔记" type="application/atom+xml">
   
@@ -198,6 +198,7 @@
 <li>实现agent的心跳检测。</li>
 <li>实现根据采样率调节数据收集量。</li>
 </ol>
+<a id="more"></a>
 <h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><ol>
 <li><p>怎么在代码无侵入的要求下运行监控程序？</p>
 <ul>
