@@ -3,34 +3,27 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>如何避免过多的ifelse | 密斯特马的技术笔记</title>
+  <title>归档: 2018/11 | 密斯特马的技术笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="代码整洁JAVA">
   
   
   
-  
-  <meta name="description" content="一般的if/else判断大多集中在以下三种情型  空值判断 业务判断 状态判断">
-<meta name="keywords" content="代码整洁,JAVA">
-<meta property="og:type" content="article">
-<meta property="og:title" content="如何避免过多的ifelse">
-<meta property="og:url" content="https://mayu1991.github.io/2019/11/10/java基础/如何避免过多的ifelse/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="密斯特马的技术笔记">
+<meta property="og:url" content="https://mayu1991.github.io/archives/2018/11/index.html">
 <meta property="og:site_name" content="密斯特马的技术笔记">
-<meta property="og:description" content="一般的if/else判断大多集中在以下三种情型  空值判断 业务判断 状态判断">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-19T08:28:16.659Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何避免过多的ifelse">
-<meta name="twitter:description" content="一般的if/else判断大多集中在以下三种情型  空值判断 业务判断 状态判断">
+<meta name="twitter:title" content="密斯特马的技术笔记">
   
     <link rel="alternate" href="/atom.xml" title="密斯特马的技术笔记" type="application/atom+xml">
   
 
   
 
-  <link rel="icon" href="https://ws3.sinaimg.cn/large/006tKfTcly1g183ugfr76j30ks0kudi3.jpg">
-  <link rel="apple-touch-icon" href="/https://ws3.sinaimg.cn/large/006tKfTcly1g183ugfr76j30ks0kudi3.jpg">
+  <link rel="icon" href="/css/images/longmao.jpg">
+  <link rel="apple-touch-icon" href="/css/images/longmao.jpg">
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
@@ -61,6 +54,8 @@
   
 
   
+    <link rel="stylesheet" href="/css/archive.css">
+  
   
   
 
@@ -68,7 +63,7 @@
 </html>
 
 
-  <body data-spy="scroll" data-target="#toc" data-offset="50">
+  <body>
 
 
   
@@ -90,8 +85,8 @@
 
             
               <a class="brand" style="
-                 margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
-                  <img width="120px" height="120px" alt="Hike News" src="https://ws3.sinaimg.cn/large/006tKfTcly1g183ugfr76j30ks0kudi3.jpg">
+                 border-width: 0px;  margin-top: 10px;">
+                  <img width="120px" height="120px" alt="Hike News" src="/css/images/longmao.jpg">
               </a>
             
             
@@ -157,145 +152,119 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-java基础/如何避免过多的ifelse" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
+          <section id="main">
+  <div class="archives-tags-wrap"><blockquote><span>目前共计15篇文章</span></blockquote>
+
+
+<!-- 分页显示 -->
+
+	
+	
+		
+		
+		  
+		  
+		  <section class="archives-wrap">
+		    <div class="archive-year-wrap">
+		      <h1><a href="/archives/2018" class="archive-year">2018</a></h1>
+		    </div>
+		    <div class="archives">
+		
+		<article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      
+	<a href="/2018/11/10/java基础/如何避免过多的ifelse/" class="archive-article-date">
+	  <time datetime="2018-11-09T16:00:00.000Z" itemprop="datePublished">2018-11-10</time>
+	</a>
+
+      
   
     <h1 class="thumb" itemprop="name">
-      如何避免过多的ifelse
+      <a class="archive-article-title" href="/2018/11/10/java基础/如何避免过多的ifelse/">如何避免过多的ifelse</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/11/10/java基础/如何避免过多的ifelse/" class="article-date">
-	  <time datetime="2019-11-09T16:00:00.000Z" itemprop="datePublished">2019-11-10</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/代码整洁/">代码整洁</a>
-
-      
-	<a class="article-views">
-	<span id="busuanzi_container_page_pv">
-		阅读量<span id="busuanzi_value_page_pv"></span>
-	</span>
-	</a>
-
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>一般的if/else判断大多集中在以下三种情型</strong></p>
-<ol>
-<li>空值判断</li>
-<li>业务判断</li>
-<li>状态判断</li>
-</ol>
-<a id="more"></a>
-<p><strong>处理方法</strong></p>
-<ol>
-<li>对控制判断的处理，可以把接口分为内接口和外接口，将空值判断都放在外接口，这样进入内接口的时候就不需要考虑空值判断。</li>
-<li>利用多态，抽象出处理基类，对每一种业务类型，用专门的实现类来处理对应逻辑。<br> 这里会带来一个问题，暴露给用户的类就多了，因为需要根据不同的业务场景创建不同的业务实现类，这时解决的方法：<ol>
-<li>再封装一层，将实现类的权限降低，只暴露给用户创建实现类的方法。</li>
-<li>用工厂模式产生类。</li>
-<li>用map将类型与类加载到map中，在使用时根据业务类型动态加载实现类。</li>
-</ol>
-</li>
-</ol>
-<p><strong>参考</strong><br><a href="https://mp.weixin.qq.com/s/aT2vH2H8biq3Fh0-lSjqOQ" target="_blank" rel="noopener">减少该死的 if else 嵌套</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      <div>
-        <ul class="post-copyright">
-          <li class="post-copyright-author">
-          <strong>本文作者:  </strong>manoo
-          </li>
-          <li class="post-copyright-link">
-          <strong>本文链接:  </strong>
-          <a href="/2019/11/10/java基础/如何避免过多的ifelse/" target="_blank" title="如何避免过多的ifelse">https://mayu1991.github.io/2019/11/10/java基础/如何避免过多的ifelse/</a>
-          </li>
-          <li class="post-copyright-license">
-            <strong>版权声明:   </strong>
-            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
-            许可协议。转载请注明出处
-          </li>
-         
-        </ul>
-<div>
-</div></div>
-      
-      
-        
-	<div id="comment">
-		<!-- 来必力City版安装代码 -->
-		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
-		<script type="text/javascript">
-		   (function(d, s) {
-		       var j, e = d.getElementsByTagName(s)[0];
-
-		       if (typeof LivereTower === 'function') { return; }
-
-		       j = d.createElement(s);
-		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-		       j.async = true;
-
-		       e.parentNode.insertBefore(j, e);
-		   })(document, 'script');
-		</script>
-		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
-		</div>
-		<!-- City版安装代码已完成 -->
-	</div>
-
-
-
-      
-      
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码整洁/">代码整洁</a></li></ul>
-
-      
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-  
-    <a href="/2019/03/04/链路监控/自己动手写一个简单的javaagent（一）/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">自己动手写一个简单的探针（一）</div>
-    </a>
-  
-</nav>
-
-  
 </article>
+	
+	
+		</div></section>
+	
 
-<!-- Table of Contents -->
+	<!-- 页数指示器 -->
+	
 
-  <aside id="toc-sidebar">
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
+
+
+
+</div></section>
+          <aside id="sidebar">
+  
     
-        <ol class="nav">无</ol>
-    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/04/链路监控/自己动手写一个简单的javaagent（一）/">自己动手写一个简单的探针（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/03/链路监控/自己动手写一个简单的javaagent（总纲）/">自己动手写一个简单的探针(总纲)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/02/分布式/事务/分布式事务常见解决方案/">分布式事务常见解决方案</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/23/elastic/Elasticsearch运维的思考/">Elasticsearch运维的思考</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/18/分布式/服务框架/RPC与REST/">RPC与REST理解</a>
+          </li>
+        
+      </ul>
     </div>
-  </aside>
+  </div>
 
-</section>
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/elasticsearch/">elasticsearch</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/代码整洁/">代码整洁</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/分布式/">分布式</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客搭建/">博客搭建</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/链路监控/">链路监控</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RPC/">RPC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaagent/">javaagent</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/todo/">todo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码整洁/">代码整洁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/博客搭建/">博客搭建</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/运维/">运维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链路监控/">链路监控</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
         
       </div>
       
@@ -389,8 +358,6 @@
 
 
 
-  <script src="/js/dialog.js"></script>
-
 
 
 
@@ -474,8 +441,6 @@
   
   <a id="rocket" href="#top" class=""></a>
   <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
-  
-    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
   
 </body>
 </html>
