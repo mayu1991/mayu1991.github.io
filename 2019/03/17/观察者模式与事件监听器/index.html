@@ -5,15 +5,22 @@
   
 
   
-  <title>Tag: 链路监控 | Manoo`s 技术笔记</title>
+  <title>观察者模式与事件监听器 | Manoo`s 技术笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Manoo`s 技术笔记">
-<meta property="og:url" content="http://blog.myimy.site/tags/链路监控/index.html">
+  <meta name="description" content="观察者模式和发布-订阅模式参考 -&amp;gt; 观察者模式 vs 发布-订阅模式 观察者模式和发布订阅模式最大的区别应该是，前者的Observer明确的知道Publisher，而后者，Publisher和Observer之间还有一个Coordinator，Publisher和Observer都不知道对方，只通过事件，由Coordinator实现消息的通信。  两者都有松耦合的功效，在一个应用之中，通常">
+<meta name="keywords" content="todo,设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="观察者模式与事件监听器">
+<meta property="og:url" content="http://blog.myimy.site/2019/03/17/观察者模式与事件监听器/index.html">
 <meta property="og:site_name" content="Manoo`s 技术笔记">
+<meta property="og:description" content="观察者模式和发布-订阅模式参考 -&amp;gt; 观察者模式 vs 发布-订阅模式 观察者模式和发布订阅模式最大的区别应该是，前者的Observer明确的知道Publisher，而后者，Publisher和Observer之间还有一个Coordinator，Publisher和Observer都不知道对方，只通过事件，由Coordinator实现消息的通信。  两者都有松耦合的功效，在一个应用之中，通常">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcly1g16zdl3ykdj30sq0my76i.jpg">
+<meta property="og:updated_time" content="2019-03-19T06:19:56.505Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Manoo`s 技术笔记">
+<meta name="twitter:title" content="观察者模式与事件监听器">
+<meta name="twitter:description" content="观察者模式和发布-订阅模式参考 -&amp;gt; 观察者模式 vs 发布-订阅模式 观察者模式和发布订阅模式最大的区别应该是，前者的Observer明确的知道Publisher，而后者，Publisher和Observer之间还有一个Coordinator，Publisher和Observer都不知道对方，只通过事件，由Coordinator实现消息的通信。  两者都有松耦合的功效，在一个应用之中，通常">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tKfTcly1g16zdl3ykdj30sq0my76i.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Manoo`s 技术笔记" type="application/atom+xml">
   
@@ -60,97 +67,64 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/03/自己动手写一个简单的javaagent（总纲）/" class="archive-article-date">
-  <time datetime="2019-03-02T16:00:00.000Z" itemprop="datePublished">Mar 3</time>
+        <section id="main"><article id="post-观察者模式与事件监听器" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/17/观察者模式与事件监听器/" class="article-date">
+  <time datetime="2019-03-16T16:00:00.000Z" itemprop="datePublished">2019-03-17</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/03/自己动手写一个简单的javaagent（总纲）/">自己动手写一个简单的探针(总纲)</a>
+    <h1 class="article-title" itemprop="name">
+      观察者模式与事件监听器
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/03/自己动手写一个简单的javaagent（一）/" class="archive-article-date">
-  <time datetime="2019-03-02T16:00:00.000Z" itemprop="datePublished">Mar 3</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/03/自己动手写一个简单的javaagent（一）/">自己动手写一个简单的探针（一）</a>
-    </h1>
-  
+        <h2 id="观察者模式和发布-订阅模式"><a href="#观察者模式和发布-订阅模式" class="headerlink" title="观察者模式和发布-订阅模式"></a>观察者模式和发布-订阅模式</h2><p>参考 -&gt; <a href="https://juejin.im/post/5a14e9edf265da4312808d86" target="_blank" rel="noopener">观察者模式 vs 发布-订阅模式</a></p>
+<p>观察者模式和发布订阅模式最大的<code>区别</code>应该是，前者的Observer明确的知道Publisher，而后者，Publisher和Observer之间还有一个Coordinator，Publisher和Observer都不知道对方，只通过事件，由Coordinator实现消息的通信。</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g16zdl3ykdj30sq0my76i.jpg" alt="观察者模式和发布订阅模式的区别"></p>
+<p>两者都有松耦合的功效，在一个应用之中，通常是使用观察者模式。在跨系统或跨服务的场景下，通常是使用发布订阅模式。</p>
+<h2 id="监听器模式"><a href="#监听器模式" class="headerlink" title="监听器模式"></a>监听器模式</h2><p><a href="https://segmentfault.com/a/1190000013240470" target="_blank" rel="noopener">监听器入门看这篇就够了</a></p>
+<h2 id="事件监听器和观察者模式的异同"><a href="#事件监听器和观察者模式的异同" class="headerlink" title="事件监听器和观察者模式的异同"></a>事件监听器和观察者模式的异同</h2><p>参考 -&gt; <a href="https://my.oschina.net/u/923324/blog/792857" target="_blank" rel="noopener">java设计模式-回调、事件监听器、观察者模式</a></p>
+<h2 id="发布订阅模式在dubbo的应用"><a href="#发布订阅模式在dubbo的应用" class="headerlink" title="发布订阅模式在dubbo的应用"></a>发布订阅模式在dubbo的应用</h2><h3 id="dubbo的订阅和注册怎么实现的"><a href="#dubbo的订阅和注册怎么实现的" class="headerlink" title="dubbo的订阅和注册怎么实现的"></a>dubbo的订阅和注册怎么实现的</h3><p><a href="https://corsairmaster.github.io/2018/12/04/Dubbo%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_blank" rel="noopener">Dubbo原理及其所涉及到的设计模式</a></p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/01/采样率/" class="archive-article-date">
-  <time datetime="2019-02-28T16:00:00.000Z" itemprop="datePublished">Mar 1</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/01/采样率/">采样率</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/01/05/Dapper的学习与思考/" class="archive-article-date">
-  <time datetime="2019-01-04T16:00:00.000Z" itemprop="datePublished">Jan 5</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.myimy.site/2019/03/17/观察者模式与事件监听器/" data-id="cjtfe2kaa000hzv00jnbeoo9i" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/05/Dapper的学习与思考/">Dapper的学习与思考</a>
-    </h1>
-  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/03/13/代理模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">代理模式</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         
