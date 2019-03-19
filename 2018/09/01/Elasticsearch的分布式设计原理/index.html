@@ -3,19 +3,26 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>归档: 2019 | 密斯特马的技术笔记</title>
+  <title>elasticsearch的分布式设计原理 | 密斯特马的技术笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="分布式elasticsearchtodo">
   
   
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="密斯特马的技术笔记">
-<meta property="og:url" content="https://mayu1991.github.io/archives/2019/page/2/index.html">
+  
+  <meta name="description" content="ElasticSearch 如何保证数据一致性,实时性为什么ES不适合做数据存储 Elastic主节点选举算法？？？">
+<meta name="keywords" content="分布式,elasticsearch,todo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch的分布式设计原理">
+<meta property="og:url" content="https://mayu1991.github.io/2018/09/01/Elasticsearch的分布式设计原理/index.html">
 <meta property="og:site_name" content="密斯特马的技术笔记">
+<meta property="og:description" content="ElasticSearch 如何保证数据一致性,实时性为什么ES不适合做数据存储 Elastic主节点选举算法？？？">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-19T08:27:01.550Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="密斯特马的技术笔记">
+<meta name="twitter:title" content="Elasticsearch的分布式设计原理">
+<meta name="twitter:description" content="ElasticSearch 如何保证数据一致性,实时性为什么ES不适合做数据存储 Elastic主节点选举算法？？？">
   
     <link rel="alternate" href="/atom.xml" title="密斯特马的技术笔记" type="application/atom+xml">
   
@@ -54,8 +61,6 @@
   
 
   
-    <link rel="stylesheet" href="/css/archive.css">
-  
   
   
 
@@ -63,7 +68,7 @@
 </html>
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
   
@@ -85,8 +90,8 @@
 
             
               <a class="brand" style="
-                 margin-top: 0px;">
-                  <img width="126px" height="126px" alt="Hike News" src="https://ws3.sinaimg.cn/large/006tKfTcly1g183ugfr76j30ks0kudi3.jpg">
+                 margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="120px" height="120px" alt="Hike News" src="https://ws3.sinaimg.cn/large/006tKfTcly1g183ugfr76j30ks0kudi3.jpg">
               </a>
             
             
@@ -152,144 +157,138 @@
             
       <div id="content" class="outer">
         
-          <section id="main">
-  <div class="archives-tags-wrap"><blockquote><span>目前共计15篇文章</span></blockquote>
-
-
-<!-- 分页显示 -->
-
-	
-	
-		
-		
-		  
-		  
-		  <section class="archives-wrap">
-		    <div class="archive-year-wrap">
-		      <h1><a href="/archives/2019" class="archive-year">2019</a></h1>
-		    </div>
-		    <div class="archives">
-		
-		<article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-	<a href="/2019/01/10/如何避免过多的ifelse/" class="archive-article-date">
-	  <time datetime="2019-01-09T16:00:00.000Z" itemprop="datePublished">2019-01-10</time>
-	</a>
-
-      
+          <section id="main" style="float:none;"><article id="post-Elasticsearch的分布式设计原理" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/2019/01/10/如何避免过多的ifelse/">如何避免过多的ifelse</a>
+      Elasticsearch的分布式设计原理
     </h1>
   
 
-    </header>
-  </div>
-</article>
-	
-		
-		
-		<article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
+      </header>
+    
+    <div class="article-meta">
       
-	<a href="/2019/01/05/Dapper的学习与思考/" class="archive-article-date">
-	  <time datetime="2019-01-04T16:00:00.000Z" itemprop="datePublished">2019-01-05</time>
+	<a href="/2018/09/01/Elasticsearch的分布式设计原理/" class="article-date">
+	  <time datetime="2018-08-31T16:00:00.000Z" itemprop="datePublished">2018-09-01</time>
 	</a>
 
       
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/2019/01/05/Dapper的学习与思考/">Dapper的学习与思考</a>
-    </h1>
-  
+    <a class="article-category-link" href="/categories/elasticsearch/">elasticsearch</a>
 
-    </header>
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://www.jianshu.com/p/61dd9fb7d785" target="_blank" rel="noopener">ElasticSearch 如何保证数据一致性,实时性</a><br><a href="https://blog.csdn.net/wzdxt/article/details/50868031" target="_blank" rel="noopener">为什么ES不适合做数据存储</a></p>
+<p>Elastic主节点选举算法？？？</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>manoo
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2018/09/01/Elasticsearch的分布式设计原理/" target="_blank" title="Elasticsearch的分布式设计原理">https://mayu1991.github.io/2018/09/01/Elasticsearch的分布式设计原理/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+</div></div>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+      
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/03/Elasticsearch的集群节点和分区/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Elasticsearch的集群节点和分区
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/05/Dapper的学习与思考/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Dapper的学习与思考</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-	
-	
-		</div></section>
-	
 
-	<!-- 页数指示器 -->
-	
-	  <nav id="page-nav">
-	    
-	    <a class="extend prev" rel="prev" href="/archives/2019/">&laquo; 上一页</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span>
-	  </nav>
-	
+<!-- Table of Contents -->
 
-
-
-
-</div></section>
-          <aside id="sidebar">
-  
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/03/17/观察者模式与事件监听器/">观察者模式与事件监听器</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/13/代理模式/">代理模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/04/自己动手写一个简单的javaagent（一）/">自己动手写一个简单的探针（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/03/自己动手写一个简单的javaagent（总纲）/">自己动手写一个简单的探针(总纲)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/02/分布式事务常见解决方案/">分布式事务常见解决方案</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
+        <ol class="nav">无</ol>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/elasticsearch/">elasticsearch</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/代码整洁/">代码整洁</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/分布式/">分布式</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客搭建/">博客搭建</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/链路监控/">链路监控</a><span class="category-list-count">3</span></li></ul>
     </div>
-  </div>
+  </aside>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/JAVA/" style="font-size: 15px;">JAVA</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/REST/" style="font-size: 12.5px;">REST</a> <a href="/tags/RPC/" style="font-size: 12.5px;">RPC</a> <a href="/tags/elasticsearch/" style="font-size: 15px;">elasticsearch</a> <a href="/tags/java/" style="font-size: 12.5px;">java</a> <a href="/tags/javaagent/" style="font-size: 12.5px;">javaagent</a> <a href="/tags/todo/" style="font-size: 20px;">todo</a> <a href="/tags/代码整洁/" style="font-size: 10px;">代码整洁</a> <a href="/tags/分布式/" style="font-size: 20px;">分布式</a> <a href="/tags/博客搭建/" style="font-size: 12.5px;">博客搭建</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 12.5px;">设计模式</a> <a href="/tags/运维/" style="font-size: 10px;">运维</a> <a href="/tags/链路监控/" style="font-size: 17.5px;">链路监控</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
-    </div>
-  </div>
-
-
-  
-</aside>
+</section>
         
       </div>
       
@@ -383,6 +382,8 @@
 
 
 
+  <script src="/js/dialog.js"></script>
+
 
 
 
@@ -466,6 +467,8 @@
   
   <a id="rocket" href="#top" class=""></a>
   <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
   
 </body>
 </html>

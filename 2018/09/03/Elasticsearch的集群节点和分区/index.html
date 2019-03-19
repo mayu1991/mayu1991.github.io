@@ -3,26 +3,26 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>elasticsearch的分布式设计原理 | 密斯特马的技术笔记</title>
+  <title>elasticsearch的集群节点和分区 | 密斯特马的技术笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="分布式elasticsearchtodo">
+  <meta name="keywords" content="分布式elasticsearchtodo索引">
   
   
   
   
-  <meta name="description" content="ElasticSearch 如何保证数据一致性,实时性为什么ES不适合做数据存储 Elastic主节点选举算法？？？">
-<meta name="keywords" content="分布式,elasticsearch,todo">
+  <meta name="description" content="在存储方面，elasticsearch可以看作一个分布式数据库。每一个节点可以看作是一个库，这些节点（分库）在集群内协同工作。一个索引可以看作是库里的表。">
+<meta name="keywords" content="分布式,elasticsearch,todo,索引">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch的分布式设计原理">
-<meta property="og:url" content="https://mayu1991.github.io/2019/01/28/Elasticsearch的分布式设计原理/index.html">
+<meta property="og:title" content="Elasticsearch的集群节点和分区">
+<meta property="og:url" content="https://mayu1991.github.io/2018/09/03/Elasticsearch的集群节点和分区/index.html">
 <meta property="og:site_name" content="密斯特马的技术笔记">
-<meta property="og:description" content="ElasticSearch 如何保证数据一致性,实时性为什么ES不适合做数据存储 Elastic主节点选举算法？？？">
+<meta property="og:description" content="在存储方面，elasticsearch可以看作一个分布式数据库。每一个节点可以看作是一个库，这些节点（分库）在集群内协同工作。一个索引可以看作是库里的表。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-10T03:31:59.023Z">
+<meta property="og:updated_time" content="2019-03-19T08:26:36.335Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch的分布式设计原理">
-<meta name="twitter:description" content="ElasticSearch 如何保证数据一致性,实时性为什么ES不适合做数据存储 Elastic主节点选举算法？？？">
+<meta name="twitter:title" content="Elasticsearch的集群节点和分区">
+<meta name="twitter:description" content="在存储方面，elasticsearch可以看作一个分布式数据库。每一个节点可以看作是一个库，这些节点（分库）在集群内协同工作。一个索引可以看作是库里的表。">
   
     <link rel="alternate" href="/atom.xml" title="密斯特马的技术笔记" type="application/atom+xml">
   
@@ -91,7 +91,7 @@
             
               <a class="brand" style="
                  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
-                  <img width="126px" height="126px" alt="Hike News" src="https://ws3.sinaimg.cn/large/006tKfTcly1g183ugfr76j30ks0kudi3.jpg">
+                  <img width="120px" height="120px" alt="Hike News" src="https://ws3.sinaimg.cn/large/006tKfTcly1g183ugfr76j30ks0kudi3.jpg">
               </a>
             
             
@@ -157,7 +157,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-Elasticsearch的分布式设计原理" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+          <section id="main" style="float:none;"><article id="post-Elasticsearch的集群节点和分区" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
   <div id="articleInner" class="article-inner">
     
     
@@ -165,7 +165,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      Elasticsearch的分布式设计原理
+      Elasticsearch的集群节点和分区
     </h1>
   
 
@@ -173,8 +173,8 @@
     
     <div class="article-meta">
       
-	<a href="/2019/01/28/Elasticsearch的分布式设计原理/" class="article-date">
-	  <time datetime="2019-01-27T16:00:00.000Z" itemprop="datePublished">2019-01-28</time>
+	<a href="/2018/09/03/Elasticsearch的集群节点和分区/" class="article-date">
+	  <time datetime="2018-09-02T16:00:00.000Z" itemprop="datePublished">2018-09-03</time>
 	</a>
 
       
@@ -192,8 +192,18 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="https://www.jianshu.com/p/61dd9fb7d785" target="_blank" rel="noopener">ElasticSearch 如何保证数据一致性,实时性</a><br><a href="https://blog.csdn.net/wzdxt/article/details/50868031" target="_blank" rel="noopener">为什么ES不适合做数据存储</a></p>
-<p>Elastic主节点选举算法？？？</p>
+        <p>在存储方面，elasticsearch可以看作一个分布式数据库。<br>每一个节点可以看作是一个库，这些节点（分库）在集群内协同工作。一个索引可以看作是库里的表。</p>
+<a id="more"></a>
+<h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><p>一个节点(node)就是一个Elasticsearch实例。</p>
+<h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><p>一个集群(cluster)由一个或多个节点组成，它们具有相同<code>cluster.name</code>，它们协同工作，分享数据和负载。当加入新的节点或者删除一个节点时，集群就会感知到并平衡数据。</p>
+<p>集群中一个节点会被选举为主节点(master)，它将临时管理集群级别的一些变更，例如<strong>新建或删除索引、增加或移除节点</strong>等。主节点不参与文档级别的变更或搜索，这意味着在流量增长的时候，该主节点不会成为集群的瓶颈。任何节点都可以成为主节点。</p>
+<p>做为用户，我们能够与集群中的任何节点通信，包括主节点。每一个节点都知道文档存在于哪个节点上，它们可以转发请求到相应的节点上。我们访问的节点负责收集各节点返回的数据，最后一起返回给客户端。这一切都由Elasticsearch处理。</p>
+<ul>
+<li>主节点是否保存数据？</li>
+<li>因为节点之间存在负载均衡，所以我们访问的节点可以是集群中的任意一个节点，当我们请求一个节点时，我们需要的文档不一定在该节点上，此时该节点负责收集各节点返回的数据。如果是这样的原理，那么确实要求每一个节点都知道文档的存放位置。</li>
+</ul>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h2 id="添加索引"><a href="#添加索引" class="headerlink" title="添加索引"></a>添加索引</h2><p>为了将数据添加到Elasticsearch，我们需要索引(index)——一个存储关联数据的地方。实际上，索引只是一个用来指向一个或多个分片(shards)的“逻辑命名空间(logical namespace)”.</p>
+<p>一个分片(shard)是一个最小级别“工作单元(worker unit)”,它只是保存了<strong>索引中所有数据的一部分</strong><a href="水平切分还是垂直切分？应该是垂直切分的，这样才有意义。"> ^如何切分</a>。我们的文档存储在分片中，并且在分片中被索引，但是我们的应用程序不会直接与它们通信，取而代之的是，直接与索引通信。</p>
 
       
     </div>
@@ -207,7 +217,7 @@
           </li>
           <li class="post-copyright-link">
           <strong>本文链接:  </strong>
-          <a href="/2019/01/28/Elasticsearch的分布式设计原理/" target="_blank" title="Elasticsearch的分布式设计原理">https://mayu1991.github.io/2019/01/28/Elasticsearch的分布式设计原理/</a>
+          <a href="/2018/09/03/Elasticsearch的集群节点和分区/" target="_blank" title="Elasticsearch的集群节点和分区">https://mayu1991.github.io/2018/09/03/Elasticsearch的集群节点和分区/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明:   </strong>
@@ -247,7 +257,7 @@
       
       
         
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/todo/">todo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/索引/">索引</a></li></ul>
 
       
 
@@ -257,19 +267,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/02/13/Elasticsearch的集群节点和分区/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/10/13/代理模式/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Elasticsearch的集群节点和分区
+          代理模式
         
       </div>
     </a>
   
   
-    <a href="/2019/01/10/如何避免过多的ifelse/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/09/01/Elasticsearch的分布式设计原理/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">如何避免过多的ifelse</div>
+      <div class="article-nav-title">Elasticsearch的分布式设计原理</div>
     </a>
   
 </nav>
@@ -283,7 +293,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav">无</ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#节点"><span class="nav-number">1.</span> <span class="nav-text">节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群"><span class="nav-number">2.</span> <span class="nav-text">集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引"><span class="nav-number">3.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加索引"><span class="nav-number">4.</span> <span class="nav-text">添加索引</span></a></li></ol>
     
     </div>
   </aside>

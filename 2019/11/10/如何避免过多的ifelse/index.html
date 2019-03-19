@@ -3,28 +3,26 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>采样率 | 密斯特马的技术笔记</title>
+  <title>如何避免过多的ifelse | 密斯特马的技术笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="分布式链路监控">
+  <meta name="keywords" content="JAVA代码整洁">
   
   
   
   
-  <meta name="description" content="采样最直接的目的有两个：减少计算量和降低描述难度。">
-<meta name="keywords" content="分布式,链路监控">
+  <meta name="description" content="一般的if/else判断大多集中在以下三种情型  空值判断 业务判断 状态判断">
+<meta name="keywords" content="JAVA,代码整洁">
 <meta property="og:type" content="article">
-<meta property="og:title" content="采样率">
-<meta property="og:url" content="https://mayu1991.github.io/2019/03/01/采样率/index.html">
+<meta property="og:title" content="如何避免过多的ifelse">
+<meta property="og:url" content="https://mayu1991.github.io/2019/11/10/如何避免过多的ifelse/index.html">
 <meta property="og:site_name" content="密斯特马的技术笔记">
-<meta property="og:description" content="采样最直接的目的有两个：减少计算量和降低描述难度。">
+<meta property="og:description" content="一般的if/else判断大多集中在以下三种情型  空值判断 业务判断 状态判断">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g0l49r7s3ij30k00mzwew.jpg">
-<meta property="og:updated_time" content="2019-03-19T08:13:24.882Z">
+<meta property="og:updated_time" content="2019-03-19T08:28:16.659Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="采样率">
-<meta name="twitter:description" content="采样最直接的目的有两个：减少计算量和降低描述难度。">
-<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g0l49r7s3ij30k00mzwew.jpg">
+<meta name="twitter:title" content="如何避免过多的ifelse">
+<meta name="twitter:description" content="一般的if/else判断大多集中在以下三种情型  空值判断 业务判断 状态判断">
   
     <link rel="alternate" href="/atom.xml" title="密斯特马的技术笔记" type="application/atom+xml">
   
@@ -93,7 +91,7 @@
             
               <a class="brand" style="
                  margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
-                  <img width="126px" height="126px" alt="Hike News" src="https://ws3.sinaimg.cn/large/006tKfTcly1g183ugfr76j30ks0kudi3.jpg">
+                  <img width="120px" height="120px" alt="Hike News" src="https://ws3.sinaimg.cn/large/006tKfTcly1g183ugfr76j30ks0kudi3.jpg">
               </a>
             
             
@@ -159,7 +157,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-采样率" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+          <section id="main" style="float:none;"><article id="post-如何避免过多的ifelse" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
   <div id="articleInner" class="article-inner">
     
     
@@ -167,7 +165,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      采样率
+      如何避免过多的ifelse
     </h1>
   
 
@@ -175,12 +173,12 @@
     
     <div class="article-meta">
       
-	<a href="/2019/03/01/采样率/" class="article-date">
-	  <time datetime="2019-02-28T16:00:00.000Z" itemprop="datePublished">2019-03-01</time>
+	<a href="/2019/11/10/如何避免过多的ifelse/" class="article-date">
+	  <time datetime="2019-11-09T16:00:00.000Z" itemprop="datePublished">2019-11-10</time>
 	</a>
 
       
-    <a class="article-category-link" href="/categories/分布式/">分布式</a>
+    <a class="article-category-link" href="/categories/代码整洁/">代码整洁</a>
 
       
 	<a class="article-views">
@@ -194,14 +192,24 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>采样最直接的目的有两个：减少计算量和降低描述难度。</p>
+        <p><strong>一般的if/else判断大多集中在以下三种情型</strong></p>
+<ol>
+<li>空值判断</li>
+<li>业务判断</li>
+<li>状态判断</li>
+</ol>
 <a id="more"></a>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g0l49r7s3ij30k00mzwew.jpg" alt></p>
-<p>在APM厂商中，普遍采用这样一种采样算法来计算Apdex（Application Performance Index）。</p>
-<p>Apdex的计算公式是： Apdex ＝ ( 1 x 满意 ＋0.5 x 容忍 ＋ 0 x 失望 ) / 样本数。</p>
-<p>我们套一下上面的公式： 假定样本为：小于2s的请求次数为10次，满意； 大于2s，小于8s的请求次数为20次，容忍；大于等于8s的请求次数为10次，失望。 那么得到 Apdex = ( 1 x 10 + 0.5 x 20 + 0 x 10 ) / 40 = 0.5 ，结果是Unacceptable 不能接受的，说明这次采样的这个系统就在GG 的边缘了。</p>
-<p>但是Apdex公式的计算只是在一个<code>宏观上判断一个服务的综合状态</code>，如果细化的话，这个计算公式是一个加权的结果，如果有5个请求都是大于等于8s,但是其他35个都是小于2s的，那么得出的Apdex为0.875，已经是Good的状态了，但是如果这8s的5个请求是服务的主入口或者重要接口，那么这Good的表面价值就会带来巨大隐患，所以对于采样率的计算，需要对于宏观上有一套计算方案，也需要对于细节处进行探查。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://zhuanlan.zhihu.com/p/40623010" target="_blank" rel="noopener">全链路分布式跟踪系统与APM</a><br><a href="https://segmentfault.com/a/1190000007370525" target="_blank" rel="noopener">浅述APM采样与端到端</a></p>
+<p><strong>处理方法</strong></p>
+<ol>
+<li>对控制判断的处理，可以把接口分为内接口和外接口，将空值判断都放在外接口，这样进入内接口的时候就不需要考虑空值判断。</li>
+<li>利用多态，抽象出处理基类，对每一种业务类型，用专门的实现类来处理对应逻辑。<br> 这里会带来一个问题，暴露给用户的类就多了，因为需要根据不同的业务场景创建不同的业务实现类，这时解决的方法：<ol>
+<li>再封装一层，将实现类的权限降低，只暴露给用户创建实现类的方法。</li>
+<li>用工厂模式产生类。</li>
+<li>用map将类型与类加载到map中，在使用时根据业务类型动态加载实现类。</li>
+</ol>
+</li>
+</ol>
+<p><strong>参考</strong><br><a href="https://mp.weixin.qq.com/s/aT2vH2H8biq3Fh0-lSjqOQ" target="_blank" rel="noopener">减少该死的 if else 嵌套</a></p>
 
       
     </div>
@@ -215,7 +223,7 @@
           </li>
           <li class="post-copyright-link">
           <strong>本文链接:  </strong>
-          <a href="/2019/03/01/采样率/" target="_blank" title="采样率">https://mayu1991.github.io/2019/03/01/采样率/</a>
+          <a href="/2019/11/10/如何避免过多的ifelse/" target="_blank" title="如何避免过多的ifelse">https://mayu1991.github.io/2019/11/10/如何避免过多的ifelse/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明:   </strong>
@@ -255,7 +263,7 @@
       
       
         
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码整洁/">代码整洁</a></li></ul>
 
       
 
@@ -265,19 +273,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/02/分布式事务常见解决方案/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          分布式事务常见解决方案
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/02/23/Elasticsearch运维的思考/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/03/04/自己动手写一个简单的javaagent（一）/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Elasticsearch运维的思考</div>
+      <div class="article-nav-title">自己动手写一个简单的探针（一）</div>
     </a>
   
 </nav>
@@ -291,7 +290,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li></ol>
+        <ol class="nav">无</ol>
     
     </div>
   </aside>
