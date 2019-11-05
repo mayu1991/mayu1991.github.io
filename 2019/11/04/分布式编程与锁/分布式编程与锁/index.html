@@ -3,19 +3,26 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>密斯特马的技术笔记</title>
+  <title>分布式编程 | 密斯特马的技术笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="分布式编程锁HashMapcurrentHashMap线程池并发">
   
   
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="密斯特马的技术笔记">
-<meta property="og:url" content="https://mayu1991.github.io/index.html">
+  
+  <meta name="description" content="常见关键字 volatile 实现原理（禁止指令重排、刷新内存）  synchronized 实现原理（对象监视器）利用了对象的对象监视器 monitor ，每一个对象都有自己的对象锁，当这个对象被synchronized修饰了之后，jvm编译的时候会在获取这个对象实例之前插入一个monitor enter指令  final关键字的内存语义参考  final可以修饰类，该类不能被继承。 final">
+<meta name="keywords" content="分布式编程,锁,HashMap,currentHashMap,线程池,并发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式编程">
+<meta property="og:url" content="https://mayu1991.github.io/2019/11/04/分布式编程与锁/分布式编程与锁/index.html">
 <meta property="og:site_name" content="密斯特马的技术笔记">
+<meta property="og:description" content="常见关键字 volatile 实现原理（禁止指令重排、刷新内存）  synchronized 实现原理（对象监视器）利用了对象的对象监视器 monitor ，每一个对象都有自己的对象锁，当这个对象被synchronized修饰了之后，jvm编译的时候会在获取这个对象实例之前插入一个monitor enter指令  final关键字的内存语义参考  final可以修饰类，该类不能被继承。 final">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-04T12:15:20.630Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="密斯特马的技术笔记">
+<meta name="twitter:title" content="分布式编程">
+<meta name="twitter:description" content="常见关键字 volatile 实现原理（禁止指令重排、刷新内存）  synchronized 实现原理（对象监视器）利用了对象的对象监视器 monitor ，每一个对象都有自己的对象锁，当这个对象被synchronized修饰了之后，jvm编译的时候会在获取这个对象实例之前插入一个monitor enter指令  final关键字的内存语义参考  final可以修饰类，该类不能被继承。 final">
   
     <link rel="alternate" href="/atom.xml" title="密斯特马的技术笔记" type="application/atom+xml">
   
@@ -44,11 +51,13 @@
   <link rel="stylesheet" href="/css/bootstrap.css">
 
   
-    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/dialog.css">
   
 
   
 
+  
+    <link rel="stylesheet" href="/css/header-post.css">
   
 
   
@@ -59,130 +68,96 @@
 </html>
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
-  
-    <header id="header">
-
-	<!-- 背景图模式 -->
-	
-
-    
-      <div id="intrologo" class="intro-logo" style="background-position:center; background-repeat:no-repeat; background-image: url(); background-size: auto 100%;">
-
-      <!-- Support rolling -->  
-        <!-- Don't rolling -->
-        <script>
-            var imgUrls = "css/images/fengjing.jpg".split(",");
-            var random = Math.floor((Math.random() * imgUrls.length ));
-            if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
-              document.getElementById("intrologo").style.backgroundImage='url(' + imgUrls[random] + ')';
-            } else {
-              document.getElementById("intrologo").style.backgroundImage='url(/' + imgUrls[random] + ')';
-            }
-        </script>
-      
-
-    
- 
-
-
-    <canvas width="100%" height="100%"></canvas>
-    <script>
-      var c = document.getElementsByTagName('canvas')[0],
-          x = c.getContext('2d'),
-          w = window.innerWidth,
-          h = window.innerHeight,
-          pr = window.devicePixelRatio || 1,
-          f = 90,
-          q,
-          m = Math,
-          r = 0,
-          u = m.PI*2,
-          v = m.cos,
-          z = m.random
-      c.width = w*pr
-      c.height = h*pr
-      x.scale(pr, pr)
-      x.globalAlpha = 0.6
-
-      <!-- 折线Polyline背景 -->
-      
-    </script>
-    
-
-    
-      <div id="homelogo" class="homelogo" style="background: rgba(255,255,255,1);"> 
-    
-
-        
-          <div class="homelogoback" style="border: 1px solid #404040;">
-            <h1><a href="#content" id="logo">密斯特马的技术笔记</a></h1>
-            <h3></h3>
-            <h5>manoo</h5>
-            <!-- <p><a href="https://github.com/iTimeTraveler" target="_blank">Github</a></p> -->
-          </div>
-        
-    
-    </div>
-  </div>
-
-  <!-- 自适应主页背景大图 -->
-  
-    <script>
-        var img = new Image();
-        var intrologodiv = document.getElementById("intrologo");
-        img.src = intrologodiv.style.backgroundImage.replace('url(','').replace(')','').replace(/\"/gi, "");
-        img.onload=function(){
-          if (img.width / img.height <= document.body.clientWidth / document.body.clientHeight) {
-            intrologodiv.style.backgroundSize = "100% auto";
-          } else {
-            intrologodiv.style.backgroundSize = "auto 100%";
-          }
-        };
-    </script>
- 
-
- <!-- home_logo_image居中 -->
- 
-    <script>
-        var homelogodiv = document.getElementById("homelogo");
-        if (document.all.homelogo.offsetWidth > document.body.clientWidth) {
-          homelogodiv.style.width = document.body.clientWidth + "px";
-          homelogodiv.style.marginLeft = document.body.clientWidth * -0.5 + "px";
-        } else {
-          homelogodiv.style.width = homelogodiv.clientWidth  + "px";
-          homelogodiv.style.marginLeft = (homelogodiv.clientWidth)  * -0.5 + "px";
-        }
-    </script>
-  
-
-  <div class="intro-navigate">
-      <p class="navigater-list">
-        
-          <a id="beautifont" class="main-nav-link" href="/">主页</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/archives">总览</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/categories">目录</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/tags">标签</a>
-        
-      </p>
-  </div>
-
-</header>
   
   <div id="container">
     <div id="wrap">
       
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 10px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="80px" height="80px" alt="Hike News" src="/css/images/longmao_logo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">主页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">总览</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">目录</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder>
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;">
-  
-    <article id="post-分布式编程与锁/分布式编程与锁" class="article article-type-post" itemscope itemprop="blogPost">
+          <section id="main" style="float:none;"><article id="post-分布式编程与锁/分布式编程与锁" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
   <div id="articleInner" class="article-inner">
     
     
@@ -190,7 +165,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/11/04/分布式编程与锁/分布式编程与锁/">分布式编程</a>
+      分布式编程
     </h1>
   
 
@@ -206,6 +181,12 @@
     <a class="article-category-link" href="/categories/分布式编程/">分布式编程</a>
 
       
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
       
 
     </div>
@@ -363,485 +344,88 @@
     <footer class="article-footer">
       
       
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>manoo
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2019/11/04/分布式编程与锁/分布式编程与锁/" target="_blank" title="分布式编程">https://mayu1991.github.io/2019/11/04/分布式编程与锁/分布式编程与锁/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+</div></div>
       
       
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-开发工具/常用工具记录" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
         
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/07/16/开发工具/常用工具记录/">常用工具记录</a>
-    </h1>
-  
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
 
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/07/16/开发工具/常用工具记录/" class="article-date">
-	  <time datetime="2019-07-16T11:10:00.000Z" itemprop="datePublished">2019-07-16</time>
-	</a>
+		       if (typeof LivereTower === 'function') { return; }
 
-      
-    <a class="article-category-link" href="/categories/工具/">工具</a>
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
 
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><p><a href="https://www.bejson.com/" target="_blank" rel="noopener">一个包含很多实用工具的网站</a><br><a href="https://www.json.cn/" target="_blank" rel="noopener">简单的json格式化</a></p>
-<h1 id="时间戳转化工具"><a href="#时间戳转化工具" class="headerlink" title="时间戳转化工具"></a>时间戳转化工具</h1><p><a href="http://tool.chinaz.com/Tools/unixtime.aspx" target="_blank" rel="noopener">http://tool.chinaz.com/Tools/unixtime.aspx</a></p>
-<h1 id="图床"><a href="#图床" class="headerlink" title="图床"></a>图床</h1><p><a href="https://toolinbox.net/iPic/" target="_blank" rel="noopener">https://toolinbox.net/iPic/</a></p>
-<h1 id="在线颜色选择器"><a href="#在线颜色选择器" class="headerlink" title="在线颜色选择器"></a>在线颜色选择器</h1><p><a href="http://www.shouce.ren/tool/yanse" target="_blank" rel="noopener">http://www.shouce.ren/tool/yanse</a></p>
-<h1 id="在线图片去底色工具"><a href="#在线图片去底色工具" class="headerlink" title="在线图片去底色工具"></a>在线图片去底色工具</h1><p><a href="http://www.aigei.com/bgremover" target="_blank" rel="noopener">http://www.aigei.com/bgremover</a></p>
-<h1 id="在线二维码生成器"><a href="#在线二维码生成器" class="headerlink" title="在线二维码生成器"></a>在线二维码生成器</h1><p><a href="http://www.liantu.com/" target="_blank" rel="noopener">http://www.liantu.com/</a></p>
-<h1 id="pdf转word"><a href="#pdf转word" class="headerlink" title="pdf转word"></a>pdf转word</h1><p><a href="https://smallpdf.com/cn/pdf-to-word" target="_blank" rel="noopener">https://smallpdf.com/cn/pdf-to-word</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
 
 
-  
-    <article id="post-java基础/spring validation 使用踩坑" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
+
+      
+      
         
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/04/10/java基础/spring validation 使用踩坑/">spring validation 使用踩坑</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashMap/">HashMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/currentHashMap/">currentHashMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式编程/">分布式编程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线程池/">线程池</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/锁/">锁</a></li></ul>
 
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/04/10/java基础/spring validation 使用踩坑/" class="article-date">
-	  <time datetime="2019-04-09T16:00:00.000Z" itemprop="datePublished">2019-04-10</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/spring/">spring</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://blog.csdn.net/dream_broken/article/details/53584169" target="_blank" rel="noopener">java使用validator进行校验</a></p>
-<p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jsr303/index.html" target="_blank" rel="noopener">JSR 303 - Bean Validation 介绍及最佳实践</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
       
 
     </footer>
   </div>
   
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-分布式/一致性协议/分布式一致性协议" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
     
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/04/02/分布式/一致性协议/分布式一致性协议/">分布式一致性协议</a>
-    </h1>
   
+    <a href="/2019/07/16/开发工具/常用工具记录/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">常用工具记录</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/04/02/分布式/一致性协议/分布式一致性协议/" class="article-date">
-	  <time datetime="2019-04-01T16:00:00.000Z" itemprop="datePublished">2019-04-02</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/分布式/">分布式</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Paxos协议"><a href="#Paxos协议" class="headerlink" title="Paxos协议"></a>Paxos协议</h1><p><a href="https://blog.csdn.net/cnh294141800/article/details/53768464" target="_blank" rel="noopener">https://blog.csdn.net/cnh294141800/article/details/53768464</a></p>
-<p><a href="https://www.zhihu.com/question/19787937" target="_blank" rel="noopener">https://www.zhihu.com/question/19787937</a></p>
-<h1 id="Raft协议"><a href="#Raft协议" class="headerlink" title="Raft协议"></a>Raft协议</h1>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
   
 </article>
 
 <!-- Table of Contents -->
 
-
-  
-    <article id="post-链路监控/自己动手写一个简单的javaagent（一）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
     
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常见关键字"><span class="nav-number">1.</span> <span class="nav-text">常见关键字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap、HashTable、HashSet和concurrentHashMap"><span class="nav-number">2.</span> <span class="nav-text">HashMap、HashTable、HashSet和concurrentHashMap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#并发编程"><span class="nav-number">3.</span> <span class="nav-text">并发编程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程与线程池"><span class="nav-number">4.</span> <span class="nav-text">线程与线程池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁"><span class="nav-number">5.</span> <span class="nav-text">锁</span></a></li></ol>
     
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/03/04/链路监控/自己动手写一个简单的javaagent（一）/">自己动手写一个简单的探针（一）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/03/04/链路监控/自己动手写一个简单的javaagent（一）/" class="article-date">
-	  <time datetime="2019-03-03T16:00:00.000Z" itemprop="datePublished">2019-03-04</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/链路监控/">链路监控</a>
-
-      
-      
-
     </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
-<li>实现一个简单的javaagent。</li>
-</ol>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-链路监控/自己动手写一个简单的javaagent（总纲）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/03/03/链路监控/自己动手写一个简单的javaagent（总纲）/">自己动手写一个简单的探针(总纲)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/03/03/链路监控/自己动手写一个简单的javaagent（总纲）/" class="article-date">
-	  <time datetime="2019-03-02T16:00:00.000Z" itemprop="datePublished">2019-03-03</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/链路监控/">链路监控</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
-<li>实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。</li>
-<li>实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。</li>
-<li>实现agent的心跳检测。</li>
-<li>实现根据采样率调节数据收集量。</li>
-</ol>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-分布式/事务/分布式事务常见解决方案" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/03/02/分布式/事务/分布式事务常见解决方案/">分布式事务常见解决方案</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/03/02/分布式/事务/分布式事务常见解决方案/" class="article-date">
-	  <time datetime="2019-03-01T16:00:00.000Z" itemprop="datePublished">2019-03-02</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/分布式/">分布式</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Fescar"><a href="#Fescar" class="headerlink" title="Fescar"></a>Fescar</h2><p><a href="https://github.com/alibaba/fescar/" target="_blank" rel="noopener">Fescar: Fast &amp; Easy Commit And Rollback</a><br><a href="http://os.51cto.com/art/201901/590738.htm" target="_blank" rel="noopener">关于开源分布式事务中间件Fescar的提问</a><br><a href="https://www.jianshu.com/p/82b98f037034" target="_blank" rel="noopener">FESCAR：阿里重磅开源分布式事务解决方案</a></p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-elastic/Elasticsearch运维的思考" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/02/23/elastic/Elasticsearch运维的思考/">Elasticsearch运维的思考</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/02/23/elastic/Elasticsearch运维的思考/" class="article-date">
-	  <time datetime="2019-02-22T16:00:00.000Z" itemprop="datePublished">2019-02-23</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/elasticsearch/">elasticsearch</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="当前的情况"><a href="#当前的情况" class="headerlink" title="当前的情况"></a>当前的情况</h2><ul>
-<li><p>当前每一个租户一共会创建95个索引。</p>
-</li>
-<li><p>分片的设置是：indexShardsNumber=2，indexReplicasNumber=0。</p>
-</li>
-<li><p>集群一共有四个节点，每一个节点有60G的空间。</p>
-</li>
-<li><p>目前线上共有6个租户，计算下来一共是1,140个分片</p>
-</li>
-</ul>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-分布式/服务框架/RPC与REST" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/02/18/分布式/服务框架/RPC与REST/">RPC与REST理解</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/02/18/分布式/服务框架/RPC与REST/" class="article-date">
-	  <time datetime="2019-02-17T16:00:00.000Z" itemprop="datePublished">2019-02-18</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/分布式/">分布式</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>什么是采样率，采样率有什么作用？</p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-java基础/如何避免过多的ifelse" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/11/10/java基础/如何避免过多的ifelse/">如何避免过多的ifelse</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2018/11/10/java基础/如何避免过多的ifelse/" class="article-date">
-	  <time datetime="2018-11-09T16:00:00.000Z" itemprop="datePublished">2018-11-10</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/代码整洁/">代码整洁</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>一般的if/else判断大多集中在以下三种情型</strong></p>
-<ol>
-<li>空值判断</li>
-<li>业务判断</li>
-<li>状态判断</li>
-</ol>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
-  </nav>
+  </aside>
 
 </section>
         
       </div>
-      
-        <div align="center" style="margin-top: 30px;"><hr class="hr" style="margin:0px; height:3px;"></div>
       
       <footer id="footer">
   
@@ -931,9 +515,9 @@
 <script src="/js/scripts.js"></script>
 
 
-  <script src="/js/home.js"></script>
 
 
+  <script src="/js/dialog.js"></script>
 
 
 
@@ -1018,6 +602,8 @@
   
   <a id="rocket" href="#top" class=""></a>
   <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
   
 </body>
 </html>
