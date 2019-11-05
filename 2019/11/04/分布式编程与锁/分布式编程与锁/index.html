@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="密斯特马的技术笔记">
 <meta property="og:description" content="常见关键字 volatile 实现原理（禁止指令重排、刷新内存）  synchronized 实现原理（对象监视器）利用了对象的对象监视器 monitor ，每一个对象都有自己的对象锁，当这个对象被synchronized修饰了之后，jvm编译的时候会在获取这个对象实例之前插入一个monitor enter指令  final关键字的内存语义参考  final可以修饰类，该类不能被继承。 final">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-04T12:15:20.630Z">
+<meta property="og:updated_time" content="2019-11-05T12:05:17.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式编程">
 <meta name="twitter:description" content="常见关键字 volatile 实现原理（禁止指令重排、刷新内存）  synchronized 实现原理（对象监视器）利用了对象的对象监视器 monitor ，每一个对象都有自己的对象锁，当这个对象被synchronized修饰了之后，jvm编译的时候会在获取这个对象实例之前插入一个monitor enter指令  final关键字的内存语义参考  final可以修饰类，该类不能被继承。 final">
@@ -178,7 +178,7 @@
 	</a>
 
       
-    <a class="article-category-link" href="/categories/分布式编程/">分布式编程</a>
+    <a class="article-category-link" href="/categories/分布式/">分布式</a>
 
       
 	<a class="article-views">
@@ -249,8 +249,6 @@
 </li>
 <li><p>ThreadLocal 原理分析，ThreadLocal为什么会出现OOM，出现的深层次原理 ？？？？<br><a href="https://juejin.im/post/5a64a581f265da3e3b7aa02d" target="_blank" rel="noopener">https://juejin.im/post/5a64a581f265da3e3b7aa02d</a></p>
 </li>
-</ol>
-<ol start="8">
 <li><p>常见的原子操作类<br>AtomicInteger、AtomicLong、AtomicBoolean、AtomicReference</p>
 </li>
 <li><p>AtomicInteger底层实现原理；<br>一个volatile类型的value值，封装了原子性读改写的方法，利用了unsafe类的compareAndSwagObject/int/long<br>value这个字段在AtomicInteger类的内存中相对于该类首地址的偏移量</p>
