@@ -74,7 +74,7 @@
       <!-- Support rolling -->  
         <!-- Don't rolling -->
         <script>
-            var imgUrls = "css/images/fengjing.jpg".split(",");
+            var imgUrls = "css/images/guimiezhiren.jpg".split(",");
             var random = Math.floor((Math.random() * imgUrls.length ));
             if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
               document.getElementById("intrologo").style.backgroundImage='url(' + imgUrls[random] + ')';
@@ -181,6 +181,260 @@
       <div id="content" class="outer">
         
           <section id="main" style="float:none;">
+  
+    <article id="post-链路监控/自己动手写一个简单的javaagent（总纲）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2019/03/03/链路监控/自己动手写一个简单的javaagent（总纲）/">自己动手写一个简单的探针(总纲)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/03/03/链路监控/自己动手写一个简单的javaagent（总纲）/" class="article-date">
+	  <time datetime="2019-03-02T16:00:00.000Z" itemprop="datePublished">2019-03-03</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/链路监控/">链路监控</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
+<li>实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。</li>
+<li>实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。</li>
+<li>实现agent的心跳检测。</li>
+<li>实现根据采样率调节数据收集量。</li>
+</ol>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
+    <article id="post-分布式/事务/分布式事务常见解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2019/03/02/分布式/事务/分布式事务常见解决方案/">分布式事务常见解决方案</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/03/02/分布式/事务/分布式事务常见解决方案/" class="article-date">
+	  <time datetime="2019-03-01T16:00:00.000Z" itemprop="datePublished">2019-03-02</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/分布式/">分布式</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Fescar"><a href="#Fescar" class="headerlink" title="Fescar"></a>Fescar</h2><p><a href="https://github.com/alibaba/fescar/" target="_blank" rel="noopener">Fescar: Fast &amp; Easy Commit And Rollback</a><br><a href="http://os.51cto.com/art/201901/590738.htm" target="_blank" rel="noopener">关于开源分布式事务中间件Fescar的提问</a><br><a href="https://www.jianshu.com/p/82b98f037034" target="_blank" rel="noopener">FESCAR：阿里重磅开源分布式事务解决方案</a></p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
+    <article id="post-elastic/Elasticsearch运维的思考" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2019/02/23/elastic/Elasticsearch运维的思考/">Elasticsearch运维的思考</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/02/23/elastic/Elasticsearch运维的思考/" class="article-date">
+	  <time datetime="2019-02-22T16:00:00.000Z" itemprop="datePublished">2019-02-23</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/elasticsearch/">elasticsearch</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="当前的情况"><a href="#当前的情况" class="headerlink" title="当前的情况"></a>当前的情况</h2><ul>
+<li><p>当前每一个租户一共会创建95个索引。</p>
+</li>
+<li><p>分片的设置是：indexShardsNumber=2，indexReplicasNumber=0。</p>
+</li>
+<li><p>集群一共有四个节点，每一个节点有60G的空间。</p>
+</li>
+<li><p>目前线上共有6个租户，计算下来一共是1,140个分片</p>
+</li>
+</ul>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
+    <article id="post-分布式/服务框架/RPC与REST" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2019/02/18/分布式/服务框架/RPC与REST/">RPC与REST理解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/02/18/分布式/服务框架/RPC与REST/" class="article-date">
+	  <time datetime="2019-02-17T16:00:00.000Z" itemprop="datePublished">2019-02-18</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/分布式/">分布式</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>什么是采样率，采样率有什么作用？</p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
+    <article id="post-java基础/如何避免过多的ifelse" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2018/11/10/java基础/如何避免过多的ifelse/">如何避免过多的ifelse</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/11/10/java基础/如何避免过多的ifelse/" class="article-date">
+	  <time datetime="2018-11-09T16:00:00.000Z" itemprop="datePublished">2018-11-10</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/代码整洁/">代码整洁</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>一般的if/else判断大多集中在以下三种情型</strong></p>
+<ol>
+<li>空值判断</li>
+<li>业务判断</li>
+<li>状态判断</li>
+</ol>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
   
     <article id="post-设计模式/观察者模式与事件监听器" class="article article-type-post" itemscope itemprop="blogPost">
   <div id="articleInner" class="article-inner">
@@ -431,199 +685,11 @@
 
 
   
-    <article id="post-链路监控/采样率" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/08/01/链路监控/采样率/">采样率</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2018/08/01/链路监控/采样率/" class="article-date">
-	  <time datetime="2018-07-31T16:00:00.000Z" itemprop="datePublished">2018-08-01</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/分布式/">分布式</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>采样最直接的目的有两个：减少计算量和降低描述难度。</p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-常用操作/linux/Linux常用指令-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/07/01/常用操作/linux/Linux常用指令-1/">Linux常用指令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2018/07/01/常用操作/linux/Linux常用指令-1/" class="article-date">
-	  <time datetime="2018-06-30T16:00:00.000Z" itemprop="datePublished">2018-07-01</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="给目录设置用户和用户组"><a href="#给目录设置用户和用户组" class="headerlink" title="给目录设置用户和用户组"></a>给目录设置用户和用户组</h2><p><code>chown -R admin:admin admin/</code></p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-常用操作/mac/Mac下增加指令别名-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/06/20/常用操作/mac/Mac下增加指令别名-1/">Mac下设置指令别名</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2018/06/20/常用操作/mac/Mac下增加指令别名-1/" class="article-date">
-	  <time datetime="2018-06-19T16:00:00.000Z" itemprop="datePublished">2018-06-20</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/博客搭建/">博客搭建</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>alias [别名]=’[指令名称]’</p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-常用操作/博客搭建/从零搭建个人博客" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/06/10/常用操作/博客搭建/从零搭建个人博客/">从零开始搭建个人博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2018/06/10/常用操作/博客搭建/从零搭建个人博客/" class="article-date">
-	  <time datetime="2018-06-09T16:00:00.000Z" itemprop="datePublished">2018-06-10</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/博客搭建/">博客搭建</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>从零开始搭建一个个人博客系统记录。</p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
   </nav>
 
 </section>

@@ -3,26 +3,26 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>分布式编程知识点 | 密斯特马的技术笔记</title>
+  <title>分布式编程知识点汇总 | 密斯特马的技术笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="分布式编程锁HashMapcurrentHashMap线程池并发知识点">
+  <meta name="keywords" content="分布式编程锁线程池并发知识点">
   
   
   
   
-  <meta name="description" content="常见关键字 volatile 实现原理（禁止指令重排、刷新内存）  synchronized 实现原理（对象监视器）利用了对象的对象监视器 monitor ，每一个对象都有自己的对象锁，当这个对象被synchronized修饰了之后，jvm编译的时候会在获取这个对象实例之前插入一个monitor enter指令  final关键字的内存语义参考  final可以修饰类，该类不能被继承。 final">
-<meta name="keywords" content="分布式编程,锁,HashMap,currentHashMap,线程池,并发,知识点">
+  <meta name="description" content="并发编程 说说 CountDownLatch、CyclicBarrier 原理和区别  CountDownLatch 允许一个线程或多个线程等待其他线程完成工作。一个获取共享状态的同步器。  CyclicBarrier 允许多个线程在都达到一个屏障的时候再放开屏障。一个锁，用锁的condition来操作，await()区别：  CyclicBarrier 可以重置计数器，适合比较复杂的业务场景，提">
+<meta name="keywords" content="分布式编程,锁,线程池,并发,知识点">
 <meta property="og:type" content="article">
-<meta property="og:title" content="分布式编程知识点">
+<meta property="og:title" content="分布式编程知识点汇总">
 <meta property="og:url" content="https://mayu1991.github.io/2019/11/04/分布式编程与锁/分布式编程与锁/index.html">
 <meta property="og:site_name" content="密斯特马的技术笔记">
-<meta property="og:description" content="常见关键字 volatile 实现原理（禁止指令重排、刷新内存）  synchronized 实现原理（对象监视器）利用了对象的对象监视器 monitor ，每一个对象都有自己的对象锁，当这个对象被synchronized修饰了之后，jvm编译的时候会在获取这个对象实例之前插入一个monitor enter指令  final关键字的内存语义参考  final可以修饰类，该类不能被继承。 final">
+<meta property="og:description" content="并发编程 说说 CountDownLatch、CyclicBarrier 原理和区别  CountDownLatch 允许一个线程或多个线程等待其他线程完成工作。一个获取共享状态的同步器。  CyclicBarrier 允许多个线程在都达到一个屏障的时候再放开屏障。一个锁，用锁的condition来操作，await()区别：  CyclicBarrier 可以重置计数器，适合比较复杂的业务场景，提">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-06T03:38:01.697Z">
+<meta property="og:updated_time" content="2019-11-06T08:21:56.894Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分布式编程知识点">
-<meta name="twitter:description" content="常见关键字 volatile 实现原理（禁止指令重排、刷新内存）  synchronized 实现原理（对象监视器）利用了对象的对象监视器 monitor ，每一个对象都有自己的对象锁，当这个对象被synchronized修饰了之后，jvm编译的时候会在获取这个对象实例之前插入一个monitor enter指令  final关键字的内存语义参考  final可以修饰类，该类不能被继承。 final">
+<meta name="twitter:title" content="分布式编程知识点汇总">
+<meta name="twitter:description" content="并发编程 说说 CountDownLatch、CyclicBarrier 原理和区别  CountDownLatch 允许一个线程或多个线程等待其他线程完成工作。一个获取共享状态的同步器。  CyclicBarrier 允许多个线程在都达到一个屏障的时候再放开屏障。一个锁，用锁的condition来操作，await()区别：  CyclicBarrier 可以重置计数器，适合比较复杂的业务场景，提">
   
     <link rel="alternate" href="/atom.xml" title="密斯特马的技术笔记" type="application/atom+xml">
   
@@ -165,7 +165,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      分布式编程知识点
+      分布式编程知识点汇总
     </h1>
   
 
@@ -192,48 +192,7 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="常见关键字"><a href="#常见关键字" class="headerlink" title="常见关键字"></a>常见关键字</h1><ol>
-<li><p>volatile 实现原理（禁止指令重排、刷新内存）</p>
-</li>
-<li><p>synchronized 实现原理（对象监视器）<br>利用了对象的对象监视器 monitor ，每一个对象都有自己的对象锁，当这个对象被synchronized修饰了之后，jvm编译的时候会在获取这个对象实例之前插入一个monitor enter指令</p>
-</li>
-<li><p>final关键字的内存语义<br><a href="https://www.jianshu.com/p/1f4b0f98cbf1" target="_blank" rel="noopener">参考</a></p>
-<ul>
-<li>final可以修饰类，该类不能被继承。</li>
-<li>final可以修饰方法，该方法不能被重写。(覆盖，复写)</li>
-<li>final可以修饰变量，该变量不能被重新赋值。因为这个变量其实常量。</li>
-</ul>
-</li>
-</ol>
-<h1 id="HashMap、HashTable、HashSet和concurrentHashMap"><a href="#HashMap、HashTable、HashSet和concurrentHashMap" class="headerlink" title="HashMap、HashTable、HashSet和concurrentHashMap"></a>HashMap、HashTable、HashSet和concurrentHashMap</h1><ol>
-<li><p>多线程情况下HashMap死循环的问题<br>两个线程在rehash的时候，因为有next = e.next;e = next;的操作，有可能形成环路。<br><a href="https://coolshell.cn/articles/9606.html" target="_blank" rel="noopener">参考</a></p>
-</li>
-<li><p>HashMap 的工作原理及代码实现<br><a href="http://www.cnblogs.com/ITtangtang/p/3948406.html" target="_blank" rel="noopener">http://www.cnblogs.com/ITtangtang/p/3948406.html</a></p>
-</li>
-<li><p>hashMap什么时候用到红黑树<br><a href="https://blog.csdn.net/u011240877/article/details/53358305" target="_blank" rel="noopener">java1.8中当单链的长度超过8的时候会转化为红黑树</a><br><a href="https://blog.csdn.net/u011240877/article/details/53329023" target="_blank" rel="noopener">什么是红黑树</a><br><a href="https://blog.csdn.net/sun_tttt/article/details/65445754" target="_blank" rel="noopener">https://blog.csdn.net/sun_tttt/article/details/65445754</a></p>
-</li>
-<li><p>HashMap出现Hash DOS攻击的问题<br>把key都设计成一个hash，这样插入就成为一个单链表结构了<br><a href="https://coolshell.cn/articles/6424.html" target="_blank" rel="noopener">https://coolshell.cn/articles/6424.html</a></p>
-</li>
-<li><p>HashMap 和 Hashtable 的区别<br><a href="http://www.importnew.com/24822.html" target="_blank" rel="noopener">http://www.importnew.com/24822.html</a><br>（1）hashtable是线程安全的，所有的方法都加上了synchronized<br>（2）初始容量、扩容和hash算法不同<br>hashMap 16，扩容是*2，hash直接用位运算取模，效率高但是偶数分布不均匀，所以又跟length-1与了一下，将hash打散<br>hashTable 11，扩容是*2+1，hash用除法取模，分布均匀但是效率比较低<br>（3）1.8以及以后，hashmap的链表用红黑树存储了，提高了查询效率</p>
-</li>
-<li><p>HashMap 和 HashSet 区别<br><a href="https://blog.csdn.net/u010698072/article/details/52802179" target="_blank" rel="noopener">https://blog.csdn.net/u010698072/article/details/52802179</a><br>hashSet其实内部就是用hashMap实现的，hashSet服务于对象，在add的时候将这个对象作为map的key，set内部会new一个final类型修饰的Object作为value。</p>
-</li>
-<li><p>HashMap 和 ConcurrentHashMap 的区别<br>ConcurrentHashMap是线程安全的，ConcurrentHashMap使用了锁分段技术，维护了一个继承ReetrantLock的的segment数组，每一个segment对象对应部分Entry。</p>
-</li>
-<li><p>ConcurrentHashMap 的工作原理及代码实现，如何统计所有的元素个数<br>锁分段技术</p>
-<ul>
-<li>获取segment<br>根据concurrentLevel确定segment数组的大小，其实就是确定锁的多少<br>获取hash，需要再散列，为了把分布打散，比hashMap打散的更彻底</li>
-<li>get<br>volitile修饰所有变量，保持可见性</li>
-<li>put<br>（1）判断容量是否足够，如果不够的话，对segment扩容，新建一个2倍大小的数组插入，先判断后扩容，hash是先扩容后判断<br>（2）加锁插入，其实segment内部的实现跟hashmap很相似</li>
-<li>size<br>将所有的segment的大小相加，但是在多线程的时候，不能保证count的值在计算的过程中不变化，所以会尝试两次计算size，如果两次都失败了，再锁住所有segment，进行容量计算。</li>
-</ul>
-</li>
-<li><p>hashMap的优化方案<br><a href="http://www.importnew.com/21429.html" target="_blank" rel="noopener">http://www.importnew.com/21429.html</a></p>
-</li>
-<li><p>谈谈HashMap，哈希表解决hash冲突的方法；<br>分离链接、开放定址（取模，平方取模，再取模）<br>java 8 在链表长度达到8，桶的数量达到64的时候，会建一个红黑树来保存元素</p>
-</li>
-</ol>
-<h1 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h1><ol>
+        <h1 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h1><ol>
 <li><p>说说 CountDownLatch、CyclicBarrier 原理和区别</p>
 <ul>
 <li><p>CountDownLatch 允许一个线程或多个线程等待其他线程完成工作。<br>一个获取共享状态的同步器。</p>
@@ -344,7 +303,7 @@
           </li>
           <li class="post-copyright-link">
           <strong>本文链接:  </strong>
-          <a href="/2019/11/04/分布式编程与锁/分布式编程与锁/" target="_blank" title="分布式编程知识点">https://mayu1991.github.io/2019/11/04/分布式编程与锁/分布式编程与锁/</a>
+          <a href="/2019/11/04/分布式编程与锁/分布式编程与锁/" target="_blank" title="分布式编程知识点汇总">https://mayu1991.github.io/2019/11/04/分布式编程与锁/分布式编程与锁/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明:   </strong>
@@ -384,7 +343,7 @@
       
       
         
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashMap/">HashMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/currentHashMap/">currentHashMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式编程/">分布式编程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/知识点/">知识点</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线程池/">线程池</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/锁/">锁</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式编程/">分布式编程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/知识点/">知识点</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线程池/">线程池</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/锁/">锁</a></li></ul>
 
       
 
@@ -394,10 +353,19 @@
     
 <nav id="article-nav">
   
+    <a href="/2019/11/06/分布式编程与锁/HashMap整理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          HashMap整理
+        
+      </div>
+    </a>
   
-    <a href="/2019/07/16/开发工具/常用工具记录/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/2019/09/03/java基础/常用关键字/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">常用工具记录</div>
+      <div class="article-nav-title">常用关键字</div>
     </a>
   
 </nav>
@@ -411,7 +379,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常见关键字"><span class="nav-number">1.</span> <span class="nav-text">常见关键字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap、HashTable、HashSet和concurrentHashMap"><span class="nav-number">2.</span> <span class="nav-text">HashMap、HashTable、HashSet和concurrentHashMap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#并发编程"><span class="nav-number">3.</span> <span class="nav-text">并发编程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程与线程池"><span class="nav-number">4.</span> <span class="nav-text">线程与线程池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁"><span class="nav-number">5.</span> <span class="nav-text">锁</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#并发编程"><span class="nav-number">1.</span> <span class="nav-text">并发编程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程与线程池"><span class="nav-number">2.</span> <span class="nav-text">线程与线程池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁"><span class="nav-number">3.</span> <span class="nav-text">锁</span></a></li></ol>
     
     </div>
   </aside>
