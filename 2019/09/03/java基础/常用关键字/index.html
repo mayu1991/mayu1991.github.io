@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="密斯特马的技术笔记">
 <meta property="og:description" content="transientJava transient关键字使用小记  一旦变量被transient修饰，变量将不再是对象持久化的一部分，该变量内容在序列化后无法获得访问。  transient关键字只能修饰变量，而不能修饰方法和类。注意，本地变量是不能被transient关键字修饰的。变量如果是用户自定义类变量，则该类需要实现Serializable接口。  被transient关键字修饰的变量不再能被">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-06T08:21:58.071Z">
+<meta property="og:updated_time" content="2019-11-18T09:27:03.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用关键字">
 <meta name="twitter:description" content="transientJava transient关键字使用小记  一旦变量被transient修饰，变量将不再是对象持久化的一部分，该变量内容在序列化后无法获得访问。  transient关键字只能修饰变量，而不能修饰方法和类。注意，本地变量是不能被transient关键字修饰的。变量如果是用户自定义类变量，则该类需要实现Serializable接口。  被transient关键字修饰的变量不再能被">
@@ -201,13 +201,16 @@
 <li><p>被transient关键字修饰的变量不再能被序列化，一个静态变量不管是否被transient修饰，均不能被序列化。</p>
 </li>
 </ol>
-<h1 id="volatile-实现原理"><a href="#volatile-实现原理" class="headerlink" title="volatile 实现原理"></a>volatile 实现原理</h1><p>禁止指令重排、刷新内存</p>
+<h1 id="volatile-实现原理"><a href="#volatile-实现原理" class="headerlink" title="volatile 实现原理"></a>volatile 实现原理</h1><p>禁止指令重排、刷新内存<br>LoadLoad：禁止上面的volatile读与下面的普通读重排序<br>LoadStore：禁止上面的volatile读与下面的普通写重排序<br>StoreLoad：禁止上面的volatile写与下面的volatile读/写重排序<br>StoreStore：禁止上面的所有操作与下面的volatile写重排序</p>
 <h1 id="synchronized-实现原理（对象监视器）"><a href="#synchronized-实现原理（对象监视器）" class="headerlink" title="synchronized 实现原理（对象监视器）"></a>synchronized 实现原理（对象监视器）</h1><p>利用了对象的对象监视器 monitor ，每一个对象都有自己的对象锁，当这个对象被synchronized修饰了之后，jvm编译的时候会在获取这个对象实例之前插入一个monitor enter指令</p>
 <h1 id="final关键字的内存语义"><a href="#final关键字的内存语义" class="headerlink" title="final关键字的内存语义"></a>final关键字的内存语义</h1><p><a href="https://www.jianshu.com/p/1f4b0f98cbf1" target="_blank" rel="noopener">参考</a></p>
-<pre><code>* final可以修饰类，该类不能被继承。
-* final可以修饰方法，该方法不能被重写。(覆盖，复写)
-* final可以修饰变量，该变量不能被重新赋值。因为这个变量其实常量。
-</code></pre>
+<ul>
+<li>final可以修饰类，该类不能被继承。</li>
+<li>final可以修饰方法，该方法不能被重写。(覆盖，复写)</li>
+<li>final可以修饰变量，该变量不能被重新赋值。因为这个变量其实是常量。</li>
+<li>final如果修饰形参，其实仍然是可以对这个参数修改。</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
@@ -280,7 +283,7 @@
     </a>
   
   
-    <a href="/2019/09/01/java基础/java基础知识点汇总/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/09/01/java基础/java基础整理/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">java基础知识点汇总</div>
     </a>
