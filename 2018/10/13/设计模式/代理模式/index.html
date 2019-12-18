@@ -91,7 +91,7 @@
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    18k
+                    17k
                 </span>
                 
                 
@@ -143,7 +143,7 @@
 <h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>其实就是针对优点的一些使用场景：</p>
 <ol>
 <li>因为安全原因需要屏蔽客户端直接访问对象。</li>
-<li>在远程调用中需要使用代理类处理远程方法调用的技术细节 (如 <a href="https://blog.csdn.net/lmy86263/article/details/72594760" target="_blank" rel="noopener">RMI</a>)。</li>
+<li>在远程调用中需要使用代理类处理远程方法调用的技术细节 (如 <a href="https://blog.csdn.net/lmy86263/article/details/72594760">RMI</a>)。</li>
 <li>为了提升系统性能，对真实对象进行封装，从而达到延迟加载的目的。</li>
 </ol>
 <blockquote>
@@ -238,7 +238,7 @@
 <li>比反射开销小，性能高。</li>
 <li>JAVAsist性能高于反射，低于ASM</li>
 </ol>
-<p>怎么用可以参考：<br><a href="https://segmentfault.com/a/1190000015654823" target="_blank" rel="noopener">动态字节码操作-Javassist介绍</a><br><a href="https://www.jianshu.com/p/43424242846b" target="_blank" rel="noopener">Javassist 使用指南（一）</a></p>
+<p>怎么用可以参考：<br><a href="https://segmentfault.com/a/1190000015654823">动态字节码操作-Javassist介绍</a><br><a href="https://www.jianshu.com/p/43424242846b">Javassist 使用指南（一）</a></p>
 <h4 id="ByteBuddy"><a href="#ByteBuddy" class="headerlink" title="ByteBuddy"></a>ByteBuddy</h4><p>Byte Buddy 是直接对字节码编程的框架。当然在速度上会优于javassist。</p>
 <p>Byte Buddy 的主要侧重点在于以最少的运行时生成代码。通常，类型创建或操作不是任何程序中的常见步骤，并不会对任何长期运行的应用程序产生重大影响；特别是因为类加载或类构建（class instrumentation）是运行此类代码时最耗时且不可避免的步骤。</p>
 <p>具体的效率可以参见下表（从网上扣的图，没有实测过）<br><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g12az62dkkj31ja0gc0wy.jpg" alt></p>
@@ -256,7 +256,7 @@
 <li>Spring事务失效（事务嵌套），JDK动态代理给Spring事务埋下的坑？</li>
 <li>动态代理（CGLib 与 JDK）、优缺点、性能对比、如何选择？</li>
 </ol>
-<h3 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h3><h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-proxy-pattern/index.html" target="_blank" rel="noopener">代理模式原理及实例讲解</a><br><a href="https://blog.csdn.net/carson_ho/article/details/54910472" target="_blank" rel="noopener">代理模式（Proxy Pattern）- 最易懂的设计模式解析</a><br><a href="http://www.importnew.com/27772.html" target="_blank" rel="noopener">Java Proxy 和 CGLIB 动态代理原理</a><br><a href="https://segmentfault.com/a/1190000014909002" target="_blank" rel="noopener">Java反射机制及API使用</a><br><a href="https://blog.csdn.net/zghwaicsdn/article/details/50957474" target="_blank" rel="noopener">CGLIB介绍与原理</a><br><a href="https://www.cnkirito.moe/rpc-dynamic-proxy/" target="_blank" rel="noopener">深入理解RPC之动态代理篇</a><br><a href="https://zhuanlan.zhihu.com/p/28870960" target="_blank" rel="noopener">Java JDK代理、CGLIB、AspectJ代理分析比较</a><br><a href="https://www.jianshu.com/p/3ea4a6b57f87" target="_blank" rel="noopener">深入分析Java方法反射的实现原理</a><br><a href="https://notes.diguage.com/byte-buddy-tutorial/" target="_blank" rel="noopener">Byte Buddy 教程</a></p>
+<h3 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h3><h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-proxy-pattern/index.html">代理模式原理及实例讲解</a><br><a href="https://blog.csdn.net/carson_ho/article/details/54910472">代理模式（Proxy Pattern）- 最易懂的设计模式解析</a><br><a href="http://www.importnew.com/27772.html">Java Proxy 和 CGLIB 动态代理原理</a><br><a href="https://segmentfault.com/a/1190000014909002">Java反射机制及API使用</a><br><a href="https://blog.csdn.net/zghwaicsdn/article/details/50957474">CGLIB介绍与原理</a><br><a href="https://www.cnkirito.moe/rpc-dynamic-proxy/">深入理解RPC之动态代理篇</a><br><a href="https://zhuanlan.zhihu.com/p/28870960">Java JDK代理、CGLIB、AspectJ代理分析比较</a><br><a href="https://www.jianshu.com/p/3ea4a6b57f87">深入分析Java方法反射的实现原理</a><br><a href="https://notes.diguage.com/byte-buddy-tutorial/">Byte Buddy 教程</a></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
@@ -284,7 +284,7 @@
                 <div class="subbox">
                     <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height="300" width="300">
                     <p>manoo</p>
-                    <span>Think like an artist, develop like an artisan</span>
+                    <span></span>
                     <dl>
                         <dd><a href="https://github.com/TriDiamond" target="_blank"><span class=" iconfont icon-github"></span></a></dd>
                         <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span class=" iconfont icon-twitter"></span></a></dd>
@@ -292,9 +292,9 @@
                     </dl>
                 </div>
                 <ul>
-                    <li><a href="/">27 <p>文章</p></a></li>
-                    <li><a href="/categories">12 <p>分类</p></a></li>
-                    <li><a href="/tags">31 <p>标签</p></a></li>
+                    <li><a href="/">26 <p>文章</p></a></li>
+                    <li><a href="/categories">13 <p>分类</p></a></li>
+                    <li><a href="/tags">32 <p>标签</p></a></li>
                 </ul>
             </div>
             
@@ -423,6 +423,8 @@
 
     <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
 
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/java/java.min.js"></script>
+
 
 
     <script src="/js/busuanzi.min.js"></script>
@@ -509,7 +511,7 @@
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["Think like an artist, develop like an artisan", "艺术家思维去思考问题，工匠创造精神去开发"],
+                strings: ["", "重拾初心，砥砺前行"],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,

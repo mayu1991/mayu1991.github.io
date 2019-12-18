@@ -86,7 +86,7 @@
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    8.1k
+                    7.5k
                 </span>
                 
                 
@@ -199,7 +199,7 @@
 <li>桶的大小怎么设计才合理</li>
 <li>散列函数怎么设计才合理</li>
 </ul>
-<p>桶的大小<br>有证明其实素数在打散的效果上是更好的，可以参考这个文章<a href="https://blog.csdn.net/liuqiyao_01/article/details/14475159" target="_blank" rel="noopener">为什么一般的hashTable的桶数会取一个素数</a>。但是HashMap还是选择了2的指数幂作为桶数。这就引出了「为什么HashMap的桶的大小为2的指数倍」这个问题。</p>
+<p>桶的大小<br>有证明其实素数在打散的效果上是更好的，可以参考这个文章<a href="https://blog.csdn.net/liuqiyao_01/article/details/14475159">为什么一般的hashTable的桶数会取一个素数</a>。但是HashMap还是选择了2的指数幂作为桶数。这就引出了「为什么HashMap的桶的大小为2的指数倍」这个问题。</p>
 <p>散列函数<br>为什么HashMap的桶的大小为2的指数倍？<br>这是从性能角度出发的，为了优化用位运算代替取余运算，同时也方便在扩容时优化。</p>
 <ul>
 <li>只有长度为2的指数幂的时候，位运算和取余运算才相等，这个时候散列函数计算结果比较分散。</li>
@@ -222,9 +222,9 @@
 <li>size<br>将所有的segment的大小相加，但是在多线程的时候，不能保证count的值在计算的过程中不变化，所以会尝试两次计算size，如果两次都失败了，再锁住所有segment，进行容量计算。</li>
 </ul>
 <h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><ul>
-<li><p>HashMap 和 Hashtable 的区别<br><a href="http://www.importnew.com/24822.html" target="_blank" rel="noopener">http://www.importnew.com/24822.html</a><br>（1）hashtable是线程安全的，所有的方法都加上了synchronized<br>（2）初始容量、扩容和hash算法不同<br>hashMap 16，扩容是*2，hash直接用位运算取模，效率高但是偶数分布不均匀，所以又跟length-1与了一下，将hash打散<br>hashTable 11，扩容是*2+1，hash用除法取模，分布均匀但是效率比较低<br>（3）1.8以及以后，hashmap的链表用红黑树存储了，提高了查询效率</p>
+<li><p>HashMap 和 Hashtable 的区别<br><a href="http://www.importnew.com/24822.html">http://www.importnew.com/24822.html</a><br>（1）hashtable是线程安全的，所有的方法都加上了synchronized<br>（2）初始容量、扩容和hash算法不同<br>hashMap 16，扩容是*2，hash直接用位运算取模，效率高但是偶数分布不均匀，所以又跟length-1与了一下，将hash打散<br>hashTable 11，扩容是*2+1，hash用除法取模，分布均匀但是效率比较低<br>（3）1.8以及以后，hashmap的链表用红黑树存储了，提高了查询效率</p>
 </li>
-<li><p>HashMap 和 HashSet 区别<br><a href="https://blog.csdn.net/u010698072/article/details/52802179" target="_blank" rel="noopener">https://blog.csdn.net/u010698072/article/details/52802179</a><br>hashSet其实内部就是用hashMap实现的，hashSet服务于对象，在add的时候将这个对象作为map的key，set内部会new一个final类型修饰的Object作为value。</p>
+<li><p>HashMap 和 HashSet 区别<br><a href="https://blog.csdn.net/u010698072/article/details/52802179">https://blog.csdn.net/u010698072/article/details/52802179</a><br>hashSet其实内部就是用hashMap实现的，hashSet服务于对象，在add的时候将这个对象作为map的key，set内部会new一个final类型修饰的Object作为value。</p>
 </li>
 <li><p>HashMap 和 ConcurrentHashMap 的区别<br>ConcurrentHashMap是线程安全的，ConcurrentHashMap使用了锁分段技术，维护了一个继承ReetrantLock的的segment数组，每一个segment对象对应部分Entry。</p>
 </li>
@@ -232,14 +232,14 @@
 </li>
 </ul>
 <h1 id="常见方案"><a href="#常见方案" class="headerlink" title="常见方案"></a>常见方案</h1><ul>
-<li><p>hashMap的优化方案<br><a href="http://www.importnew.com/21429.html" target="_blank" rel="noopener">http://www.importnew.com/21429.html</a></p>
+<li><p>hashMap的优化方案<br><a href="http://www.importnew.com/21429.html">http://www.importnew.com/21429.html</a></p>
 </li>
 <li><p>谈谈HashMap，哈希表解决hash冲突的方法；</p>
 <ul>
 <li>开放定址</li>
 <li>再hash</li>
 <li>链地址法</li>
-<li>建立公共溢出区<br><a href="https://www.cnblogs.com/wuchaodzxx/p/7396599.html" target="_blank" rel="noopener">参考</a></li>
+<li>建立公共溢出区<br><a href="https://www.cnblogs.com/wuchaodzxx/p/7396599.html">参考</a></li>
 </ul>
 </li>
 </ul>
@@ -247,16 +247,16 @@
 <p>java 8 在链表长度达到8，桶的数量达到64的时候，会建一个红黑树来保存元素</p>
 </blockquote>
 <ul>
-<li><p>多线程情况下HashMap死循环的问题<br>两个线程在rehash的时候，因为有next = e.next;e = next;的操作，有可能形成环路。<br><a href="https://coolshell.cn/articles/9606.html" target="_blank" rel="noopener">参考</a></p>
+<li><p>多线程情况下HashMap死循环的问题<br>两个线程在rehash的时候，因为有next = e.next;e = next;的操作，有可能形成环路。<br><a href="https://coolshell.cn/articles/9606.html">参考</a></p>
 </li>
-<li><p>hashMap什么时候用到红黑树<br><a href="https://blog.csdn.net/u011240877/article/details/53358305" target="_blank" rel="noopener">java1.8中当单链的长度超过8的时候会转化为红黑树</a><br><a href="https://blog.csdn.net/u011240877/article/details/53329023" target="_blank" rel="noopener">什么是红黑树</a><br><a href="https://blog.csdn.net/sun_tttt/article/details/65445754" target="_blank" rel="noopener">https://blog.csdn.net/sun_tttt/article/details/65445754</a></p>
+<li><p>hashMap什么时候用到红黑树<br><a href="https://blog.csdn.net/u011240877/article/details/53358305">java1.8中当单链的长度超过8的时候会转化为红黑树</a><br><a href="https://blog.csdn.net/u011240877/article/details/53329023">什么是红黑树</a><br><a href="https://blog.csdn.net/sun_tttt/article/details/65445754">https://blog.csdn.net/sun_tttt/article/details/65445754</a></p>
 </li>
-<li><p>HashMap出现Hash DOS攻击的问题<br>把key都设计成一个hash，这样插入就成为一个单链表结构了<br><a href="https://coolshell.cn/articles/6424.html" target="_blank" rel="noopener">https://coolshell.cn/articles/6424.html</a></p>
+<li><p>HashMap出现Hash DOS攻击的问题<br>把key都设计成一个hash，这样插入就成为一个单链表结构了<br><a href="https://coolshell.cn/articles/6424.html">https://coolshell.cn/articles/6424.html</a></p>
 </li>
-<li><p>一致性hash算法<br>  <a href="https://juejin.im/post/5ae1476ef265da0b8d419ef2" target="_blank" rel="noopener">参考</a></p>
+<li><p>一致性hash算法<br>  <a href="https://juejin.im/post/5ae1476ef265da0b8d419ef2">参考</a></p>
 </li>
 </ul>
-<h1 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h1><p><a href="https://www.cnblogs.com/ysocean/p/9054804.html" target="_blank" rel="noopener">HashMap的求余%和与运算&amp;转换问题</a><br><a href="https://tech.meituan.com/2016/06/24/java-hashmap.html" target="_blank" rel="noopener">HashMap原理和源码分析</a><br><a href="https://blog.csdn.net/liuqiyao_01/article/details/14475159" target="_blank" rel="noopener">HashTable的桶数为什么取素数</a><br><a href="https://blog.csdn.net/qq_36520235/article/details/82417949" target="_blank" rel="noopener">HashMap的结构，1.7和1.8有哪些区别</a><br><a href="https://blog.csdn.net/mgl934973491/article/details/60466487" target="_blank" rel="noopener">HashMap的扩容机制</a><br><a href="http://www.cnblogs.com/ITtangtang/p/3948406.html" target="_blank" rel="noopener">HashMap源码解析</a><br><a href="https://juejin.im/post/5ab99afff265da23a2291dee" target="_blank" rel="noopener">HashMap的hash方法剖析</a></p>
+<h1 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h1><p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">HashMap的求余%和与运算&amp;转换问题</a><br><a href="https://tech.meituan.com/2016/06/24/java-hashmap.html">HashMap原理和源码分析</a><br><a href="https://blog.csdn.net/liuqiyao_01/article/details/14475159">HashTable的桶数为什么取素数</a><br><a href="https://blog.csdn.net/qq_36520235/article/details/82417949">HashMap的结构，1.7和1.8有哪些区别</a><br><a href="https://blog.csdn.net/mgl934973491/article/details/60466487">HashMap的扩容机制</a><br><a href="http://www.cnblogs.com/ITtangtang/p/3948406.html">HashMap源码解析</a><br><a href="https://juejin.im/post/5ab99afff265da23a2291dee">HashMap的hash方法剖析</a></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
@@ -284,7 +284,7 @@
                 <div class="subbox">
                     <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height="300" width="300">
                     <p>manoo</p>
-                    <span>Think like an artist, develop like an artisan</span>
+                    <span></span>
                     <dl>
                         <dd><a href="https://github.com/TriDiamond" target="_blank"><span class=" iconfont icon-github"></span></a></dd>
                         <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span class=" iconfont icon-twitter"></span></a></dd>
@@ -292,9 +292,9 @@
                     </dl>
                 </div>
                 <ul>
-                    <li><a href="/">27 <p>文章</p></a></li>
-                    <li><a href="/categories">12 <p>分类</p></a></li>
-                    <li><a href="/tags">31 <p>标签</p></a></li>
+                    <li><a href="/">26 <p>文章</p></a></li>
+                    <li><a href="/categories">13 <p>分类</p></a></li>
+                    <li><a href="/tags">32 <p>标签</p></a></li>
                 </ul>
             </div>
             
@@ -423,6 +423,8 @@
 
     <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
 
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/java/java.min.js"></script>
+
 
 
     <script src="/js/busuanzi.min.js"></script>
@@ -509,7 +511,7 @@
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["Think like an artist, develop like an artisan", "艺术家思维去思考问题，工匠创造精神去开发"],
+                strings: ["", "重拾初心，砥砺前行"],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,

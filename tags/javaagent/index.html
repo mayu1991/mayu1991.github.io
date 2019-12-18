@@ -48,7 +48,7 @@
         </li>
         
         <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="/archives/" title="文章列表">文章列表</a>
+            <a href="/archives/" title="时间轴">时间轴</a>
         </li>
         
     </ul>
@@ -90,7 +90,7 @@
             </li>
             
             <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-                <a href="/archives/" title="文章列表" class="menu-link">文章列表</a>
+                <a href="/archives/" title="时间轴" class="menu-link">时间轴</a>
             </li>
             
             
@@ -150,7 +150,7 @@
 <h3 id="Step1-搭建agent的框架，实现动态加载"><a href="#Step1-搭建agent的框架，实现动态加载" class="headerlink" title="Step1 搭建agent的框架，实现动态加载"></a>Step1 搭建agent的框架，实现动态加载</h3><blockquote>
 <p>Premain.java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Premain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public...</span></span></span></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Premain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">premain</span><span class="params">(String agentArgs, Instrumentation inst)</span> <span class="keyword">throws</span> ClassNotFoundException, UnmodifiableClassE...</span></span></pre></td></tr></table></figure>
             
             <span class="read-more"><a href="/2019/03/04/链路监控/自己动手写一个简单的javaagent（一）/" title="查看全文" class="posttitle">查看全文</a>
                 <b class="iconfont icon-arrow-right- gradient-text"></b></span>
@@ -194,13 +194,13 @@
                 
                     <span>
                         <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        5.2k
+                        4.8k
                     </span>
                 
                 
                     <span>
                         <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                        5 mins.
+                        4 mins.
                     </span>
                 
                 
@@ -222,7 +222,7 @@
 <li><p>怎么在代码无侵入的要求下运行监控程序？</p>
 <ul>
 <li>如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务进行交互。</li>
-<li>如何将探针的程序注入到应用程序里呢？利用 <a href="https://www.infoq.cn/article/javaagent-illustrated" target="_blank" rel="noopener">javaagent的Instrument</a>。</li>
+<li>如何将探针的程序注入到应用程序里呢？利用 <a href="https://www.infoq.cn/article/javaagent-illustrated">javaagent的Instrument</a>。</li>
 </ul>
 </li>
 <li><p>怎么收集...</p></li></ol>
@@ -348,6 +348,8 @@
 
     <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
 
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/java/java.min.js"></script>
+
 
 
     <script src="/js/busuanzi.min.js"></script>
@@ -434,7 +436,7 @@
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["Think like an artist, develop like an artisan", "艺术家思维去思考问题，工匠创造精神去开发"],
+                strings: ["", "重拾初心，砥砺前行"],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,

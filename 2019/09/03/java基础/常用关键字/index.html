@@ -89,7 +89,7 @@ transient关键字只能修,">
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    1.4k
+                    1.3k
                 </span>
                 
                 
@@ -129,7 +129,7 @@ transient关键字只能修,">
 <div class="article">
     <div class="main">
         <div class="content markdown animated fadeIn">
-            <h1 id="transient"><a href="#transient" class="headerlink" title="transient"></a>transient</h1><p><a href="https://www.cnblogs.com/lanxuezaipiao/p/3369962.html" target="_blank" rel="noopener">Java transient关键字使用小记</a></p>
+            <h1 id="transient"><a href="#transient" class="headerlink" title="transient"></a>transient</h1><p><a href="https://www.cnblogs.com/lanxuezaipiao/p/3369962.html">Java transient关键字使用小记</a></p>
 <ol>
 <li><p>一旦变量被transient修饰，变量将不再是对象持久化的一部分，该变量内容在序列化后无法获得访问。</p>
 </li>
@@ -140,7 +140,7 @@ transient关键字只能修,">
 </ol>
 <h1 id="volatile-实现原理"><a href="#volatile-实现原理" class="headerlink" title="volatile 实现原理"></a>volatile 实现原理</h1><p>禁止指令重排、刷新内存<br>LoadLoad：禁止上面的volatile读与下面的普通读重排序<br>LoadStore：禁止上面的volatile读与下面的普通写重排序<br>StoreLoad：禁止上面的volatile写与下面的volatile读/写重排序<br>StoreStore：禁止上面的所有操作与下面的volatile写重排序</p>
 <h1 id="synchronized-实现原理（对象监视器）"><a href="#synchronized-实现原理（对象监视器）" class="headerlink" title="synchronized 实现原理（对象监视器）"></a>synchronized 实现原理（对象监视器）</h1><p>利用了对象的对象监视器 monitor ，每一个对象都有自己的对象锁，当这个对象被synchronized修饰了之后，jvm编译的时候会在获取这个对象实例之前插入一个monitor enter指令</p>
-<h1 id="final关键字的内存语义"><a href="#final关键字的内存语义" class="headerlink" title="final关键字的内存语义"></a>final关键字的内存语义</h1><p><a href="https://www.jianshu.com/p/1f4b0f98cbf1" target="_blank" rel="noopener">参考</a></p>
+<h1 id="final关键字的内存语义"><a href="#final关键字的内存语义" class="headerlink" title="final关键字的内存语义"></a>final关键字的内存语义</h1><p><a href="https://www.jianshu.com/p/1f4b0f98cbf1">参考</a></p>
 <ul>
 <li>final可以修饰类，该类不能被继承。</li>
 <li>final可以修饰方法，该方法不能被重写。(覆盖，复写)</li>
@@ -174,7 +174,7 @@ transient关键字只能修,">
                 <div class="subbox">
                     <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height="300" width="300">
                     <p>manoo</p>
-                    <span>Think like an artist, develop like an artisan</span>
+                    <span></span>
                     <dl>
                         <dd><a href="https://github.com/TriDiamond" target="_blank"><span class=" iconfont icon-github"></span></a></dd>
                         <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span class=" iconfont icon-twitter"></span></a></dd>
@@ -182,9 +182,9 @@ transient关键字只能修,">
                     </dl>
                 </div>
                 <ul>
-                    <li><a href="/">27 <p>文章</p></a></li>
-                    <li><a href="/categories">12 <p>分类</p></a></li>
-                    <li><a href="/tags">31 <p>标签</p></a></li>
+                    <li><a href="/">26 <p>文章</p></a></li>
+                    <li><a href="/categories">13 <p>分类</p></a></li>
+                    <li><a href="/tags">32 <p>标签</p></a></li>
                 </ul>
             </div>
             
@@ -313,6 +313,8 @@ transient关键字只能修,">
 
     <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
 
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/java/java.min.js"></script>
+
 
 
     <script src="/js/busuanzi.min.js"></script>
@@ -399,7 +401,7 @@ transient关键字只能修,">
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["Think like an artist, develop like an artisan", "艺术家思维去思考问题，工匠创造精神去开发"],
+                strings: ["", "重拾初心，砥砺前行"],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,

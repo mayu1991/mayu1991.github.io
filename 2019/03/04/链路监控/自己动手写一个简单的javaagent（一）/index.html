@@ -161,11 +161,11 @@ Premain.java
 <blockquote>
 <p>因为双亲类加载的原因，javaagent是无法获取应用程序的类，但是我这里是直接获取javaagent自己的类，所以不是classloader的问题。</p>
 </blockquote>
-<p> <a href="http://ifeve.com/classnotfoundexception-is-it-slowing-down-your-jvm/" target="_blank" rel="noopener">ClassNotFoundException: 真的会使你的JVM慢下来吗？</a><br> <a href="https://blog.csdn.net/belalds/article/details/83105685" target="_blank" rel="noopener">深入理解Java ClassLoader及在 JavaAgent 中的应用</a></p>
+<p> <a href="http://ifeve.com/classnotfoundexception-is-it-slowing-down-your-jvm/">ClassNotFoundException: 真的会使你的JVM慢下来吗？</a><br> <a href="https://blog.csdn.net/belalds/article/details/83105685">深入理解Java ClassLoader及在 JavaAgent 中的应用</a></p>
 </li>
 </ol>
 <ol start="2">
-<li><p>将<code>myagent.jar</code>解压了一下，发现确实没有<code>com.manoo.agent.Premain</code>这个类，再看看发现我的classes类是在BOOT-INF/classes 路径下了。为了方便，我是直接用Spring boot创建的项目。用了<a href="https://www.cnblogs.com/acm-bingzi/p/mavenSpringBootPlugin.html" target="_blank" rel="noopener">spring-boot-maven-plugin</a>打包，导致项目被打成了Spring boot的结构的jar包。</p>
+<li><p>将<code>myagent.jar</code>解压了一下，发现确实没有<code>com.manoo.agent.Premain</code>这个类，再看看发现我的classes类是在BOOT-INF/classes 路径下了。为了方便，我是直接用Spring boot创建的项目。用了<a href="https://www.cnblogs.com/acm-bingzi/p/mavenSpringBootPlugin.html">spring-boot-maven-plugin</a>打包，导致项目被打成了Spring boot的结构的jar包。</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
 <p> <img src="https://ws1.sinaimg.cn/large/006tKfTcly1g0z5u8rz00j30ve0hadji.jpg" alt="spring boot项目打包后的MANIFEST"></p>
 <blockquote>
@@ -180,7 +180,7 @@ Premain.java
 <li>判断哪些类需要被监控或者说被增强</li>
 <li>怎么实现被监控类的增强<ul>
 <li>javassist</li>
-<li>byteBuddy<a href="https://notes.diguage.com/byte-buddy-tutorial/" target="_blank" rel="noopener">（教程）</a></li>
+<li>byteBuddy<a href="https://notes.diguage.com/byte-buddy-tutorial/">（教程）</a></li>
 </ul>
 </li>
 </ol>
@@ -215,7 +215,7 @@ Premain.java
                 <div class="subbox">
                     <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height="300" width="300">
                     <p>manoo</p>
-                    <span>Think like an artist, develop like an artisan</span>
+                    <span></span>
                     <dl>
                         <dd><a href="https://github.com/TriDiamond" target="_blank"><span class=" iconfont icon-github"></span></a></dd>
                         <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span class=" iconfont icon-twitter"></span></a></dd>
@@ -223,9 +223,9 @@ Premain.java
                     </dl>
                 </div>
                 <ul>
-                    <li><a href="/">27 <p>文章</p></a></li>
-                    <li><a href="/categories">12 <p>分类</p></a></li>
-                    <li><a href="/tags">31 <p>标签</p></a></li>
+                    <li><a href="/">26 <p>文章</p></a></li>
+                    <li><a href="/categories">13 <p>分类</p></a></li>
+                    <li><a href="/tags">32 <p>标签</p></a></li>
                 </ul>
             </div>
             
@@ -354,6 +354,8 @@ Premain.java
 
     <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
 
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/java/java.min.js"></script>
+
 
 
     <script src="/js/busuanzi.min.js"></script>
@@ -440,7 +442,7 @@ Premain.java
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["Think like an artist, develop like an artisan", "艺术家思维去思考问题，工匠创造精神去开发"],
+                strings: ["", "重拾初心，砥砺前行"],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,

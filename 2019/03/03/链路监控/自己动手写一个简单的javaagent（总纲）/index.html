@@ -89,13 +89,13 @@
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    5.2k
+                    4.8k
                 </span>
                 
                 
                 <span>
                     <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                    5 mins.
+                    4 mins.
                 </span>
                 
                 
@@ -140,7 +140,7 @@
 <li><p>怎么在代码无侵入的要求下运行监控程序？</p>
 <ul>
 <li>如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务进行交互。</li>
-<li>如何将探针的程序注入到应用程序里呢？利用 <a href="https://www.infoq.cn/article/javaagent-illustrated" target="_blank" rel="noopener">javaagent的Instrument</a>。</li>
+<li>如何将探针的程序注入到应用程序里呢？利用 <a href="https://www.infoq.cn/article/javaagent-illustrated">javaagent的Instrument</a>。</li>
 </ul>
 </li>
 <li><p>怎么收集当前容器信息？</p>
@@ -164,7 +164,7 @@
 <p> “java.lang.instrument”包的具体实现，依赖于JVMTI。在Java SE 5 及其后续版本当中，开发者可以在一个普通 Java 程序（带有 main 函数的 Java 类）运行时，通过 <code>- javaagent</code>参数指定一个特定的jar文件来启动 Instrumentation的代理程序。</p>
 <p> Instrumentation 的最大作用，就是类定义动态改变和操作。而且指令里也可以加上一些启动参数。</p>
 <blockquote>
-<p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html" target="_blank" rel="noopener">怎么获取启动参数？</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html">怎么获取启动参数？</a></p>
 </blockquote>
 <p> <strong>JVMTI</strong></p>
 <p> JVMTI全称 JVM Tool Interface，是 JVM 暴露出来的一些供用户扩展的接口集合。JVMTI 是基于事件驱动的，JVM 每执行到一定的逻辑就会调用一些事件的回调接口（如果有的话），这些接口可以供开发者扩展自己的逻辑。</p>
@@ -202,7 +202,7 @@
 <li>插件的拦截<ol>
 <li>指定需要拦截的类：在AgentBuilder.type处，这里可以指定需要拦截的类</li>
 <li>指定需要拦截的方法：在builder.method处，这里可以指定需要拦截的方法</li>
-<li>将需要拦截的<a href="https://www.jianshu.com/p/fe1448bf7d31" target="_blank" rel="noopener">类重新定义加载【ByteBuddy】</a>       </li>
+<li>将需要拦截的<a href="https://www.jianshu.com/p/fe1448bf7d31">类重新定义加载【ByteBuddy】</a>       </li>
 </ol>
 </li>
 </ol>
@@ -218,7 +218,7 @@
 </li>
 <li><p>拦截了之后如何加强这些类</p>
 </li>
-<li><p><a href="https://blog.myimy.site/2019/03/01/%E9%87%87%E6%A0%B7%E7%8E%87/" target="_blank" rel="noopener">采样率</a>是什么作用<br> 性能和采集效率的一个综合指标，采集率高了对客户端的CPU压力自然会上升，但是采集的数据多了，对业务使用自然是更好的。</p>
+<li><p><a href="https://blog.myimy.site/2019/03/01/%E9%87%87%E6%A0%B7%E7%8E%87/">采样率</a>是什么作用<br> 性能和采集效率的一个综合指标，采集率高了对客户端的CPU压力自然会上升，但是采集的数据多了，对业务使用自然是更好的。</p>
 </li>
 <li><p>一定要引入这么多插件的jar</p>
 </li>
@@ -230,7 +230,7 @@
 <h2 id="次要问题："><a href="#次要问题：" class="headerlink" title="次要问题："></a>次要问题：</h2><ol>
 <li>PluginDefine和AbstractClassEnhancePluginDefine有什么区别？</li>
 </ol>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html" target="_blank" rel="noopener">Instrumentation介绍</a><br><a href="https://blog.csdn.net/fengyuzhengfan/article/details/38086743" target="_blank" rel="noopener">class类简介</a><br><a href="https://www.jianshu.com/p/32d3e108f30a" target="_blank" rel="noopener">SPI和ServiceLoader</a><br><a href="https://blog.csdn.net/github_35180164/article/details/52118286" target="_blank" rel="noopener">公用API的安全狂街-自定义注解生命周期</a><br><a href="https://wu-sheng.gitbooks.io/opentracing-io/content/" target="_blank" rel="noopener">openTracing文档</a><br><a href="https://www.ibm.com/developerworks/cn/java/j-5things13/index.html" target="_blank" rel="noopener">用 Maven 管理项目文件周期的技巧</a><br><a href="https://blog.csdn.net/belalds/article/details/83105685" target="_blank" rel="noopener">深入理解Java ClassLoader及在 JavaAgent 中的应用</a><br><a href="https://juejin.im/post/5ac32eba5188255c313af0dd" target="_blank" rel="noopener">基于Java Instrument的Agent实现</a><br><a href="http://www.hiwzc.com/post/f4997548.html" target="_blank" rel="noopener">JAVA SPI详解</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html">Instrumentation介绍</a><br><a href="https://blog.csdn.net/fengyuzhengfan/article/details/38086743">class类简介</a><br><a href="https://www.jianshu.com/p/32d3e108f30a">SPI和ServiceLoader</a><br><a href="https://blog.csdn.net/github_35180164/article/details/52118286">公用API的安全狂街-自定义注解生命周期</a><br><a href="https://wu-sheng.gitbooks.io/opentracing-io/content/">openTracing文档</a><br><a href="https://www.ibm.com/developerworks/cn/java/j-5things13/index.html">用 Maven 管理项目文件周期的技巧</a><br><a href="https://blog.csdn.net/belalds/article/details/83105685">深入理解Java ClassLoader及在 JavaAgent 中的应用</a><br><a href="https://juejin.im/post/5ac32eba5188255c313af0dd">基于Java Instrument的Agent实现</a><br><a href="http://www.hiwzc.com/post/f4997548.html">JAVA SPI详解</a></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
@@ -258,7 +258,7 @@
                 <div class="subbox">
                     <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height="300" width="300">
                     <p>manoo</p>
-                    <span>Think like an artist, develop like an artisan</span>
+                    <span></span>
                     <dl>
                         <dd><a href="https://github.com/TriDiamond" target="_blank"><span class=" iconfont icon-github"></span></a></dd>
                         <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span class=" iconfont icon-twitter"></span></a></dd>
@@ -266,9 +266,9 @@
                     </dl>
                 </div>
                 <ul>
-                    <li><a href="/">27 <p>文章</p></a></li>
-                    <li><a href="/categories">12 <p>分类</p></a></li>
-                    <li><a href="/tags">31 <p>标签</p></a></li>
+                    <li><a href="/">26 <p>文章</p></a></li>
+                    <li><a href="/categories">13 <p>分类</p></a></li>
+                    <li><a href="/tags">32 <p>标签</p></a></li>
                 </ul>
             </div>
             
@@ -397,6 +397,8 @@
 
     <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
 
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/java/java.min.js"></script>
+
 
 
     <script src="/js/busuanzi.min.js"></script>
@@ -483,7 +485,7 @@
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["Think like an artist, develop like an artisan", "艺术家思维去思考问题，工匠创造精神去开发"],
+                strings: ["", "重拾初心，砥砺前行"],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,

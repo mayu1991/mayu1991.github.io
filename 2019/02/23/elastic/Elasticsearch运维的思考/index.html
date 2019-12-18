@@ -90,7 +90,7 @@
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    2.1k
+                    1.9k
                 </span>
                 
                 
@@ -152,10 +152,10 @@
 <h2 id="如何解决这些问题"><a href="#如何解决这些问题" class="headerlink" title="如何解决这些问题"></a>如何解决这些问题</h2><h3 id="1-预估集群大小"><a href="#1-预估集群大小" class="headerlink" title="1. 预估集群大小"></a>1. 预估集群大小</h3><p>索引吞吐量<br>文档大小<br>搜索吞吐量<br>查询类型<br>热点索引文档数量<br>保留策略<br>响应时间需求<br>SLA 级别  </p>
 <h3 id="2-优化索引设计"><a href="#2-优化索引设计" class="headerlink" title="2. 优化索引设计"></a>2. 优化索引设计</h3><h3 id="3-扩大集群容量"><a href="#3-扩大集群容量" class="headerlink" title="3. 扩大集群容量"></a>3. 扩大集群容量</h3><ul>
 <li><p>数据迁移</p>
-<p>  步骤1：按照新需求，创建你需要分片的索引。<br>  步骤2：<a href="https://blog.csdn.net/u013613428/article/details/78227277" target="_blank" rel="noopener">reindex迁移</a></p>
+<p>  步骤1：按照新需求，创建你需要分片的索引。<br>  步骤2：<a href="https://blog.csdn.net/u013613428/article/details/78227277">reindex迁移</a></p>
 </li>
 </ul>
-<h2 id="解决了这些问题之后，带来的变化"><a href="#解决了这些问题之后，带来的变化" class="headerlink" title="解决了这些问题之后，带来的变化"></a>解决了这些问题之后，带来的变化</h2><h2 id="问题解决之后的思考"><a href="#问题解决之后的思考" class="headerlink" title="问题解决之后的思考"></a>问题解决之后的思考</h2><h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://blog.csdn.net/alan_liuyue/article/details/79585345" target="_blank" rel="noopener">Elasticsearch之如何合理分配索引分片</a><br><a href="https://cloud.tencent.com/developer/article/1361274" target="_blank" rel="noopener">Elasticsearch最佳实践之分片使用优化</a><br><a href="http://www.cnblogs.com/richaaaard/p/5227477.html" target="_blank" rel="noopener">深入理解Shard和Lucene Index</a><br><a href="https://www.infoq.cn/article/elasticsearch-performance-tuning-practice-at-ebay" target="_blank" rel="noopener">ebay的Elasticsearch调优实践</a></p>
+<h2 id="解决了这些问题之后，带来的变化"><a href="#解决了这些问题之后，带来的变化" class="headerlink" title="解决了这些问题之后，带来的变化"></a>解决了这些问题之后，带来的变化</h2><h2 id="问题解决之后的思考"><a href="#问题解决之后的思考" class="headerlink" title="问题解决之后的思考"></a>问题解决之后的思考</h2><h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://blog.csdn.net/alan_liuyue/article/details/79585345">Elasticsearch之如何合理分配索引分片</a><br><a href="https://cloud.tencent.com/developer/article/1361274">Elasticsearch最佳实践之分片使用优化</a><br><a href="http://www.cnblogs.com/richaaaard/p/5227477.html">深入理解Shard和Lucene Index</a><br><a href="https://www.infoq.cn/article/elasticsearch-performance-tuning-practice-at-ebay">ebay的Elasticsearch调优实践</a></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
@@ -183,7 +183,7 @@
                 <div class="subbox">
                     <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height="300" width="300">
                     <p>manoo</p>
-                    <span>Think like an artist, develop like an artisan</span>
+                    <span></span>
                     <dl>
                         <dd><a href="https://github.com/TriDiamond" target="_blank"><span class=" iconfont icon-github"></span></a></dd>
                         <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span class=" iconfont icon-twitter"></span></a></dd>
@@ -191,9 +191,9 @@
                     </dl>
                 </div>
                 <ul>
-                    <li><a href="/">27 <p>文章</p></a></li>
-                    <li><a href="/categories">12 <p>分类</p></a></li>
-                    <li><a href="/tags">31 <p>标签</p></a></li>
+                    <li><a href="/">26 <p>文章</p></a></li>
+                    <li><a href="/categories">13 <p>分类</p></a></li>
+                    <li><a href="/tags">32 <p>标签</p></a></li>
                 </ul>
             </div>
             
@@ -322,6 +322,8 @@
 
     <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
 
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/java/java.min.js"></script>
+
 
 
     <script src="/js/busuanzi.min.js"></script>
@@ -408,7 +410,7 @@
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["Think like an artist, develop like an artisan", "艺术家思维去思考问题，工匠创造精神去开发"],
+                strings: ["", "重拾初心，砥砺前行"],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,

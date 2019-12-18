@@ -48,7 +48,7 @@
         </li>
         
         <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="/archives/" title="文章列表">文章列表</a>
+            <a href="/archives/" title="时间轴">时间轴</a>
         </li>
         
     </ul>
@@ -90,7 +90,7 @@
             </li>
             
             <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-                <a href="/archives/" title="文章列表" class="menu-link">文章列表</a>
+                <a href="/archives/" title="时间轴" class="menu-link">时间轴</a>
             </li>
             
             
@@ -117,16 +117,16 @@
             <a href="/categories/elasticsearch"><b>「
                 </b>ELASTICSEARCH<b> 」</b></a>
             
-            九月 03, 2018
+            九月 01, 2018
         </p>
         <h3 class="post-title animated fadeInDown">
-            <a href="/2018/09/03/elastic/Elasticsearch的集群节点和分区/" title="Elasticsearch的集群节点和分区" class="posttitle">Elasticsearch的集群节点和分区</a></h3>
+            <a href="/2018/09/01/elastic/Elasticsearch的分布式设计原理/" title="Elasticsearch的分布式设计原理" class="posttitle">Elasticsearch的分布式设计原理</a></h3>
         
         <p class="post-count animated fadeInDown">
             
             <span>
                 <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                1.2k
+                197
             </span>
             
             
@@ -139,15 +139,15 @@
         </p>
         
         
-        <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/todo/">todo</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/分布式/">分布式</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/索引/">索引</a></li></ul>
+        <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/todo/">todo</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/分布式/">分布式</a></li></ul>
         
         <div class="md-content animated fadeIn">
             
-            <p>在存储方面，elasticsearch可以看作一个分布式数据库。<br>每一个节点可以看作是一个库，这些节点（分库）在集群内协同工作。一个索引可以看作是库里的表。</p>
-<a id="more"></a>
-<p>一个节点(node)就是一个Elasticsearch...</p>
+            <p><a href="https://www.jianshu.com/p/61dd9fb7d785">ElasticSearch 如何保证数据一致性,实时性</a><br><a href="https://blog.csdn.net/wzdxt/article/details/50868031">为什么ES不适合做数据存储</a></p>
+<p>Elastic主节点选举算法？？？</p>
+
             
-            <span class="read-more"><a href="/2018/09/03/elastic/Elasticsearch的集群节点和分区/" title="查看全文" class="posttitle">查看全文</a>
+            <span class="read-more"><a href="/2018/09/01/elastic/Elasticsearch的分布式设计原理/" title="查看全文" class="posttitle">查看全文</a>
                 <b class="iconfont icon-arrow-right- gradient-text"></b></span>
         </div>
     </div>
@@ -181,56 +181,6 @@
                   <b>「 </b>ELASTICSEARCH<b> 」</b>
                 </a>
             
-            九月 03, 2018
-        </p>
-        <h3 class="post-title animated fadeInDown"><a href="/2018/09/03/elastic/Elasticsearch的集群节点和分区/" title="Elasticsearch的集群节点和分区" class="posttitle">Elasticsearch的集群节点和分区</a></h3>
-        
-            <p class="post-count animated fadeInDown">
-                
-                    <span>
-                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        1.2k
-                    </span>
-                
-                
-                    <span>
-                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                        1 mins.
-                    </span>
-                
-                
-            </p>
-            
-                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/todo/">todo</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/分布式/">分布式</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/索引/">索引</a></li></ul>
-            
-        
-        <div class="md-content animated fadeIn">
-            
-                <p>在存储方面，elasticsearch可以看作一个分布式数据库。<br>每一个节点可以看作是一个库，这些节点（分库）在集群内协同工作。一个索引可以看作是库里的表。</p>
-<a id="more"></a>
-<p>一个节点(node)就是一个Elasticsearch实例。</p>
-<p>一个集群(cluster)由一个或多个节点组成，它们具有相同<code>cluster.name</code>，它们协同工作，分享数据和负载。当加入新的节点或者删除一个节点时，集群就会感知到并平衡数据。</p>
-<p>集群中一个节点会被选举为主节点(master)，它将临时管理集群级别的一些变更，例如<strong>新建或删除索引、增...</strong></p>
-            
-            <span class="read-more"><a href="/2018/09/03/elastic/Elasticsearch的集群节点和分区/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
-        </div>
-    </div>
-</div>
-
-
-<div class="post" id="post">
-    <div class="post-cover animated fadeIn" style="
-            background-image:
-            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
-            url(/img/welcome-cover.jpg);">
-    </div>
-    <div class="else">
-        <p class="animated fadeInDown">
-            
-                <a href="/categories/elasticsearch">
-                  <b>「 </b>ELASTICSEARCH<b> 」</b>
-                </a>
-            
             九月 01, 2018
         </p>
         <h3 class="post-title animated fadeInDown"><a href="/2018/09/01/elastic/Elasticsearch的分布式设计原理/" title="Elasticsearch的分布式设计原理" class="posttitle">Elasticsearch的分布式设计原理</a></h3>
@@ -239,7 +189,7 @@
                 
                     <span>
                         <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        259
+                        197
                     </span>
                 
                 
@@ -256,7 +206,7 @@
         
         <div class="md-content animated fadeIn">
             
-                <p><a href="https://www.jianshu.com/p/61dd9fb7d785" target="_blank" rel="noopener">ElasticSearch 如何保证数据一致性,实时性</a><br><a href="https://blog.csdn.net/wzdxt/article/details/50868031" target="_blank" rel="noopener">为什么ES不适合做数据存储</a></p>
+                <p><a href="https://www.jianshu.com/p/61dd9fb7d785">ElasticSearch 如何保证数据一致性,实时性</a><br><a href="https://blog.csdn.net/wzdxt/article/details/50868031">为什么ES不适合做数据存储</a></p>
 <p>Elastic主节点选举算法？？？</p>
 
             
@@ -287,7 +237,7 @@
                 
                     <span>
                         <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        8.2k
+                        8.1k
                     </span>
                 
                 
@@ -355,7 +305,7 @@
                 
                     <span>
                         <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        955
+                        893
                     </span>
                 
                 
@@ -534,7 +484,7 @@
                 
                     <span>
                         <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        5.9k
+                        5.4k
                     </span>
                 
                 
@@ -553,7 +503,7 @@
             
                 <p>从零开始搭建一个个人博客系统记录。</p>
 <a id="more"></a>
-<p>安装git，并将本地的公钥维护到github，这样可以免密提交代码【<a href="https://www.jianshu.com/p/7edb6b838a2e" target="_blank" rel="noopener">MAC上Git安装与GitHub基本使用</a>】</p>
+<p>安装git，并将本地的公钥维护到github，这样可以免密提交代码【<a href="https://www.jianshu.com/p/7edb6b838a2e">MAC上Git安装与GitHub基本使用</a>】</p>
 <ol>
 <li>在本机安装git</li>
 <li><p>设置user.name和user.email配置信息，加global是全局变量，也可以在单个项目目录里单独设置局部变量，去掉global即可。</p>
@@ -679,6 +629,8 @@
 
     <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
 
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/java/java.min.js"></script>
+
 
 
     <script src="/js/busuanzi.min.js"></script>
@@ -765,7 +717,7 @@
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["Think like an artist, develop like an artisan", "艺术家思维去思考问题，工匠创造精神去开发"],
+                strings: ["", "重拾初心，砥砺前行"],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,

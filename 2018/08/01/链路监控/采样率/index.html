@@ -89,7 +89,7 @@ Apdex的计算公式,">
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    955
+                    893
                 </span>
                 
                 
@@ -136,7 +136,7 @@ Apdex的计算公式,">
 <p>Apdex的计算公式是： Apdex ＝ ( 1 x 满意 ＋0.5 x 容忍 ＋ 0 x 失望 ) / 样本数。</p>
 <p>我们套一下上面的公式： 假定样本为：小于2s的请求次数为10次，满意； 大于2s，小于8s的请求次数为20次，容忍；大于等于8s的请求次数为10次，失望。 那么得到 Apdex = ( 1 x 10 + 0.5 x 20 + 0 x 10 ) / 40 = 0.5 ，结果是Unacceptable 不能接受的，说明这次采样的这个系统就在GG 的边缘了。</p>
 <p>但是Apdex公式的计算只是在一个<code>宏观上判断一个服务的综合状态</code>，如果细化的话，这个计算公式是一个加权的结果，如果有5个请求都是大于等于8s,但是其他35个都是小于2s的，那么得出的Apdex为0.875，已经是Good的状态了，但是如果这8s的5个请求是服务的主入口或者重要接口，那么这Good的表面价值就会带来巨大隐患，所以对于采样率的计算，需要对于宏观上有一套计算方案，也需要对于细节处进行探查。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://zhuanlan.zhihu.com/p/40623010" target="_blank" rel="noopener">全链路分布式跟踪系统与APM</a><br><a href="https://segmentfault.com/a/1190000007370525" target="_blank" rel="noopener">浅述APM采样与端到端</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://zhuanlan.zhihu.com/p/40623010">全链路分布式跟踪系统与APM</a><br><a href="https://segmentfault.com/a/1190000007370525">浅述APM采样与端到端</a></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
@@ -164,7 +164,7 @@ Apdex的计算公式,">
                 <div class="subbox">
                     <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height="300" width="300">
                     <p>manoo</p>
-                    <span>Think like an artist, develop like an artisan</span>
+                    <span></span>
                     <dl>
                         <dd><a href="https://github.com/TriDiamond" target="_blank"><span class=" iconfont icon-github"></span></a></dd>
                         <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span class=" iconfont icon-twitter"></span></a></dd>
@@ -172,9 +172,9 @@ Apdex的计算公式,">
                     </dl>
                 </div>
                 <ul>
-                    <li><a href="/">27 <p>文章</p></a></li>
-                    <li><a href="/categories">12 <p>分类</p></a></li>
-                    <li><a href="/tags">31 <p>标签</p></a></li>
+                    <li><a href="/">26 <p>文章</p></a></li>
+                    <li><a href="/categories">13 <p>分类</p></a></li>
+                    <li><a href="/tags">32 <p>标签</p></a></li>
                 </ul>
             </div>
             
@@ -303,6 +303,8 @@ Apdex的计算公式,">
 
     <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
 
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/java/java.min.js"></script>
+
 
 
     <script src="/js/busuanzi.min.js"></script>
@@ -389,7 +391,7 @@ Apdex的计算公式,">
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["Think like an artist, develop like an artisan", "艺术家思维去思考问题，工匠创造精神去开发"],
+                strings: ["", "重拾初心，砥砺前行"],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,

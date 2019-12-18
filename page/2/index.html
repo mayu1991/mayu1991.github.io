@@ -48,7 +48,7 @@
         </li>
         
         <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="/archives/" title="文章列表">文章列表</a>
+            <a href="/archives/" title="时间轴">时间轴</a>
         </li>
         
     </ul>
@@ -90,7 +90,7 @@
             </li>
             
             <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-                <a href="/archives/" title="文章列表" class="menu-link">文章列表</a>
+                <a href="/archives/" title="时间轴" class="menu-link">时间轴</a>
             </li>
             
             
@@ -114,40 +114,45 @@
     <div id="post0" class="else">
         <p class="animated fadeInDown">
             
-            <a href="/categories/spring"><b>「
-                </b>SPRING<b> 」</b></a>
+            <a href="/categories/链路监控"><b>「
+                </b>链路监控<b> 」</b></a>
             
-            四月 10, 2019
+            三月 04, 2019
         </p>
         <h3 class="post-title animated fadeInDown">
-            <a href="/2019/04/10/java基础/spring validation 使用踩坑/" title="spring validation 使用踩坑" class="posttitle">spring validation 使用踩坑</a></h3>
+            <a href="/2019/03/04/链路监控/自己动手写一个简单的javaagent（一）/" title="自己动手写一个简单的探针（一）" class="posttitle">自己动手写一个简单的探针（一）</a></h3>
         
         <p class="post-count animated fadeInDown">
             
             <span>
                 <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                284
+                15k
             </span>
             
             
             <span>
                 <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                1 mins.
+                14 mins.
             </span>
             
             
         </p>
         
         
-        <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/spring/">spring</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/todo/">todo</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/validation/">validation</a></li></ul>
+        <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/java/">java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/javaagent/">javaagent</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
         
         <div class="md-content animated fadeIn">
             
-            <p><a href="https://blog.csdn.net/dream_broken/article/details/53584169" target="_blank" rel="noopener">java使用validator进行校验</a></p>
-<p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jsr303/index.html" target="_blank" rel="noopener">JSR 303 - Bean Validation 介绍及最佳实践</a></p>
-
+            <ol>
+<li>实现一个简单的javaagent。</li>
+</ol>
+<a id="more"></a>
+<h3 id="Step1-搭建agent的框架，实现动态加载"><a href="#Step1-搭建agent的框架，实现动态加载" class="headerlink" title="Step1 搭建agent的框架，实现动态加载"></a>Step1 搭建agent的框架，实现动态加载</h3><blockquote>
+<p>Premain.java</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Premain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">premain</span><span class="params">(String agentArgs, Instrumentation inst)</span> <span class="keyword">throws</span> ClassNotFoundException, UnmodifiableClassE...</span></span></pre></td></tr></table></figure>
             
-            <span class="read-more"><a href="/2019/04/10/java基础/spring validation 使用踩坑/" title="查看全文" class="posttitle">查看全文</a>
+            <span class="read-more"><a href="/2019/03/04/链路监控/自己动手写一个简单的javaagent（一）/" title="查看全文" class="posttitle">查看全文</a>
                 <b class="iconfont icon-arrow-right- gradient-text"></b></span>
         </div>
     </div>
@@ -168,102 +173,6 @@
 
     <div id="primary">
         
-<div class="post" id="post">
-    <div class="post-cover animated fadeIn" style="
-            background-image:
-            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
-            url(/img/welcome-cover.jpg);">
-    </div>
-    <div class="else">
-        <p class="animated fadeInDown">
-            
-                <a href="/categories/spring">
-                  <b>「 </b>SPRING<b> 」</b>
-                </a>
-            
-            四月 10, 2019
-        </p>
-        <h3 class="post-title animated fadeInDown"><a href="/2019/04/10/java基础/spring validation 使用踩坑/" title="spring validation 使用踩坑" class="posttitle">spring validation 使用踩坑</a></h3>
-        
-            <p class="post-count animated fadeInDown">
-                
-                    <span>
-                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        284
-                    </span>
-                
-                
-                    <span>
-                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                        1 mins.
-                    </span>
-                
-                
-            </p>
-            
-                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/spring/">spring</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/todo/">todo</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/validation/">validation</a></li></ul>
-            
-        
-        <div class="md-content animated fadeIn">
-            
-                <p><a href="https://blog.csdn.net/dream_broken/article/details/53584169" target="_blank" rel="noopener">java使用validator进行校验</a></p>
-<p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jsr303/index.html" target="_blank" rel="noopener">JSR 303 - Bean Validation 介绍及最佳实践</a></p>
-
-            
-            <span class="read-more"><a href="/2019/04/10/java基础/spring validation 使用踩坑/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
-        </div>
-    </div>
-</div>
-
-
-<div class="post" id="post">
-    <div class="post-cover animated fadeIn" style="
-            background-image:
-            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
-            url(/img/welcome-cover.jpg);">
-    </div>
-    <div class="else">
-        <p class="animated fadeInDown">
-            
-                <a href="/categories/分布式">
-                  <b>「 </b>分布式<b> 」</b>
-                </a>
-            
-            四月 02, 2019
-        </p>
-        <h3 class="post-title animated fadeInDown"><a href="/2019/04/02/分布式/一致性协议/分布式一致性协议/" title="分布式一致性协议" class="posttitle">分布式一致性协议</a></h3>
-        
-            <p class="post-count animated fadeInDown">
-                
-                    <span>
-                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        474
-                    </span>
-                
-                
-                    <span>
-                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                        1 mins.
-                    </span>
-                
-                
-            </p>
-            
-                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/todo/">todo</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/一致性协议/">一致性协议</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/分布式/">分布式</a></li></ul>
-            
-        
-        <div class="md-content animated fadeIn">
-            
-                <p><a href="https://blog.csdn.net/cnh294141800/article/details/53768464" target="_blank" rel="noopener">https://blog.csdn.net/cnh294141800/article/details/53768464</a></p>
-<p><a href="https://www.zhihu.com/question/19787937" target="_blank" rel="noopener">https://www.zhihu.com/question/19787937</a></p>
-
-            
-            <span class="read-more"><a href="/2019/04/02/分布式/一致性协议/分布式一致性协议/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
-        </div>
-    </div>
-</div>
-
-
 <div class="post" id="post">
     <div class="post-cover animated fadeIn" style="
             background-image:
@@ -326,6 +235,56 @@
     <div class="else">
         <p class="animated fadeInDown">
             
+                <a href="/categories/todo">
+                  <b>「 </b>TODO<b> 」</b>
+                </a>
+            
+            三月 04, 2019
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2019/03/04/dubbo/dubbo源码学习/" title="dubbo学习" class="posttitle">dubbo学习</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        583
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/dubbo/">dubbo</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/java/">java</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="http://dubbo.apache.org/zh-cn/blog/introduction-to-dubbo-spi.html">官方博客解释</a></p>
+<p>参考：<br><a href="https://www.imooc.com/article/266672">DUBBO原理、应用</a></p>
+<p>自适应类，dubbo的每一个拓展点都会有一个自适应类，如果我们没有提供，dubbo会帮我们动态的生成一个。</p>
+<p>动态加载</p>
+
+            
+            <span class="read-more"><a href="/2019/03/04/dubbo/dubbo源码学习/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
                 <a href="/categories/链路监控">
                   <b>「 </b>链路监控<b> 」</b>
                 </a>
@@ -338,13 +297,13 @@
                 
                     <span>
                         <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        5.2k
+                        4.8k
                     </span>
                 
                 
                     <span>
                         <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                        5 mins.
+                        4 mins.
                     </span>
                 
                 
@@ -366,7 +325,7 @@
 <li><p>怎么在代码无侵入的要求下运行监控程序？</p>
 <ul>
 <li>如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务进行交互。</li>
-<li>如何将探针的程序注入到应用程序里呢？利用 <a href="https://www.infoq.cn/article/javaagent-illustrated" target="_blank" rel="noopener">javaagent的Instrument</a>。</li>
+<li>如何将探针的程序注入到应用程序里呢？利用 <a href="https://www.infoq.cn/article/javaagent-illustrated">javaagent的Instrument</a>。</li>
 </ul>
 </li>
 <li><p>怎么收集...</p></li></ol>
@@ -398,7 +357,7 @@
                 
                     <span>
                         <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        762
+                        669
                     </span>
                 
                 
@@ -415,7 +374,7 @@
         
         <div class="md-content animated fadeIn">
             
-                <p><a href="https://github.com/alibaba/fescar/" target="_blank" rel="noopener">Fescar: Fast &amp; Easy Commit And Rollback</a><br><a href="http://os.51cto.com/art/201901/590738.htm" target="_blank" rel="noopener">关于开源分布式事务中间件Fescar的提问</a><br><a href="https://www.jianshu.com/p/82b98f037034" target="_blank" rel="noopener">FESCAR：阿里重磅开源分布式事务解决方案</a></p>
+                <p><a href="https://github.com/alibaba/fescar/">Fescar: Fast &amp; Easy Commit And Rollback</a><br><a href="http://os.51cto.com/art/201901/590738.htm">关于开源分布式事务中间件Fescar的提问</a><br><a href="https://www.jianshu.com/p/82b98f037034">FESCAR：阿里重磅开源分布式事务解决方案</a></p>
 <a id="more"></a>
 
             
@@ -446,7 +405,7 @@
                 
                     <span>
                         <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        2.1k
+                        1.9k
                     </span>
                 
                 
@@ -508,7 +467,7 @@
                 
                     <span>
                         <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        3.7k
+                        3.4k
                     </span>
                 
                 
@@ -563,7 +522,7 @@
                 
                     <span>
                         <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        589
+                        558
                     </span>
                 
                 
@@ -622,7 +581,7 @@
                 
                     <span>
                         <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        1.6k
+                        1.5k
                     </span>
                 
                 
@@ -641,11 +600,11 @@
             
                 <p>观察者模式和事件监听器的区别，以及各自的使用场景。</p>
 <a id="more"></a>
-<p>参考 -&gt; <a href="https://juejin.im/post/5a14e9edf265da4312808d86" target="_blank" rel="noopener">观察者模式 vs 发布-订阅模式</a></p>
+<p>参考 -&gt; <a href="https://juejin.im/post/5a14e9edf265da4312808d86">观察者模式 vs 发布-订阅模式</a></p>
 <p>观察者模式和发布订阅模式最大的<code>区别</code>应该是，前者的Observer明确的知道Publisher，而后者，Publisher和Observer之间还有一个Coordinator，Publisher和Observer都不知道对方，只通过事件，由Coordinator实现消息的通信。</p>
 <p></p>
 <p>两者都有松耦合的功效，在一个应用之中，通常是使用观察者模式。在跨系统或跨服务的场景下，通常是使用发布订阅模式。</p>
-<p><a href="https://www.atatech.org//articles/136618/?flag_data_from=mail_daily_headline&amp;uid=446066" target="_blank" rel="noopener">Java...</a></p>
+<p><a href="https://www.atatech.org//articles/136618/?flag_data_from=mail_daily_headline&amp;uid=446066">Java...</a></p>
             
             <span class="read-more"><a href="/2018/10/17/设计模式/观察者模式与事件监听器/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
         </div>
@@ -674,7 +633,7 @@
                 
                     <span>
                         <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                        18k
+                        17k
                     </span>
                 
                 
@@ -703,10 +662,60 @@
 <p>其实就是针对优点的一些使用场景：</p>
 <ol>
 <li>因为安全原因需要屏蔽客户端直接访问对象。</li>
-<li>在远程调用中需要使用代理类处理远程方法调用的技术细节 (如 <a href="https://blog.csdn.net/lmy86263/article/details/72594760" target="_blank" rel="noopener">RMI</a>)。</li>
+<li>在远程调用中需要使用代理类处理远程方法调用的技术细节 (如 <a href="https://blog.csdn.net/lmy86263/article/details/72594760">RMI</a>)。</li>
 <li>为了提升系统性能，对真实对象进行封装，从而达到延迟加载的目的...</li></ol>
             
             <span class="read-more"><a href="/2018/10/13/设计模式/代理模式/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/elasticsearch">
+                  <b>「 </b>ELASTICSEARCH<b> 」</b>
+                </a>
+            
+            九月 03, 2018
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2018/09/03/elastic/Elasticsearch的集群节点和分区/" title="Elasticsearch的集群节点和分区" class="posttitle">Elasticsearch的集群节点和分区</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/todo/">todo</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/分布式/">分布式</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/索引/">索引</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在存储方面，elasticsearch可以看作一个分布式数据库。<br>每一个节点可以看作是一个库，这些节点（分库）在集群内协同工作。一个索引可以看作是库里的表。</p>
+<a id="more"></a>
+<p>一个节点(node)就是一个Elasticsearch实例。</p>
+<p>一个集群(cluster)由一个或多个节点组成，它们具有相同<code>cluster.name</code>，它们协同工作，分享数据和负载。当加入新的节点或者删除一个节点时，集群就会感知到并平衡数据。</p>
+<p>集群中一个节点会被选举为主节点(master)，它将临时管理集群级别的一些变更，例如<strong>新建或删除索引、增...</strong></p>
+            
+            <span class="read-more"><a href="/2018/09/03/elastic/Elasticsearch的集群节点和分区/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
         </div>
     </div>
 </div>
@@ -828,6 +837,8 @@
 
     <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
 
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/java/java.min.js"></script>
+
 
 
     <script src="/js/busuanzi.min.js"></script>
@@ -914,7 +925,7 @@
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["Think like an artist, develop like an artisan", "艺术家思维去思考问题，工匠创造精神去开发"],
+                strings: ["", "重拾初心，砥砺前行"],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,

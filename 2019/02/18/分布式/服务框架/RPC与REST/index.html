@@ -91,7 +91,7 @@ SOA 所谓的面向服务的,">
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    3.7k
+                    3.4k
                 </span>
                 
                 
@@ -144,7 +144,7 @@ SOA 所谓的面向服务的,">
 <p>RPC的思想是把本地函数映射到API，也就是说一个API对应的是一个方法。比如本地有一个getAllUsers，远程也能通过某种约定的协议来调用这个getAllUsers。至于这个协议是Socket、是HTTP还是别的什么并不重要（gRPC就是基于Http2.0的RPC框架）。</p>
 <p>RPC中的主体都是动作，是个动词。</p>
 <p>RPC像调用本地方法一样调用远程方法，通信协议大多采用二进制方式</p>
-<h3 id="REST"><a href="#REST" class="headerlink" title="REST"></a>REST</h3><p>REST是Representational State Transfer的缩写，翻译过来是表现层状态转换。如果一个架构符合<a href="https://blog.csdn.net/ruojingzhang/article/details/79443329" target="_blank" rel="noopener">REST原则</a>，就称它为RESTful架构。</p>
+<h3 id="REST"><a href="#REST" class="headerlink" title="REST"></a>REST</h3><p>REST是Representational State Transfer的缩写，翻译过来是表现层状态转换。如果一个架构符合<a href="https://blog.csdn.net/ruojingzhang/article/details/79443329">REST原则</a>，就称它为RESTful架构。</p>
 <p>REST是一种架构风格，汲取了WWW的成功经验：无状态，以资源为中心，充分利用HTTP协议和URI协议，提供统一的接口定义，使得它作为一种设计Web服务的方法而变得流行。在某种意义上，通过强调URI和HTTP等早期Internet标准，REST是对大型应用程序服务器时代之前的Web方式的回归。</p>
 <p>REST的主体都是资源，是名词。</p>
 <p>REST通常是Http+json、Http+xml，常见的http api都可以称为Rest接口。</p>
@@ -160,11 +160,11 @@ SOA 所谓的面向服务的,">
 <li>通信比较流行的是HTTP、soap、websockect、TCP等。　</li>
 </ul>
 <h4 id="通信协议"><a href="#通信协议" class="headerlink" title="通信协议"></a>通信协议</h4><ul>
-<li><p>RPC通常基于<a href="http://www.ruanyifeng.com/blog/2017/06/tcp-protocol.html" target="_blank" rel="noopener">TCP协议</a>实现，常用框架例如gRpc，Netty、Mina、Thrift。</p>
+<li><p>RPC通常基于<a href="http://www.ruanyifeng.com/blog/2017/06/tcp-protocol.html">TCP协议</a>实现，常用框架例如gRpc，Netty、Mina、Thrift。</p>
 </li>
 <li><p>RESTful是基于<a href="feng.com/blog/2016/08/http.html">HTTP</a>协议实现。</p>
 </li>
-<li><p>RPC和RESTful的差别很大程度上是使用<a href="https://www.jianshu.com/p/947a2673102a" target="_blank" rel="noopener">HTTP和TCP协议的区别</a>。</p>
+<li><p>RPC和RESTful的差别很大程度上是使用<a href="https://www.jianshu.com/p/947a2673102a">HTTP和TCP协议的区别</a>。</p>
 </li>
 </ul>
 <h4 id="序列化协议"><a href="#序列化协议" class="headerlink" title="序列化协议"></a>序列化协议</h4><ul>
@@ -172,7 +172,7 @@ SOA 所谓的面向服务的,">
 </li>
 <li><p>RPC通常是使用RPC框架，这些RPC框架采用的序列化协议比如Protobuf、Thrift性能都高于Json或者XML。</p>
 </li>
-<li><p><a href="https://tech.meituan.com/2015/02/26/serialization-vs-deserialization.html" target="_blank" rel="noopener">几种序列化协议的比较</a></p>
+<li><p><a href="https://tech.meituan.com/2015/02/26/serialization-vs-deserialization.html">几种序列化协议的比较</a></p>
 </li>
 </ul>
 <h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
@@ -183,7 +183,7 @@ SOA 所谓的面向服务的,">
 <li><p>通常在公司内部接口调用会选择RPC，简单高效。对外开放的API通常选择REST，标准规范通用。</p>
 </li>
 </ul>
-<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="http://www.cnblogs.com/mindsbook/archive/2009/11/17/web_service_RESTvsRPC.html" target="_blank" rel="noopener">Web Service实践之REST vs RPC</a><br><a href="https://zhuanlan.zhihu.com/p/44096204" target="_blank" rel="noopener">HTTP 请求和 JSON-RPC</a><br><a href="https://tech.meituan.com/2015/02/26/serialization-vs-deserialization.html" target="_blank" rel="noopener">序列化和反序列化</a><br><a href="http://www.ruanyifeng.com/blog/2016/08/http.html" target="_blank" rel="noopener">HTTP协议入门</a><br><a href="http://www.ruanyifeng.com/blog/2017/06/tcp-protocol.html" target="_blank" rel="noopener">TCP协议入门</a></p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="http://www.cnblogs.com/mindsbook/archive/2009/11/17/web_service_RESTvsRPC.html">Web Service实践之REST vs RPC</a><br><a href="https://zhuanlan.zhihu.com/p/44096204">HTTP 请求和 JSON-RPC</a><br><a href="https://tech.meituan.com/2015/02/26/serialization-vs-deserialization.html">序列化和反序列化</a><br><a href="http://www.ruanyifeng.com/blog/2016/08/http.html">HTTP协议入门</a><br><a href="http://www.ruanyifeng.com/blog/2017/06/tcp-protocol.html">TCP协议入门</a></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
@@ -211,7 +211,7 @@ SOA 所谓的面向服务的,">
                 <div class="subbox">
                     <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height="300" width="300">
                     <p>manoo</p>
-                    <span>Think like an artist, develop like an artisan</span>
+                    <span></span>
                     <dl>
                         <dd><a href="https://github.com/TriDiamond" target="_blank"><span class=" iconfont icon-github"></span></a></dd>
                         <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span class=" iconfont icon-twitter"></span></a></dd>
@@ -219,9 +219,9 @@ SOA 所谓的面向服务的,">
                     </dl>
                 </div>
                 <ul>
-                    <li><a href="/">27 <p>文章</p></a></li>
-                    <li><a href="/categories">12 <p>分类</p></a></li>
-                    <li><a href="/tags">31 <p>标签</p></a></li>
+                    <li><a href="/">26 <p>文章</p></a></li>
+                    <li><a href="/categories">13 <p>分类</p></a></li>
+                    <li><a href="/tags">32 <p>标签</p></a></li>
                 </ul>
             </div>
             
@@ -350,6 +350,8 @@ SOA 所谓的面向服务的,">
 
     <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
 
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/java/java.min.js"></script>
+
 
 
     <script src="/js/busuanzi.min.js"></script>
@@ -436,7 +438,7 @@ SOA 所谓的面向服务的,">
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["Think like an artist, develop like an artisan", "艺术家思维去思考问题，工匠创造精神去开发"],
+                strings: ["", "重拾初心，砥砺前行"],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,
