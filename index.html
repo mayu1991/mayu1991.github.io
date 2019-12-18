@@ -1,554 +1,394 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" class="loading">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
-  <title>密斯特马的技术笔记</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
-  
-  
-  
-  <meta property="og:type" content="website">
-<meta property="og:title" content="密斯特马的技术笔记">
-<meta property="og:url" content="https://mayu1991.github.io/index.html">
-<meta property="og:site_name" content="密斯特马的技术笔记">
-<meta property="og:locale" content="zh-CN">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="密斯特马的技术笔记">
-  
-    <link rel="alternate" href="/atom.xml" title="密斯特马的技术笔记" type="application/atom+xml">
-  
-
-  
-
-  <link rel="icon" href="/css/images/longmao_logo.jpg">
-  <link rel="apple-touch-icon" href="/css/images/longmao_logo.jpg">
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
-  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-  <style type="text/css">
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
-  <link rel="stylesheet" href="/css/style.css">
-
-  <script src="/js/jquery-3.1.1.min.js"></script>
-  <script src="/js/bootstrap.js"></script>
-
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="/css/bootstrap.css">
-
-  
-    <link rel="stylesheet" href="/css/home.css">
-  
-
-  
-
-  
-
-  
-  
-  
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>密斯特马的技术笔记 - 重拾初心 砥砺前行</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="TriDiamond Obsidian,"> 
+    
+    <meta name="author" content="manoo"> 
+    <link rel="alternative" href="atom.xml" title="密斯特马的技术笔记" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
+    <link rel="stylesheet" href="/css/obsidian.css">
+    <link rel="stylesheet" href="/css/ball-atom.min.css">
 </head>
 </html>
 
-
-  <body>
-
-
-  
-    <header id="header">
-
-	<!-- 背景图模式 -->
-	
-
-    
-      <div id="intrologo" class="intro-logo" style="background-position:center; background-repeat:no-repeat; background-image: url(); background-size: auto 100%;">
-
-      <!-- Support rolling -->  
-        <!-- Don't rolling -->
-        <script>
-            var imgUrls = "css/images/guimiezhiren.jpg".split(",");
-            var random = Math.floor((Math.random() * imgUrls.length ));
-            if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
-              document.getElementById("intrologo").style.backgroundImage='url(' + imgUrls[random] + ')';
-            } else {
-              document.getElementById("intrologo").style.backgroundImage='url(/' + imgUrls[random] + ')';
-            }
-        </script>
-      
-
-    
- 
-
-
-    <canvas width="100%" height="100%"></canvas>
-    <script>
-      var c = document.getElementsByTagName('canvas')[0],
-          x = c.getContext('2d'),
-          w = window.innerWidth,
-          h = window.innerHeight,
-          pr = window.devicePixelRatio || 1,
-          f = 90,
-          q,
-          m = Math,
-          r = 0,
-          u = m.PI*2,
-          v = m.cos,
-          z = m.random
-      c.width = w*pr
-      c.height = h*pr
-      x.scale(pr, pr)
-      x.globalAlpha = 0.6
-
-      <!-- 折线Polyline背景 -->
-      
-    </script>
-    
-
-    
-      <div id="homelogo" class="homelogo" style="background: rgba(255,255,255,1);"> 
-    
-
-        
-          <div class="homelogoback" style="border: 1px solid #404040;">
-            <h1><a href="#content" id="logo">密斯特马的技术笔记</a></h1>
-            <h3></h3>
-            <h5>manoo</h5>
-            <!-- <p><a href="https://github.com/iTimeTraveler" target="_blank">Github</a></p> -->
-          </div>
-        
-    
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-  </div>
+    <span id="config-title" style="display:none">密斯特马的技术笔记</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="类目">类目</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="标签">标签</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="文章列表">文章列表</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2019 manoo.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
 
-  <!-- 自适应主页背景大图 -->
-  
-    <script>
-        var img = new Image();
-        var intrologodiv = document.getElementById("intrologo");
-        img.src = intrologodiv.style.backgroundImage.replace('url(','').replace(')','').replace(/\"/gi, "");
-        img.onload=function(){
-          if (img.width / img.height <= document.body.clientWidth / document.body.clientHeight) {
-            intrologodiv.style.backgroundSize = "100% auto";
-          } else {
-            intrologodiv.style.backgroundSize = "auto 100%";
-          }
-        };
-    </script>
- 
-
- <!-- home_logo_image居中 -->
- 
-    <script>
-        var homelogodiv = document.getElementById("homelogo");
-        if (document.all.homelogo.offsetWidth > document.body.clientWidth) {
-          homelogodiv.style.width = document.body.clientWidth + "px";
-          homelogodiv.style.marginLeft = document.body.clientWidth * -0.5 + "px";
-        } else {
-          homelogodiv.style.width = homelogodiv.clientWidth  + "px";
-          homelogodiv.style.marginLeft = (homelogodiv.clientWidth)  * -0.5 + "px";
-        }
-    </script>
-  
-
-  <div class="intro-navigate">
-      <p class="navigater-list">
-        
-          <a id="beautifont" class="main-nav-link" href="/">主页</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/archives">总览</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/categories">目录</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/tags">标签</a>
-        
-      </p>
-  </div>
-
-</header>
-  
-  <div id="container">
-    <div id="wrap">
-      
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input">
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……" data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt>
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
             
-      <div id="content" class="outer">
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="类目" class="menu-link">类目</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="标签" class="menu-link">标签</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="文章列表" class="menu-link">文章列表</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/img/cover.jpg);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/数据库"><b>「
+                </b>数据库<b> 」</b></a>
+            
+            十二月 17, 2019
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2019/12/17/数据库/数据库连接池思考/" title="数据库连接池思考" class="posttitle">数据库连接池思考</a></h3>
         
-          <section id="main" style="float:none;">
-  
-    <article id="post-数据库/数据库连接池思考" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                4.9k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                4 mins.
+            </span>
+            
+            
+        </p>
         
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/12/17/数据库/数据库连接池思考/">数据库连接池思考</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/12/17/数据库/数据库连接池思考/" class="article-date">
-	  <time datetime="2019-12-16T16:00:00.000Z" itemprop="datePublished">2019-12-17</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/数据库/">数据库</a>
-
-      
-      
-
+        
+        <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/数据库/">数据库</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/连接池/">连接池</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <p>最近系统在大促期间出现了两例问题，竟然都是和数据库连接池有关。所以在这里，重点梳理下连接池和数据库的情况，并且分析下大规模集群下数据库连接会遇到的问题，以及对应的解决方案。</p>
+<p>连接池其实是一个资源池。<br>我...</p>
+            
+            <span class="read-more"><a href="/2019/12/17/数据库/数据库连接池思考/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="为什么要聊连接池"><a href="#为什么要聊连接池" class="headerlink" title="为什么要聊连接池"></a>为什么要聊连接池</h1><p>最近系统在大促期间出现了两例问题，竟然都是和数据库连接池有关。所以在这里，重点梳理下连接池和数据库的情况，并且分析下大规模集群下数据库连接会遇到的问题，以及对应的解决方案。</p>
-<h1 id="SQL的生命周期"><a href="#SQL的生命周期" class="headerlink" title="SQL的生命周期"></a>SQL的生命周期</h1><p>连接池其实是一个资源池。<br>我们先来看下如果要执行一个sql，应用服务器和数据库的交互过程。</p>
-<ol>
-<li>首先需要建立应用服务器和数据库的连接状态，即建立连接</li>
-<li>数据库分配线程执行</li>
-<li>进行sql解析并生成执行计划</li>
-<li>读取必要的数据到内存中执行</li>
-<li>通过之前创建的连接发送结果集给到客户端</li>
-<li>关闭连接并释放资源</li>
-</ol>
-<h1 id="为什么使用连接池"><a href="#为什么使用连接池" class="headerlink" title="为什么使用连接池"></a>为什么使用连接池</h1><h2 id="为什么使用长连接"><a href="#为什么使用长连接" class="headerlink" title="为什么使用长连接"></a>为什么使用长连接</h2><p>当客户端需要和数据库建立连接的时候，有短连接和长连接两种选择：</p>
-<ul>
-<li><p>短连接：只在程序和数据库通信的时候建立连接，执行操作后，连接关闭。</p>
-</li>
-<li><p>长连接：程序之间的连接在建立之后，就一直打开，被后续程序复用。</p>
-</li>
-</ul>
-<p>短连接的优点是简单，占用内存资源较小。缺点是在流量大的场景下可能产生性能问题。</p>
-<p>长连接的优点是可复用，缺点是，维持连接需要占用内存，可能导致内存浪费。</p>
-<p>对数据库来说，创建和销毁连接涉及到CPU的运算、资源的争用、内存的分配和socket的建立等。频繁的创建连接和销毁连接，对数据库来说是不可接受的，所以长连接显然比短连接更适合数据库。</p>
-<h2 id="为什么使用连接池-1"><a href="#为什么使用连接池-1" class="headerlink" title="为什么使用连接池"></a>为什么使用连接池</h2><p>既然长连接更适合数据库，那么这时就出现了连接池。有了连接池，可以通过参数来配置连接数、连接检测、连接的生命周期等。可以做到连接的复用，减少平均连接时间，降级数据服务器的负载。</p>
-<h1 id="连接池的基本实现"><a href="#连接池的基本实现" class="headerlink" title="连接池的基本实现"></a>连接池的基本实现</h1><p>连接池其实是资源池的一种实现。类比java中的线程池，其实连接池将资源由线程换成了连接而已。</p>
-<p>我们可以先看下线程池的处理逻辑：<br><img src="https://tva1.sinaimg.cn/large/006tNbRwly1g9zt459gi3j31f00u0gpf.jpg" alt="线程池的处理逻辑"></p>
-<p>连接池也是类似的处理逻辑：</p>
-<ol>
-<li>线程池预热<br> 通常情况下，连接池在启动的时候会根据最小连接数初始化连接。这一步是为了预热，保证连接池中有可用的线程，再请求大的时候，也可以根据最大连接池动态调整。</li>
-<li>获取连接<ol>
-<li>发现有空闲的管道，可以直接使用。</li>
-<li>如果管道都在忙：<ul>
-<li>管道的数量还没有达到最大连接数，那么直接创建一个新连接。</li>
-<li>管道的数量达到最大连接数，进入等待队列中。<ul>
-<li>等待时间内，如果有空闲管道，可以拿到连接。</li>
-<li>等待时间内，如果一直没有空闲管道，抛出获取连接失败的异常。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-<li>连接池监控<br> 无非就是对连接池使用状态的监控，比如一个连接如果空闲下来了，多久没有使用需要被关闭，比如哪些错误情况下需要重新创建一下连接再放入池子，比如如何定时来验证连接是否有效等等。</li>
-</ol>
-<h1 id="连接池参数配置"><a href="#连接池参数配置" class="headerlink" title="连接池参数配置"></a>连接池参数配置</h1><ul>
-<li>最小连接数</li>
-<li>最大连接数</li>
-<li>等待时间</li>
-<li>连接空闲时间</li>
-</ul>
-<p>如果最小连接池设置过小，在应用业务量突增的时候（或者应用扩容），可能短时间产生连接风暴，这对数据库是不小的冲击。</p>
-<p>如果最小连接池设置过大，就会出现连接过剩的情况，连接一方面因为超过空闲时间被销毁，而销毁后又发现小于最小连接数，又开始创建，进入循环。</p>
-<p>如果最大连接池设置过小，可能会导致大量的连接请求处于等待状态。</p>
-<p>如果最大连接池设置过大，在极端情况下，可能导致数据库的连接数被耗尽，进而导致业务受影响，甚至会形成一系列的连锁反应，乃至雪崩。</p>
-<p>如果等待时间过长，虽然可以尽可能提高得到连接的效率，但是当应用并发很高，大大超过了连接池数量，队列就无法起到缓冲的作用，反而会阻塞应用，大量积压的线程会导致应用宕机。</p>
-<h1 id="如何优化"><a href="#如何优化" class="headerlink" title="如何优化"></a>如何优化</h1><p>我们可以想象下在什么场景，需要面对连接池优化的问题？<br>无非这两点：</p>
-<ol>
-<li>连接数太多</li>
-<li>并发量太大</li>
-</ol>
-<p>首先，我们来看下一个应用的连接数由哪些因素决定的：</p>
-<ul>
-<li>应用服务器的数量</li>
-<li>db数</li>
-<li>连接池配置的最小连接数和最大连接数</li>
-</ul>
-<blockquote>
-<p>e.g 假设一个应用，共100台服务器，连接2个db，连接池配置的最大连接数是10，那么这个应用的总连接数就是100*2*10 = 2000</p>
-</blockquote>
-<p>围绕这三个因素，我们可以得到多连接数优化的基本思路：</p>
-<ul>
-<li>拆分和降低连接池，降低单实例MySQL的连接数，比如原来一个实例上面有2个DB， 通过拆分一个实例只有1个DB， 那么在应用服务器不变的情况下， 连接数就变成1*500*6=3000。</li>
-<li>提高DB响应时间，这样在系统同样处理能力的情况下，连接池的连接数可以大大减少。</li>
-<li>减少应用集群规模。</li>
-</ul>
-<h2 id="提高DB响应时间"><a href="#提高DB响应时间" class="headerlink" title="提高DB响应时间"></a>提高DB响应时间</h2><ol>
-<li>索引优化<br> //补充索引原理以及优化</li>
-<li>事务优化<br> //补充事务优化</li>
-<li>提高DB性能    <ol>
-<li>数据拆分<br>对数据进行分片，引入多个SQL实例，这样数据库的整体并发服务能力自然提升，同时由于服务压力被打散，整个数据库集群表现的性能也会更好。</li>
-<li>DB服务器升级</li>
-</ol>
-</li>
-</ol>
-<h2 id="提高数据库的并发能力"><a href="#提高数据库的并发能力" class="headerlink" title="提高数据库的并发能力"></a>提高数据库的并发能力</h2><p>我们可以发现，其实多连接数和高并发是相辅相成的，通过以上的手段减少连接数，一方面减轻了db服务器的压力，但是也有可能降低了应用服务器的并发能力。那有没有既能减少连接数又不影响高并发的优化方法呢？</p>
-<ul>
-<li>将事务和连接解绑，比如增加一层proxy</li>
-<li>使用mysql线程池，线程和连接解绑</li>
-</ul>
-<h2 id="排查思路"><a href="#排查思路" class="headerlink" title="排查思路"></a>排查思路</h2><p>线上遇到连接数溢出的问题，问题的排查步骤？</p>
-<ol>
-<li>查看实例配置（几核几G、支持的最大连接数）</li>
-<li>查看当前连接数（<code>show processlist</code>）</li>
-<li>排查是什么动作占用了这些连接</li>
-<li>分析连接被占用的原因<ul>
-<li>慢SQL（缺索引、join太多、查询数据没有分页等）</li>
-<li>长事务</li>
-<li>死锁</li>
-</ul>
-</li>
-</ol>
-<h2 id="应急手段"><a href="#应急手段" class="headerlink" title="应急手段"></a>应急手段</h2><ol>
-<li>服务端扩容<br> 对请求进行分流，增加了服务端的并发处理能力。不过，应用服务器的增加同时会带来连接数的增加，在db连接数足够的情况下，可以执行这样的操作。</li>
-<li>服务端限流<br> 这是最快速也是最有效的方法。牺牲部分用户体验，以保住整个系统的稳定。</li>
-<li>DB实例重启<br> 重启应用可以释放当前连接数。弊端有：<ol>
-<li>当前连接中的数据丢失，执行失败</li>
-<li>治标不治本，如果是性能问题，这么做只能解一时的渴</li>
-</ol>
-</li>
-<li>DB实例扩容<br> DB服务器升级，这也只适用于可以动态升级的云上服务器（比如阿里云服务器）一般的硬件服务器，升级配置还是挺麻烦的吧（个人猜测）<br> DB服务集群扩容，涉及数据备份的问题，应该需要充分的测试和演练吧，需要一定的运维能力。</li>
-<li>紧急代码优化<ul>
-<li>DB增加索引</li>
-<li>修复造成死锁的代码问题</li>
-<li>优化慢sql</li>
-</ul>
-</li>
-</ol>
-<h1 id="知识点补充"><a href="#知识点补充" class="headerlink" title="知识点补充"></a>知识点补充</h1><p><a href="https://segmentfault.com/a/1190000014044351" target="_blank" rel="noopener">一篇搞懂TCP、HTTP、Socket、Socket连接池</a></p>
-<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><ol>
-<li>java并发编程的艺术</li>
-<li><a href="https://juejin.im/post/5b7944c6e51d4538c86cf195#heading-8" target="_blank" rel="noopener">数据库连接池技术详解</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-java基础/待解决问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
     
-    
-    <div class="article-meta">
-      
-	<a href="/2019/11/12/java基础/待解决问题/" class="article-date">
-	  <time datetime="2019-11-12T11:39:15.901Z" itemprop="datePublished">2019-11-12</time>
-	</a>
+</div>
 
-      
-      
-      
-
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="面向对象的延迟绑定"><a href="#面向对象的延迟绑定" class="headerlink" title="面向对象的延迟绑定"></a>面向对象的延迟绑定</h1><h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><p>单例模式有哪些？<br>单例模式的优缺点？<br>为什么spring的bean都是单例的</p>
-<h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><h1 id="装饰模式"><a href="#装饰模式" class="headerlink" title="装饰模式"></a>装饰模式</h1>
-      
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
     </div>
-    <footer class="article-footer">
-      
-      
-      
-      
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="javascript:;"><b>「 </b>文章<b> 」</b></a>
+            
+            十一月 12, 2019
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2019/11/12/java基础/待解决问题/" title="Untitled" class="posttitle">Untitled</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        372
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>单例模式有哪些？<br>单例模式的优缺点？<br>为什么spring的bean都是单例的</p>
 
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-dubbo/dubbo源码学习" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-    <div class="article-meta">
-      
-	<a href="/2019/11/11/dubbo/dubbo源码学习/" class="article-date">
-	  <time datetime="2019-11-11T08:42:14.490Z" itemprop="datePublished">2019-11-11</time>
-	</a>
-
-      
-      
-      
-
+            
+            <span class="read-more"><a href="/2019/11/12/java基础/待解决问题/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="dubbo的拓展点机制"><a href="#dubbo的拓展点机制" class="headerlink" title="dubbo的拓展点机制"></a>dubbo的拓展点机制</h1><p><a href="http://dubbo.apache.org/zh-cn/blog/introduction-to-dubbo-spi.html" target="_blank" rel="noopener">官方博客解释</a></p>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="javascript:;"><b>「 </b>文章<b> 」</b></a>
+            
+            十一月 11, 2019
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2019/11/11/dubbo/dubbo源码学习/" title="Untitled" class="posttitle">Untitled</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        645
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="http://dubbo.apache.org/zh-cn/blog/introduction-to-dubbo-spi.html" target="_blank" rel="noopener">官方博客解释</a></p>
 <p>参考：<br><a href="https://www.imooc.com/article/266672" target="_blank" rel="noopener">DUBBO原理、应用</a></p>
-<h2 id="自适应类"><a href="#自适应类" class="headerlink" title="自适应类"></a>自适应类</h2><p>自适应类，dubbo的每一个拓展点都会有一个自适应类，如果我们没有提供，dubbo会帮我们动态的生成一个。</p>
-<h1 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h1><h2 id="字节码生成工具"><a href="#字节码生成工具" class="headerlink" title="字节码生成工具"></a>字节码生成工具</h2><p>动态加载</p>
+<p>自适应类，dubbo的每一个拓展点都会有一个自适应类，如果我们没有提供，dubbo会帮我们动态的生成一个。</p>
+<p>动态加载</p>
 
-      
+            
+            <span class="read-more"><a href="/2019/11/11/dubbo/dubbo源码学习/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
+</div>
 
 
-  
-    <article id="post-java基础/String整理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/知识点">
+                  <b>「 </b>知识点<b> 」</b>
+                </a>
+            
+            十一月 08, 2019
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2019/11/08/java基础/String整理/" title="String整理" class="posttitle">String整理</a></h3>
         
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/11/08/java基础/String整理/">String整理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/11/08/java基础/String整理/" class="article-date">
-	  <time datetime="2019-11-08T08:50:00.000Z" itemprop="datePublished">2019-11-08</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/知识点/">知识点</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="hashCode方法详解"><a href="#hashCode方法详解" class="headerlink" title="hashCode方法详解"></a>hashCode方法详解</h1><p><a href="https://blog.csdn.net/claram/article/details/53770830" target="_blank" rel="noopener">Java编程：String 类中 hashCode() 方法详解</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-java基础/ArrayList整理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        246
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/String/">String</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/java基础/">java基础</a></li></ul>
+            
         
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/11/08/java基础/ArrayList整理/">ArrayList整理</a>
-    </h1>
-  
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://blog.csdn.net/claram/article/details/53770830" target="_blank" rel="noopener">Java编程：String 类中 hashCode() 方法详解</a></p>
 
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/11/08/java基础/ArrayList整理/" class="article-date">
-	  <time datetime="2019-11-07T16:00:00.000Z" itemprop="datePublished">2019-11-08</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/知识点/">知识点</a>
-
-      
-      
-
+            
+            <span class="read-more"><a href="/2019/11/08/java基础/String整理/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ArrayList扩容处理"><a href="#ArrayList扩容处理" class="headerlink" title="ArrayList扩容处理"></a>ArrayList扩容处理</h1><p><a href="https://blog.csdn.net/magi1201/article/details/84638636" target="_blank" rel="noopener">ArrayList扩容处理</a></p>
+</div>
 
-      
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
     </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-java基础/HashMap整理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/知识点">
+                  <b>「 </b>知识点<b> 」</b>
+                </a>
+            
+            十一月 08, 2019
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2019/11/08/java基础/ArrayList整理/" title="ArrayList整理" class="posttitle">ArrayList整理</a></h3>
         
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/11/06/java基础/HashMap整理/">HashMap整理</a>
-    </h1>
-  
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        233
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/ArrayList/">ArrayList</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/java基础/">java基础</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://blog.csdn.net/magi1201/article/details/84638636" target="_blank" rel="noopener">ArrayList扩容处理</a></p>
 
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/11/06/java基础/HashMap整理/" class="article-date">
-	  <time datetime="2019-11-05T16:00:00.000Z" itemprop="datePublished">2019-11-06</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/知识点/">知识点</a>
-
-      
-      
-
+            
+            <span class="read-more"><a href="/2019/11/08/java基础/ArrayList整理/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="HashMap-的工作原理及代码实现"><a href="#HashMap-的工作原理及代码实现" class="headerlink" title="HashMap 的工作原理及代码实现"></a>HashMap 的工作原理及代码实现</h1><h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><ul>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/知识点">
+                  <b>「 </b>知识点<b> 」</b>
+                </a>
+            
+            十一月 06, 2019
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2019/11/06/java基础/HashMap整理/" title="HashMap整理" class="posttitle">HashMap整理</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        8.1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        7 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/concurrentHashMap/">concurrentHashMap</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/hashmap/">hashmap</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/java基础/">java基础</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
 <li>关键属性  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transient</span> Entry[] table;<span class="comment">//存储元素的实体数组（桶）</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> size;<span class="comment">//存放元素的个数</span></span><br><span class="line"><span class="keyword">int</span> threshold; <span class="comment">//临界值= 加载因子*容量，当实际大小超过临界值时 </span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">float</span> loadFactor; <span class="comment">//加载因子，记录数/容量，默认值0.75</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> modCount;<span class="comment">//被修改的次数，HashMap内部结构发生变化的次数</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -559,174 +399,53 @@
 <li>容量，默认16</li>
 <li>负载因子，默认0.75f</li>
 </ul>
-</li>
-<li><p>hash</p>
-<ul>
-<li><p>hashcode的生成</p>
-<ul>
-<li>Object对象：内存地址</li>
-<li>String对象：char数组每一位都参与运算，对于相同值的String，hashcode是相同的</li>
-<li>Integer：Integer的value</li>
-</ul>
-</li>
-<li><p>key的hash<br>一次扰动（高位也参与异或计算，增加hash的分散性）</p>
-</li>
-</ul>
-</li>
-<li>散列函数<br>  (length-1)&amp;hash</li>
-<li>扩容<ul>
-<li>扩容后的容量<ul>
-<li>当前容量的两倍</li>
-<li>先插入再扩容</li>
-</ul>
-</li>
-<li>再hash</li>
-</ul>
-</li>
-<li>插入</li>
-<li>删除</li>
-<li>查询</li>
-</ul>
-</li>
-</ul>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="size和threshold的区别"><a href="#size和threshold的区别" class="headerlink" title="size和threshold的区别"></a>size和threshold的区别</h3><ul>
-<li>size是map中实际存在的键值对数量</li>
-<li>threshold是map内最大装载的元素的个数</li>
-<li>当size达到threshold时，就会触发reSize和reHash</li>
-</ul>
-<h3 id="为什么HashMap的桶的大小为2的指数倍？"><a href="#为什么HashMap的桶的大小为2的指数倍？" class="headerlink" title="为什么HashMap的桶的大小为2的指数倍？"></a>为什么HashMap的桶的大小为2的指数倍？</h3><p>我们在使用hashmap的时候，肯定是期望碰撞越小越好。</p>
-<blockquote>
-<p>那么如何达到这个目的呢？</p>
-</blockquote>
-<p>我觉得可以从以下三点入手：</p>
-<ul>
-<li>更大的存储空间，当然可以使数据的分布更分散</li>
-<li>更好的的散列函数，使数据的分布更均匀</li>
-<li>解决冲突的方法</li>
-</ul>
-<blockquote>
-<p>怎么实现更大的存储空间呢？</p>
-</blockquote>
-<ul>
-<li>增加内存空间</li>
-<li>增加负载因子</li>
-</ul>
-<p>内存空间和负载因子的抉择，就是经典的「时间-空间」问题。是牺牲时间换取空间，还是牺牲空间换取时间？视实际情况而定。可以用一句话总结：「负载因子越大，碰撞的概率越大；负载因子越小，碰撞的概率变小，但是内存闲置的概率也会增加」</p>
-<p>HashMap的初始空间和初始的负载因子分别是16和0.75f，通常不建议改变负载因子，初始空间建议按照expectSize/0.75 + 1来设置，为什么这么设计，因为扩容是一个很耗资源的操作，我们如果能预估到map中元素的个数，依照这个预估值设置容量，可以减少扩容的操作。</p>
-<blockquote>
-<p>更好的散列函数？</p>
-</blockquote>
-<p>我们知道其实hash就是一个以空间换时间的设计。每一个key通过散列函数的计算，放入相应的位置上。最好的方式是根据桶的大小（hashmap的）计算取余。</p>
-<ul>
-<li>桶的大小怎么设计才合理</li>
-<li>散列函数怎么设计才合理</li>
-</ul>
-<p>桶的大小<br>有证明其实素数在打散的效果上是更好的，可以参考这个文章<a href="https://blog.csdn.net/liuqiyao_01/article/details/14475159" target="_blank" rel="noopener">为什么一般的hashTable的桶数会取一个素数</a>。但是HashMap还是选择了2的指数幂作为桶数。这就引出了「为什么HashMap的桶的大小为2的指数倍」这个问题。</p>
-<p>散列函数<br>为什么HashMap的桶的大小为2的指数倍？<br>这是从性能角度出发的，为了优化用位运算代替取余运算，同时也方便在扩容时优化。</p>
-<ul>
-<li>只有长度为2的指数幂的时候，位运算和取余运算才相等，这个时候散列函数计算结果比较分散。</li>
-<li>网上有一种说法，如果length为奇数，length-1为偶数，最后一位肯定是0，这时位运算之后，最后一位永远是零，散列就不分散了。我觉得这个说法不是这个问题的原因，而是结果。</li>
-</ul>
-<p>总结一下，因为选择用位运算代替除法来作为散列函数，而为了保证位运算的足够分散，选择了2的指数幂作为标准。（ps：因为选择了2的指数幂，在扩容时还可以更快捷）</p>
-<h3 id="为什么扩容之后的size是两倍"><a href="#为什么扩容之后的size是两倍" class="headerlink" title="为什么扩容之后的size是两倍"></a>为什么扩容之后的size是两倍</h3><p>因为hashmap的容量是2的指数幂，所以扩容之后也必须是2的指数幂，扩容的倍数当然也是2的指数幂。<br>至于为什么是两倍，这应该是一个取舍，一下子不需要扩太多。</p>
-<h3 id="为什么先插入再扩容而不是先扩容再插入"><a href="#为什么先插入再扩容而不是先扩容再插入" class="headerlink" title="为什么先插入再扩容而不是先扩容再插入"></a>为什么先插入再扩容而不是先扩容再插入</h3><ol>
-<li>hashmap的插入有可能是覆盖原有的值，这个时候size并没有增加，如果是先扩容后插入，会造成资源浪费。</li>
-<li>因为hashmap是数组+链表，并且有负载因子，所以先插入并不会带来溢出的问题。而扩容是很耗资源的操作，能避免则避免。</li>
-</ol>
-<h3 id="rehash带来的死锁"><a href="#rehash带来的死锁" class="headerlink" title="rehash带来的死锁"></a>rehash带来的死锁</h3><h2 id="ConcurrentHashMap-的工作原理及代码实现"><a href="#ConcurrentHashMap-的工作原理及代码实现" class="headerlink" title="ConcurrentHashMap 的工作原理及代码实现"></a>ConcurrentHashMap 的工作原理及代码实现</h2><blockquote>
-<p>如何统计所有的元素个数??</p>
-</blockquote>
-<p><strong>锁分段技术</strong></p>
-<ul>
-<li>获取segment<br>  根据concurrentLevel确定segment数组的大小，其实就是确定锁的多少<br>  获取hash，需要再散列，为了把分布打散，比hashMap打散的更彻底</li>
-<li>get<br>volitile修饰所有变量，保持可见性</li>
-<li>put<br>  （1）判断容量是否足够，如果不够的话，对segment扩容，新建一个2倍大小的数组插入，先判断后扩容，hash是先扩容后判断<br>  （2）加锁插入，其实segment内部的实现跟hashmap很相似</li>
-<li>size<br>将所有的segment的大小相加，但是在多线程的时候，不能保证count的值在计算的过程中不变化，所以会尝试两次计算size，如果两次都失败了，再锁住所有segment，进行容量计算。</li>
-</ul>
-<h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><ul>
-<li><p>HashMap 和 Hashtable 的区别<br><a href="http://www.importnew.com/24822.html" target="_blank" rel="noopener">http://www.importnew.com/24822.html</a><br>（1）hashtable是线程安全的，所有的方法都加上了synchronized<br>（2）初始容量、扩容和hash算法不同<br>hashMap 16，扩容是*2，hash直接用位运算取模，效率高但是偶数分布不均匀，所以又跟length-1与了一下，将hash打散<br>hashTable 11，扩容是*2+1，hash用除法取模，分布均匀但是效率比较低<br>（3）1.8以及以后，hashmap的链表用红黑树存储了，提高了查询效率</p>
-</li>
-<li><p>HashMap 和 HashSet 区别<br><a href="https://blog.csdn.net/u010698072/article/details/52802179" target="_blank" rel="noopener">https://blog.csdn.net/u010698072/article/details/52802179</a><br>hashSet其实内部就是用hashMap实现的，hashSet服务于对象，在add的时候将这个对象作为map的key，set内部会new一个final类型修饰的Object作为value。</p>
-</li>
-<li><p>HashMap 和 ConcurrentHashMap 的区别<br>ConcurrentHashMap是线程安全的，ConcurrentHashMap使用了锁分段技术，维护了一个继承ReetrantLock的的segment数组，每一个segment对象对应部分Entry。</p>
-</li>
-<li><p>java 1.7和1.8版本中hashmap的区别</p>
-</li>
-</ul>
-<h1 id="常见方案"><a href="#常见方案" class="headerlink" title="常见方案"></a>常见方案</h1><ul>
-<li><p>hashMap的优化方案<br><a href="http://www.importnew.com/21429.html" target="_blank" rel="noopener">http://www.importnew.com/21429.html</a></p>
-</li>
-<li><p>谈谈HashMap，哈希表解决hash冲突的方法；</p>
-<ul>
-<li>开放定址</li>
-<li>再hash</li>
-<li>链地址法</li>
-<li>建立公共溢出区<br><a href="https://www.cnblogs.com/wuchaodzxx/p/7396599.html" target="_blank" rel="noopener">参考</a></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>java 8 在链表长度达到8，桶的数量达到64的时候，会建一个红黑树来保存元素</p>
-</blockquote>
-<ul>
-<li><p>多线程情况下HashMap死循环的问题<br>两个线程在rehash的时候，因为有next = e.next;e = next;的操作，有可能形成环路。<br><a href="https://coolshell.cn/articles/9606.html" target="_blank" rel="noopener">参考</a></p>
-</li>
-<li><p>hashMap什么时候用到红黑树<br><a href="https://blog.csdn.net/u011240877/article/details/53358305" target="_blank" rel="noopener">java1.8中当单链的长度超过8的时候会转化为红黑树</a><br><a href="https://blog.csdn.net/u011240877/article/details/53329023" target="_blank" rel="noopener">什么是红黑树</a><br><a href="https://blog.csdn.net/sun_tttt/article/details/65445754" target="_blank" rel="noopener">https://blog.csdn.net/sun_tttt/article/details/65445754</a></p>
-</li>
-<li><p>HashMap出现Hash DOS攻击的问题<br>把key都设计成一个hash，这样插入就成为一个单链表结构了<br><a href="https://coolshell.cn/articles/6424.html" target="_blank" rel="noopener">https://coolshell.cn/articles/6424.html</a></p>
-</li>
-<li><p>一致性hash算法<br>  <a href="https://juejin.im/post/5ae1476ef265da0b8d419ef2" target="_blank" rel="noopener">参考</a></p>
-</li>
-</ul>
-<h1 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h1><p><a href="https://www.cnblogs.com/ysocean/p/9054804.html" target="_blank" rel="noopener">HashMap的求余%和与运算&amp;转换问题</a><br><a href="https://tech.meituan.com/2016/06/24/java-hashmap.html" target="_blank" rel="noopener">HashMap原理和源码分析</a><br><a href="https://blog.csdn.net/liuqiyao_01/article/details/14475159" target="_blank" rel="noopener">HashTable的桶数为什么取素数</a><br><a href="https://blog.csdn.net/qq_36520235/article/details/82417949" target="_blank" rel="noopener">HashMap的结构，1.7和1.8有哪些区别</a><br><a href="https://blog.csdn.net/mgl934973491/article/details/60466487" target="_blank" rel="noopener">HashMap的扩容机制</a><br><a href="http://www.cnblogs.com/ITtangtang/p/3948406.html" target="_blank" rel="noopener">HashMap源码解析</a><br><a href="https://juejin.im/post/5ab99afff265da23a2291dee" target="_blank" rel="noopener">HashMap的hash方法剖析</a></p>
-
-      
+...</li></ul></li></ul>
+            
+            <span class="read-more"><a href="/2019/11/06/java基础/HashMap整理/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
+</div>
 
 
-  
-    <article id="post-分布式编程与锁/分布式编程与锁" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/知识点">
+                  <b>「 </b>知识点<b> 」</b>
+                </a>
+            
+            十一月 04, 2019
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2019/11/04/分布式编程与锁/分布式编程与锁/" title="分布式编程知识点汇总" class="posttitle">分布式编程知识点汇总</a></h3>
         
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/11/04/分布式编程与锁/分布式编程与锁/">分布式编程知识点汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/11/04/分布式编程与锁/分布式编程与锁/" class="article-date">
-	  <time datetime="2019-11-03T16:00:00.000Z" itemprop="datePublished">2019-11-04</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/知识点/">知识点</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h1><ol>
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/分布式编程/">分布式编程</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/并发/">并发</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/知识点/">知识点</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/线程池/">线程池</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/锁/">锁</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ol>
 <li><p>说说 CountDownLatch、CyclicBarrier 原理和区别</p>
 <ul>
 <li><p>CountDownLatch 允许一个线程或多个线程等待其他线程完成工作。<br>一个获取共享状态的同步器。</p>
@@ -736,142 +455,53 @@
 <li>CyclicBarrier 可以重置计数器，适合比较复杂的业务场景，提供的方法也比较多</li>
 </ul>
 </li>
-<li><p>说说 Semaphore 原理<br> 控制同一时间并发的线程数（共享式的同步器）<br> 在构造函数里输入并发的数量，用acquire和release来控制同步块</p>
-</li>
-<li>说说 Exchanger 原理<br> 线程间协作，两个线程在到达同一时刻之后，可以交换数据（wait/notify）<br>执行exchange（）方法</li>
-<li>ThreadLocal 原理分析，ThreadLocal为什么会出现OOM，出现的深层次原理 ？？？？<br><a href="https://juejin.im/post/5a64a581f265da3e3b7aa02d" target="_blank" rel="noopener">https://juejin.im/post/5a64a581f265da3e3b7aa02d</a></li>
-<li>常见的原子操作类<br>AtomicInteger、AtomicLong、AtomicBoolean、AtomicReference</li>
-<li>AtomicInteger底层实现原理；<br> 一个volatile类型的value值，封装了原子性读改写的方法，利用了unsafe类的compareAndSwagObject/int/long<br>value这个字段在AtomicInteger类的内存中相对于该类首地址的偏移量</li>
-<li>Java 8并法包下常见的并发类，用过并发包下边的哪些类</li>
-<li>AQS同步队列(ReetrantLock依赖AQS)<ul>
-<li>同步状态state控制获取锁的方式（共享、独占、可重入）。</li>
-<li>同步队列实现，实现线程的排队、等待和唤醒的工作。</li>
-</ul>
-</li>
-<li>fork/join<br> <a href="https://juejin.im/post/59be875e5188257e6b6d91c1" target="_blank" rel="noopener">https://juejin.im/post/59be875e5188257e6b6d91c1</a></li>
-<li>JMM不保证对64位的long和double型变量的写操作具有原子性<br><a href="https://blog.csdn.net/luoyoub/article/details/80275539" target="_blank" rel="noopener">https://blog.csdn.net/luoyoub/article/details/80275539</a></li>
-</ol>
-<h1 id="线程与线程池"><a href="#线程与线程池" class="headerlink" title="线程与线程池"></a>线程与线程池</h1><ol start="12">
-<li><p>一个线程连着调用start两次会出现什么情况？<br>会抛出一个IllegalThreadStateException</p>
-</li>
-<li><p>wait方法能不能被重写，wait能不能被中断；<br>不能被重写，是final修饰的，不可以被中断，wait方法会抛出中断异常。</p>
-</li>
-<li><p>线程池的几种实现方式</p>
-</li>
-<li>讲讲线程池的实现原理</li>
-<li><p>线程池的实现？四种线程池？重要参数及原理？饱和策略有哪几种？</p>
-</li>
-<li><p>线程和进程的概念、并行和并发的概念<br>线程是操作系统执行的最小单元。<br>并行：多个cpu<br>并发：在同一个cpu里，多个线程同事执行同一个任务</p>
-</li>
-<li><p>创建线程的方式及实现<br>三种方式：<br>（1）继承一个线程Thread，并实现run方法<br>（2）实现一个runnable接口<br>（3）实现一个callable接口，这个接口支持获取线程执行的返回值</p>
-</li>
-<li><p>进程间通信的方式<br><a href="https://www.cnblogs.com/LUO77/p/5816326.html" target="_blank" rel="noopener">https://www.cnblogs.com/LUO77/p/5816326.html</a></p>
-</li>
-<li><p>说说线程安全问题，什么是线程安全，如何保证线程安全</p>
-</li>
-<li><p>线程状态以及API怎么操作会发生这种转换；<br>NEW new<br>RUNNALBLE start<br>BLOCKED 尝试进入synchonized区域<br>TERMINATED 执行完run的时候<br>WAITING wait、join、sleep（time——waiting状态，时间到了自己唤醒自己）</p>
-</li>
-</ol>
-<h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><ol>
-<li><p>重入锁的概念，重入锁为什么可以防止死锁<br>支持重进入的锁，可重入锁对象在线程尝试去获取同步状态的时候，会先判断状态，如果等于0，那就是第一次进入，进行正常的锁获取，如果大于0的时候，判断当然锁是不是只属于当前线程，如果是，状态值就是获取锁的次数。</p>
-</li>
-<li><p>产生死锁的四个条件<br>（互斥、请求与保持、不剥夺、循环等待）</p>
-</li>
-<li><p>如何检查死锁（通过jConsole检查死锁）</p>
-</li>
-<li><p>常用的避免死锁方法；</p>
-<ul>
-<li>避免一个线程同时获取多个锁。</li>
-<li>避免一个线程在锁内同时占用多个资源，尽量保证每个锁只占用一个资源。</li>
-<li>尝试使用定时锁，使用 lock.tryLock(timeout) 来替代使用内部锁机制。</li>
-<li>对于数据库锁，加锁和解锁必须在一个数据库连接里，否则会出现解锁失败的情况。</li>
-</ul>
-</li>
-<li><p>CAS无锁的概念、乐观锁和悲观锁<br> 利用java提供的cmpxchg指令，完成操作的同步。<br> 对于竞争比较小的，占用资源时间比较短的业务场景，可以使用CAS的模式来代替加锁，这种方式响应时间快，但是如果一直自旋的话也会消耗大量的cpu。<br> 如果加了锁的话，所有获取该锁的线程都要处于阻塞状态，响应时间慢，追求吞吐量。</p>
-<p> 乐观锁：cas的概念，乐观的认为出现竞争的机会比较小，通过比较原始值和最新值的方式来更新。<br> 悲观锁：同步的概念，悲观的认为每次更新都有可能会出错，所以锁住这个资源，同一时刻只允许一个线程操作。</p>
-</li>
-<li><p>CAS机制会出现什么问题；</p>
-<ul>
-<li><p>乐观锁只能保证一个共享变量的原子操作。如上例子，自旋过程中只能保证value变量的原子性，这时如果多一个或几个变量，乐观锁将变得力不从心，但互斥锁能轻易解决，不管对象数量多少及对象颗粒度大小。</p>
-</li>
-<li><p>长时间自旋可能导致开销大。假如CAS长时间不成功而一直自旋，会给CPU带来很大的开销。</p>
-</li>
-<li><p>ABA问题。CAS的核心思想是通过比对内存值与预期值是否一样而判断内存值是否被改过，但这个判断逻辑不严谨，假如内存值原来是A，后来被一条线程改为B，最后又被改成了A，则CAS认为此内存值并没有发生改变，但实际上是有被其他线程改过的，这种情况对依赖过程值的情景的运算结果影响很大。解决的思路是引入版本号，每次变量更新都把版本号加一。</p>
-</li>
-</ul>
-</li>
-<li>什么是ABA问题，出现ABA问题JDK是如何解决的<br>Cas带来的问题，因为cas的机制是对比历史值，在某些场景下，有可能其他线程修改完之后改成了历史值，这个时候cas也是可以成功的。<br>在jdk里有一个atomicStampedReference类，可以在比较的时候再加上标签比较。</li>
-<li><p>乐观锁的业务场景及实现方式<br> 读取频繁用乐观锁，写入频繁用悲观锁<br> <a href="https://blog.csdn.net/claram/article/details/53959367" target="_blank" rel="noopener">https://blog.csdn.net/claram/article/details/53959367</a></p>
-</li>
-<li><p>偏向锁、轻量级锁、重量级锁、自旋锁的，自适应自旋锁，锁消除，锁粗化，锁的升级</p>
-</li>
-<li><p>synchronized与ReentraLock哪个是公平锁；<br>Synchronized 是非公平锁，因为它无法保证释放的锁会被哪个线程获取到。<br>Reentrant 既有公平锁也有非公平锁</p>
-</li>
-<li><p>synchronized 与 lock 的区别</p>
-<ul>
-<li>lock ：虽然它缺少了（通过synchronized块或者方法所提供的）隐式获取释放锁的便捷性，但是却拥有了锁获取与释放的可操作性、可中断的获取锁以及超时获取锁等多种synchronized关键字所不具备的同步特性。<ul>
-<li>尝试非阻塞地获取锁</li>
-<li>能被中断地获取锁</li>
-<li>超时获取锁</li>
-<li>Lock是基于同步队列实现的</li>
-</ul>
-</li>
-<li>synchronized<ul>
-<li>使用synchronized关键字将会隐式地获取锁，但是它将锁的获取和释放固化了，也就是先获取再释放。当然，这种方式简化了同步的管理，可是扩展性没有显示的锁获取和释放来的好。</li>
-<li>synchronized是jvm内部实现的</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-
-      
+<li><p>说说 Semaphore 原理<br> 控制同一时间并发的线程数（共享式的同步器）<br> 在构造函数...</p></li></ol>
+            
+            <span class="read-more"><a href="/2019/11/04/分布式编程与锁/分布式编程与锁/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
+</div>
 
 
-  
-    <article id="post-java基础/常用关键字" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/java基础">
+                  <b>「 </b>JAVA基础<b> 」</b>
+                </a>
+            
+            九月 03, 2019
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2019/09/03/java基础/常用关键字/" title="常用关键字" class="posttitle">常用关键字</a></h3>
         
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/09/03/java基础/常用关键字/">常用关键字</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/09/03/java基础/常用关键字/" class="article-date">
-	  <time datetime="2019-09-02T16:00:00.000Z" itemprop="datePublished">2019-09-03</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/java基础/">java基础</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="transient"><a href="#transient" class="headerlink" title="transient"></a>transient</h1><p><a href="https://www.cnblogs.com/lanxuezaipiao/p/3369962.html" target="_blank" rel="noopener">Java transient关键字使用小记</a></p>
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.4k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/java基础/">java基础</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://www.cnblogs.com/lanxuezaipiao/p/3369962.html" target="_blank" rel="noopener">Java transient关键字使用小记</a></p>
 <ol>
 <li><p>一旦变量被transient修饰，变量将不再是对象持久化的一部分，该变量内容在序列化后无法获得访问。</p>
 </li>
@@ -880,328 +510,338 @@
 <li><p>被transient关键字修饰的变量不再能被序列化，一个静态变量不管是否被transient修饰，均不能被序列化。</p>
 </li>
 </ol>
-<h1 id="volatile-实现原理"><a href="#volatile-实现原理" class="headerlink" title="volatile 实现原理"></a>volatile 实现原理</h1><p>禁止指令重排、刷新内存<br>LoadLoad：禁止上面的volatile读与下面的普通读重排序<br>LoadStore：禁止上面的volatile读与下面的普通写重排序<br>StoreLoad：禁止上面的volatile写与下面的volatile读/写重排序<br>StoreStore：禁止上面的所有操作与下面的volatile写重排序</p>
-<h1 id="synchronized-实现原理（对象监视器）"><a href="#synchronized-实现原理（对象监视器）" class="headerlink" title="synchronized 实现原理（对象监视器）"></a>synchronized 实现原理（对象监视器）</h1><p>利用了对象的对象监视器 monitor ，每一个对象都有自己的对象锁，当这个对象被synchronized修饰了之后，jvm编译的时候会在获取这个对象实例之前插入一个monitor enter指令</p>
-<h1 id="final关键字的内存语义"><a href="#final关键字的内存语义" class="headerlink" title="final关键字的内存语义"></a>final关键字的内存语义</h1><p><a href="https://www.jianshu.com/p/1f4b0f98cbf1" target="_blank" rel="noopener">参考</a></p>
-<ul>
-<li>final可以修饰类，该类不能被继承。</li>
-<li>final可以修饰方法，该方法不能被重写。(覆盖，复写)</li>
-<li>final可以修饰变量，该变量不能被重新赋值。因为这个变量其实是常量。</li>
-<li>final如果修饰形参，其实仍然是可以对这个参数修改。</li>
-</ul>
-
-      
+<p>禁止指令重排、刷新内存<br>LoadLoad：禁...</p>
+            
+            <span class="read-more"><a href="/2019/09/03/java基础/常用关键字/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
+</div>
 
 
-  
-    <article id="post-java基础/java基础整理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/知识点">
+                  <b>「 </b>知识点<b> 」</b>
+                </a>
+            
+            九月 01, 2019
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2019/09/01/java基础/java基础整理/" title="java基础知识点汇总" class="posttitle">java基础知识点汇总</a></h3>
         
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/09/01/java基础/java基础整理/">java基础知识点汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/09/01/java基础/java基础整理/" class="article-date">
-	  <time datetime="2019-08-31T16:00:00.000Z" itemprop="datePublished">2019-09-01</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/知识点/">知识点</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h1><ol>
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        714
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/java基础/">java基础</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/知识点/">知识点</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ol>
 <li>序列化的使用场景与意义<br> <a href="https://juejin.im/post/5ce3cdc8e51d45777b1a3cdf#hserialversionuid" target="_blank" rel="noopener">https://juejin.im/post/5ce3cdc8e51d45777b1a3cdf#hserialversionuid</a></li>
 <li>序列化版本号的作用<br> <a href="https://blog.csdn.net/yangyang3_/article/details/80718768" target="_blank" rel="noopener">https://blog.csdn.net/yangyang3_/article/details/80718768</a></li>
 </ol>
-<h1 id="位移运算"><a href="#位移运算" class="headerlink" title="位移运算"></a>位移运算</h1><p><a href="https://www.jianshu.com/p/54c91a620d35" target="_blank" rel="noopener">参考</a></p>
+<p><a href="https://www.jianshu.com/p/54c91a620d35" target="_blank" rel="noopener">参考</a></p>
 <p>向左位移相当于乘以 2^n ,向右移动正数相当于除以 2^n （ n 为位移的位数）<br>比如1&lt;&lt;30，表示1乘以2^30</p>
 
-      
+            
+            <span class="read-more"><a href="/2019/09/01/java基础/java基础整理/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
+</div>
 
 
-  
-    <article id="post-开发工具/常用工具记录" class="article article-type-post" itemscope itemprop="blogPost">
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/工具">
+                  <b>「 </b>工具<b> 」</b>
+                </a>
+            
+            七月 16, 2019
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2019/07/16/开发工具/常用工具记录/" title="常用工具记录" class="posttitle">常用工具记录</a></h3>
         
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/07/16/开发工具/常用工具记录/">常用工具记录</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/07/16/开发工具/常用工具记录/" class="article-date">
-	  <time datetime="2019-07-16T11:10:00.000Z" itemprop="datePublished">2019-07-16</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/工具/">工具</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><p><a href="https://www.bejson.com/" target="_blank" rel="noopener">一个包含很多实用工具的网站</a><br><a href="https://www.json.cn/" target="_blank" rel="noopener">简单的json格式化</a></p>
-<h1 id="时间戳转化工具"><a href="#时间戳转化工具" class="headerlink" title="时间戳转化工具"></a>时间戳转化工具</h1><p><a href="http://tool.chinaz.com/Tools/unixtime.aspx" target="_blank" rel="noopener">http://tool.chinaz.com/Tools/unixtime.aspx</a></p>
-<h1 id="图床"><a href="#图床" class="headerlink" title="图床"></a>图床</h1><p><a href="https://toolinbox.net/iPic/" target="_blank" rel="noopener">https://toolinbox.net/iPic/</a></p>
-<h1 id="在线颜色选择器"><a href="#在线颜色选择器" class="headerlink" title="在线颜色选择器"></a>在线颜色选择器</h1><p><a href="http://www.shouce.ren/tool/yanse" target="_blank" rel="noopener">http://www.shouce.ren/tool/yanse</a></p>
-<h1 id="在线图片去底色工具"><a href="#在线图片去底色工具" class="headerlink" title="在线图片去底色工具"></a>在线图片去底色工具</h1><p><a href="http://www.aigei.com/bgremover" target="_blank" rel="noopener">http://www.aigei.com/bgremover</a></p>
-<h1 id="在线二维码生成器"><a href="#在线二维码生成器" class="headerlink" title="在线二维码生成器"></a>在线二维码生成器</h1><p><a href="http://www.liantu.com/" target="_blank" rel="noopener">http://www.liantu.com/</a></p>
-<h1 id="pdf转word"><a href="#pdf转word" class="headerlink" title="pdf转word"></a>pdf转word</h1><p><a href="https://smallpdf.com/cn/pdf-to-word" target="_blank" rel="noopener">https://smallpdf.com/cn/pdf-to-word</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
-  </nav>
-
-</section>
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.5k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/工具/">工具</a></li></ul>
+            
         
-      </div>
-      
-        <div align="center" style="margin-top: 30px;"><hr class="hr" style="margin:0px; height:3px;"></div>
-      
-      <footer id="footer">
-  
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://www.bejson.com/" target="_blank" rel="noopener">一个包含很多实用工具的网站</a><br><a href="https://www.json.cn/" target="_blank" rel="noopener">简单的json格式化</a></p>
+<p><a href="http://tool.chinaz.com/Tools/unixtime.aspx" target="_blank" rel="noopener">http://tool.chinaz.com/Tools/unixtime.aspx</a></p>
+<p><a href="https://toolinbox.net/iPic/" target="_blank" rel="noopener">https://toolinbox.net/iPic/</a></p>
+<p><a href="http://www.shouce.ren/tool/yanse" target="_blank" rel="noopener">http://www.shouce.ren/tool/yanse</a></p>
+<p><a href="http://www.aigei.com/bgremover" target="_blank" rel="noopener">http://www.aigei.com/bgremover</a></p>
+<p><a href="http://www.liantu.com/" target="_blank" rel="noopener">http://www.liantu.com/</a></p>
+<p><a href="https://smallpdf.com/cn/pdf-to-word" target="_blank" rel="noopener">https://smallpdf.com/cn/pdf-to-word</a></p>
 
-  <div class="container">
-      	<div class="row">
-	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
-	      <p id="copyRightEn">Copyright &copy; 2018 - 2019 密斯特马的技术笔记 All Rights Reserved.</p>
-	      
-	      
-    		<p class="busuanzi_uv">
-				访客数 : <span id="busuanzi_value_site_uv"></span> |  
-				访问量 : <span id="busuanzi_value_site_pv"></span>
-		    </p>
-  		   
-		</div>
+            
+            <span class="read-more"><a href="/2019/07/16/开发工具/常用工具记录/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
 
-		
-  </div>
+
+    </div>
+    
+    <div id="pager"><a href="/page/2/" class="more" data-loading="加载中..." data-load-more="加载更多">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2019
+        <span class="gradient-text">
+            manoo
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
 </footer>
 
-
-<!-- min height -->
-
-<script>
-    var wrapdiv = document.getElementById("wrap");
-    var contentdiv = document.getElementById("content");
-    var allheader = document.getElementById("allheader");
-
-    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
-    if (allheader != null) {
-      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
-    } else {
-      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
-    }
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-    </div>
-    <!-- <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">主页</a>
-  
-    <a href="/archives" class="mobile-nav-link">总览</a>
-  
-    <a href="/categories" class="mobile-nav-link">目录</a>
-  
-    <a href="/tags" class="mobile-nav-link">标签</a>
-  
-</nav> -->
-    
-
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
+<script>
   MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
     tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
   });
 </script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
       }
     });
-</script>
+  }
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
 </script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+    <link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+    <script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+    <script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
 
 
-<script src="/js/scripts.js"></script>
+
+    <script src="/js/busuanzi.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
 
 
-  <script src="/js/home.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
 
-
-
-
-
-
-
-
-
-
-	<div style="display: none;">
-    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
-  </div>
-
-
-
-	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
-	</script>
-
-
-
-
-
-
-  </div>
-
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title" id="myModalLabel">设置</h2>
-      </div>
-      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
-      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
-
-
-      <div class="modal-body">
-          <div style="margin:6px;">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
-              正文字号大小
-            </a>
-          </div>
-          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            您已调整页面字体大小
-          </div>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
         </div>
-      
-
-
-          <div style="margin:6px;">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
-              夜间护眼模式
-            </a>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
         </div>
-          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-          <div class="panel-body">
-            夜间模式已经开启，再次单击按钮即可关闭 
-          </div>
-        </div>
-
-        <div>
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-        </div>
-         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-          <div class="panel-body">
-            密斯特马的技术笔记
-          </div>
-          <div class="panel-body">
-            Copyright © 2019 manoo All Rights Reserved.
-          </div>
-        </div>
-      </div>
-
-
-      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
-      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
-      <div class="modal-footer">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-      </div>
     </div>
-  </div>
 </div>
-  
-  <a id="rocket" href="#top" class=""></a>
-  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
-  
-</body>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-149874671-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Think like an artist, develop like an artisan", "艺术家思维去思考问题，工匠创造精神去开发"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
 </html>
