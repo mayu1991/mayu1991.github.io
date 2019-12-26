@@ -5,16 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>自己动手写一个简单的探针(总纲) - 密斯特马的技术笔记</title>
+    <title>分布式全局唯一ID设计 - 密斯特马的技术笔记</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="TriDiamond Obsidian,"> 
-    <meta name="description" content="需求
-实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。
-实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。
-实现agent的心跳检测。
-实现,"> 
+    <meta name="description" content="todo
+"> 
     <meta name="author" content="manoo"> 
     <link rel="alternative" href="atom.xml" title="密斯特马的技术笔记" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -47,7 +44,7 @@
     <div class="navigation animated fadeIn fast delay-1s">
         <img id="home-icon" class="icon-home" src="/img/favicon.png" alt data-url="https://mayu1991.github.io">
         <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
-        <h3 class="subtitle">自己动手写一个简单的探针(总纲)</h3>
+        <h3 class="subtitle">分布式全局唯一ID设计</h3>
         <div class="social">
             <!--        <div class="like-icon">-->
             <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -77,25 +74,25 @@
         <div class="else">
             <p class="animated fadeInDown">
                 
-                <a href="/categories/链路监控"><b>「
-                    </b>链路监控<b> 」</b></a>
+                <a href="/categories/分布式"><b>「
+                    </b>分布式<b> 」</b></a>
                 
-                三月 03, 2019
+                十二月 26, 2019
             </p>
-            <h3 class="post-title animated fadeInDown"><a href="/2019/03/03/链路监控/自己动手写一个简单的javaagent（总纲）/" title="自己动手写一个简单的探针(总纲)">自己动手写一个简单的探针(总纲)</a>
+            <h3 class="post-title animated fadeInDown"><a href="/2019/12/26/分布式/分布式全局ID设计/" title="分布式全局唯一ID设计">分布式全局唯一ID设计</a>
             </h3>
             
             <p class="post-count animated fadeInDown">
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    4.8k
+                    12
                 </span>
                 
                 
                 <span>
                     <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                    4 mins.
+                    1 mins.
                 </span>
                 
                 
@@ -108,7 +105,7 @@
             </p>
             
             
-            <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/java/">java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/javaagent/">javaagent</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/链路监控/">链路监控</a></li></ul>
+            <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/分布式/">分布式</a></li></ul>
             
         </div>
     </div>
@@ -129,108 +126,7 @@
 <div class="article">
     <div class="main">
         <div class="content markdown animated fadeIn">
-            <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
-<li>实现对当前容器系统参数（cpu，内存，网络）的收集，并将信息上传到服务端。</li>
-<li>实现一个对代码无侵入的探针，只要应用程序启动了，就自行运转，无需应用程序进行改造。</li>
-<li>实现agent的心跳检测。</li>
-<li>实现根据采样率调节数据收集量。</li>
-</ol>
-<a id="more"></a>
-<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><ol>
-<li><p>怎么在代码无侵入的要求下运行监控程序？</p>
-<ul>
-<li>如果要做到无侵入，那么探针势必要与应用程序运行在一个进程里。如果探针单独部署，应用程序肯定是要做代码层面的改造与探针服务进行交互。</li>
-<li>如何将探针的程序注入到应用程序里呢？利用 <a href="https://www.infoq.cn/article/javaagent-illustrated">javaagent的Instrument</a>。</li>
-</ul>
-</li>
-<li><p>怎么收集当前容器信息？</p>
-<ul>
-<li>用javaagent实现无侵入部署，在启动应用程序的同时，注入探针的代码，探针会启动一个定时器，由定时器来控制触发系统指标收集的任务。</li>
-<li>同时再启动一个定时器，实现心跳机制。</li>
-</ul>
-</li>
-</ol>
-<blockquote>
-<p>为什么要做心跳？因为agent是单独部署在客户端的，服务端是开发者自己能够hold住的，客户端就有点鞭长莫及。所以需要用心跳来知晓agent的运行情况。</p>
-</blockquote>
-<ol start="3">
-<li>用什么方式上传到服务端？</li>
-<li>服务端数据结构怎么设计，用什么样的DB保存数据？</li>
-<li>如何实现采样率的动态调节？</li>
-</ol>
-<h2 id="技术准备"><a href="#技术准备" class="headerlink" title="技术准备"></a>技术准备</h2><ol>
-<li><p>利用instrument agent实现探针无侵入</p>
-<p> <strong>Instrument</strong></p>
-<p> “java.lang.instrument”包的具体实现，依赖于JVMTI。在Java SE 5 及其后续版本当中，开发者可以在一个普通 Java 程序（带有 main 函数的 Java 类）运行时，通过 <code>- javaagent</code>参数指定一个特定的jar文件来启动 Instrumentation的代理程序。</p>
-<p> Instrumentation 的最大作用，就是类定义动态改变和操作。而且指令里也可以加上一些启动参数。</p>
-<blockquote>
-<p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html">怎么获取启动参数？</a></p>
-</blockquote>
-<p> <strong>JVMTI</strong></p>
-<p> JVMTI全称 JVM Tool Interface，是 JVM 暴露出来的一些供用户扩展的接口集合。JVMTI 是基于事件驱动的，JVM 每执行到一定的逻辑就会调用一些事件的回调接口（如果有的话），这些接口可以供开发者扩展自己的逻辑。</p>
-<pre><code>JVMTIAgent 其实就是一个动态库，利用 JVMTI 暴露出来的一些接口来干一些我们想做、但是正常情况下又做不到的事情。
-</code></pre><p> JVMTIAgent有三个回调函数，分别是：</p>
-<ul>
-<li>Agent_OnLoad，启动时加载。</li>
-<li>Agent_OnAttach，运行时加载，这里还需要利用java的attach原理。</li>
-<li><p>Agent_OnUnload，卸载时加载。</p>
-<p>个人感觉这里应该用启动时加载，因为监控程序应该是7*24小时运行，必须与被监控应用相同的生命周期。如果是运行时加载，在什么样的节点启动监控也是很难定义。</p>
-</li>
-</ul>
-</li>
-<li><p>利用Byte buddy实现了类的运行时动态加载和类的加强</p>
-</li>
-</ol>
-<h2 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h2><ol>
-<li>加载agent配置</li>
-<li>加载agent插件</li>
-<li>初始化agent服务管理<ol>
-<li>SPI<br>JDK内置的一种服务提供发现机制</li>
-<li>动态加载BootService接口的实现类</li>
-<li>插件加载、匹配和拦截</li>
-</ol>
-</li>
-</ol>
-<h2 id="agent插件体系"><a href="#agent插件体系" class="headerlink" title="agent插件体系"></a>agent插件体系</h2><ol>
-<li>插件的加载<ol>
-<li>自定义的类加载器AgentClassLoader </li>
-<li>注册</li>
-<li>动态加载</li>
-</ol>
-</li>
-<li>插件的匹配</li>
-<li>插件的拦截<ol>
-<li>指定需要拦截的类：在AgentBuilder.type处，这里可以指定需要拦截的类</li>
-<li>指定需要拦截的方法：在builder.method处，这里可以指定需要拦截的方法</li>
-<li>将需要拦截的<a href="https://www.jianshu.com/p/fe1448bf7d31">类重新定义加载【ByteBuddy】</a>       </li>
-</ol>
-</li>
-</ol>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>PluginFinder<br>初始化方法：遍历所有pluginDefine，并获取classMatch，放到不同的map中</p>
-<h2 id="Agent要搞清楚以下几个问题"><a href="#Agent要搞清楚以下几个问题" class="headerlink" title="Agent要搞清楚以下几个问题"></a>Agent要搞清楚以下几个问题</h2><ol>
-<li>代理的类和执行main的类是一个classloader吗？<br>是的，用的是一个类加载器</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DEFAULT_LOADER = <span class="keyword">new</span> </span><br><span class="line">AgentClassLoader(PluginBootstrap.class.getClassLoader());</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li><p>Instrumentation、ByteBubble、OpenTracing、Grpc</p>
-</li>
-<li><p>怎么知道拦截了哪些类</p>
-</li>
-<li><p>拦截了之后如何加强这些类</p>
-</li>
-<li><p><a href="https://blog.myimy.site/2019/03/01/%E9%87%87%E6%A0%B7%E7%8E%87/">采样率</a>是什么作用<br> 性能和采集效率的一个综合指标，采集率高了对客户端的CPU压力自然会上升，但是采集的数据多了，对业务使用自然是更好的。</p>
-</li>
-<li><p>一定要引入这么多插件的jar</p>
-</li>
-<li><p>怎么兼容不同版本的插件</p>
-</li>
-<li><p>Grpc传输和http传输的区别</p>
-</li>
-</ol>
-<h2 id="次要问题："><a href="#次要问题：" class="headerlink" title="次要问题："></a>次要问题：</h2><ol>
-<li>PluginDefine和AbstractClassEnhancePluginDefine有什么区别？</li>
-</ol>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html">Instrumentation介绍</a><br><a href="https://blog.csdn.net/fengyuzhengfan/article/details/38086743">class类简介</a><br><a href="https://www.jianshu.com/p/32d3e108f30a">SPI和ServiceLoader</a><br><a href="https://blog.csdn.net/github_35180164/article/details/52118286">公用API的安全狂街-自定义注解生命周期</a><br><a href="https://wu-sheng.gitbooks.io/opentracing-io/content/">openTracing文档</a><br><a href="https://www.ibm.com/developerworks/cn/java/j-5things13/index.html">用 Maven 管理项目文件周期的技巧</a><br><a href="https://blog.csdn.net/belalds/article/details/83105685">深入理解Java ClassLoader及在 JavaAgent 中的应用</a><br><a href="https://juejin.im/post/5ac32eba5188255c313af0dd">基于Java Instrument的Agent实现</a><br><a href="http://www.hiwzc.com/post/f4997548.html">JAVA SPI详解</a></p>
+            <p>todo</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
@@ -273,13 +169,6 @@
             </div>
             
             
-            
-            <div class="box sticky animated fadeInRight faster">
-                <div id="toc" class="subbox">
-                    <h4>目录</h4>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求"><span class="toc-number">1.</span> <span class="toc-text">需求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求分析"><span class="toc-number">2.</span> <span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#技术准备"><span class="toc-number">3.</span> <span class="toc-text">技术准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动流程"><span class="toc-number">4.</span> <span class="toc-text">启动流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#agent插件体系"><span class="toc-number">5.</span> <span class="toc-text">agent插件体系</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-number">5.1.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Agent要搞清楚以下几个问题"><span class="toc-number">6.</span> <span class="toc-text">Agent要搞清楚以下几个问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#次要问题："><span class="toc-number">7.</span> <span class="toc-text">次要问题：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">8.</span> <span class="toc-text">参考</span></a></li></ol>
-                </div>
-            </div>
             
             
         </div>

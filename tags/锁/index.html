@@ -114,43 +114,38 @@
     <div id="post0" class="else">
         <p class="animated fadeInDown">
             
-            <a href="/categories/知识点"><b>「
-                </b>知识点<b> 」</b></a>
+            <a href="/categories/分布式"><b>「
+                </b>分布式<b> 」</b></a>
             
-            十一月 04, 2019
+            十二月 26, 2019
         </p>
         <h3 class="post-title animated fadeInDown">
-            <a href="/2019/11/04/分布式编程与锁/分布式编程与锁/" title="分布式编程知识点汇总" class="posttitle">分布式编程知识点汇总</a></h3>
+            <a href="/2019/12/26/分布式/分布式锁/" title="分布式锁" class="posttitle">分布式锁</a></h3>
         
         <p class="post-count animated fadeInDown">
             
             <span>
                 <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                4.5k
+                0
             </span>
             
             
             <span>
                 <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                4 mins.
+                1 mins.
             </span>
             
             
         </p>
         
         
-        <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/分布式编程/">分布式编程</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/并发/">并发</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/知识点/">知识点</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/线程池/">线程池</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/锁/">锁</a></li></ul>
+        <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/分布式/">分布式</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/锁/">锁</a></li></ul>
         
         <div class="md-content animated fadeIn">
             
-            <ol>
-<li><p>说说 CountDownLatch、CyclicBarrier 原理和区别</p>
-<ul>
-<li><p>CountDownLatch 允许一个线程或多个线程等待其他线程完成工作。<br>一个获取共享状态的同步器。</p>
-</li>
-<li><p>CyclicBarrier...</p></li></ul></li></ol>
             
-            <span class="read-more"><a href="/2019/11/04/分布式编程与锁/分布式编程与锁/" title="查看全文" class="posttitle">查看全文</a>
+            
+            <span class="read-more"><a href="/2019/12/26/分布式/分布式锁/" title="查看全文" class="posttitle">查看全文</a>
                 <b class="iconfont icon-arrow-right- gradient-text"></b></span>
         </div>
     </div>
@@ -171,6 +166,62 @@
 
     <div id="primary">
         
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/知识点">
+                  <b>「 </b>知识点<b> 」</b>
+                </a>
+            
+            十一月 04, 2019
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2019/11/04/分布式编程与锁/分布式编程与锁/" title="分布式编程知识点汇总" class="posttitle">分布式编程知识点汇总</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.5k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/分布式编程/">分布式编程</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/并发/">并发</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/知识点/">知识点</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/线程池/">线程池</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/锁/">锁</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ol>
+<li><p>说说 CountDownLatch、CyclicBarrier 原理和区别</p>
+<ul>
+<li><p>CountDownLatch 允许一个线程或多个线程等待其他线程完成工作。<br>一个获取共享状态的同步器。</p>
+</li>
+<li><p>CyclicBarrier 允许多个线程在都达到一个屏障的时候再放开屏障。<br>一个锁，用锁的condition来操作，await()<br>区别：</p>
+</li>
+<li>CyclicBarrier 可以重置计数器，适合比较复杂的业务场景，提供的方法也比较多</li>
+</ul>
+</li>
+<li><p>说说 Semaphore 原理<br> 控制同一时间并发的线程数（共享式的同步器）<br> 在构造函数...</p></li></ol>
+            
+            <span class="read-more"><a href="/2019/11/04/分布式编程与锁/分布式编程与锁/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
     </div>
     
 </div>
