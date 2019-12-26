@@ -117,36 +117,37 @@
             <a href="/categories/数据库"><b>「
                 </b>数据库<b> 」</b></a>
             
-            十二月 17, 2019
+            十二月 26, 2019
         </p>
         <h3 class="post-title animated fadeInDown">
-            <a href="/2019/12/17/数据库/数据库连接池思考/" title="数据库连接池思考" class="posttitle">数据库连接池思考</a></h3>
+            <a href="/2019/12/26/数据库/索引的原理/" title="索引的原理" class="posttitle">索引的原理</a></h3>
         
         <p class="post-count animated fadeInDown">
             
             <span>
                 <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                4.8k
+                2k
             </span>
             
             
             <span>
                 <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                4 mins.
+                2 mins.
             </span>
             
             
         </p>
         
         
-        <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/数据库/">数据库</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/连接池/">连接池</a></li></ul>
+        <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/数据库/">数据库</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/索引/">索引</a></li></ul>
         
         <div class="md-content animated fadeIn">
             
-            <p>最近系统在大促期间出现了两例问题，竟然都是和数据库连接池有关。所以在这里，重点梳理下连接池和数据库的情况，并且分析下大规模集群下数据库连接会遇到的问题，以及对应的解决方案。</p>
-<p>连接池其实是一个资源池。<br>我...</p>
+            <p></p>
+<p><a href="https://www.cnblogs.com/aspwebchh/p/6652855.html">https://www.cnblogs.com/aspwebchh/p/6652855.html</a></p>
+<p><a href="https://blog.csdn.net/shb_derek1/article/details/77478691">https://blog.csdn.net/shb_derek1/article/details/77478691...</a></p>
             
-            <span class="read-more"><a href="/2019/12/17/数据库/数据库连接池思考/" title="查看全文" class="posttitle">查看全文</a>
+            <span class="read-more"><a href="/2019/12/26/数据库/索引的原理/" title="查看全文" class="posttitle">查看全文</a>
                 <b class="iconfont icon-arrow-right- gradient-text"></b></span>
         </div>
     </div>
@@ -167,6 +168,62 @@
 
     <div id="primary">
         
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/数据库">
+                  <b>「 </b>数据库<b> 」</b>
+                </a>
+            
+            十二月 17, 2019
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2019/12/17/数据库/数据库连接池思考/" title="数据库连接池思考" class="posttitle">数据库连接池思考</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.8k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/数据库/">数据库</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/连接池/">连接池</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>最近系统在大促期间出现了两例问题，竟然都是和数据库连接池有关。所以在这里，重点梳理下连接池和数据库的情况，并且分析下大规模集群下数据库连接会遇到的问题，以及对应的解决方案。</p>
+<p>连接池其实是一个资源池。<br>我们先来看下如果要执行一个sql，应用服务器和数据库的交互过程。</p>
+<ol>
+<li>首先需要建立应用服务器和数据库的连接状态，即建立连接</li>
+<li>数据库分配线程执行</li>
+<li>进行sql解析并生成执行计划</li>
+<li>读取必要的数据到内存中执行</li>
+<li>通过之前创建的连接发送结果集给到客户端</li>
+<li>关闭连接并释放资源</li>
+</ol>
+<p>当客户端需要和数据库建立连接的时候，有短...</p>
+            
+            <span class="read-more"><a href="/2019/12/17/数据库/数据库连接池思考/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
     </div>
     
 </div>
@@ -369,7 +426,7 @@
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["", "重拾初心，砥砺前行"],
+                strings: ["", ""],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,

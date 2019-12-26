@@ -114,19 +114,19 @@
     <div id="post0" class="else">
         <p class="animated fadeInDown">
             
-            <a href="/categories/elasticsearch"><b>「
-                </b>ELASTICSEARCH<b> 」</b></a>
+            <a href="/categories/代码整洁"><b>「
+                </b>代码整洁<b> 」</b></a>
             
-            九月 01, 2018
+            十一月 10, 2018
         </p>
         <h3 class="post-title animated fadeInDown">
-            <a href="/2018/09/01/elastic/Elasticsearch的分布式设计原理/" title="Elasticsearch的分布式设计原理" class="posttitle">Elasticsearch的分布式设计原理</a></h3>
+            <a href="/2018/11/10/java基础/如何避免过多的ifelse/" title="如何避免过多的ifelse" class="posttitle">如何避免过多的ifelse</a></h3>
         
         <p class="post-count animated fadeInDown">
             
             <span>
                 <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                197
+                558
             </span>
             
             
@@ -139,15 +139,22 @@
         </p>
         
         
-        <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/todo/">todo</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/分布式/">分布式</a></li></ul>
+        <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JAVA/">JAVA</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/代码整洁/">代码整洁</a></li></ul>
         
         <div class="md-content animated fadeIn">
             
-            <p><a href="https://www.jianshu.com/p/61dd9fb7d785">ElasticSearch 如何保证数据一致性,实时性</a><br><a href="https://blog.csdn.net/wzdxt/article/details/50868031">为什么ES不适合做数据存储</a></p>
-<p>Elastic主节点选举算法？？？</p>
-
+            <p><strong>一般的if/else判断大多集中在以下三种情型</strong></p>
+<ol>
+<li>空值判断</li>
+<li>业务判断</li>
+<li>状态判断</li>
+</ol>
+<a id="more"></a>
+<p><strong>处理方法</strong></p>
+<ol>
+<li>对控制判断的处理，可以把接口分为内接口和外接口，将空值判断都放在外接口，这样进入内接口的时候就不需要考虑...</li></ol>
             
-            <span class="read-more"><a href="/2018/09/01/elastic/Elasticsearch的分布式设计原理/" title="查看全文" class="posttitle">查看全文</a>
+            <span class="read-more"><a href="/2018/11/10/java基础/如何避免过多的ifelse/" title="查看全文" class="posttitle">查看全文</a>
                 <b class="iconfont icon-arrow-right- gradient-text"></b></span>
         </div>
     </div>
@@ -168,6 +175,226 @@
 
     <div id="primary">
         
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/代码整洁">
+                  <b>「 </b>代码整洁<b> 」</b>
+                </a>
+            
+            十一月 10, 2018
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2018/11/10/java基础/如何避免过多的ifelse/" title="如何避免过多的ifelse" class="posttitle">如何避免过多的ifelse</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        558
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JAVA/">JAVA</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/代码整洁/">代码整洁</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><strong>一般的if/else判断大多集中在以下三种情型</strong></p>
+<ol>
+<li>空值判断</li>
+<li>业务判断</li>
+<li>状态判断</li>
+</ol>
+<a id="more"></a>
+<p><strong>处理方法</strong></p>
+<ol>
+<li>对控制判断的处理，可以把接口分为内接口和外接口，将空值判断都放在外接口，这样进入内接口的时候就不需要考虑空值判断。</li>
+<li>利用多态，抽象出处理基类，对每一种业务类型，用专门的实现类来处理对应逻辑。<br> 这里会带来一个问题，暴露给用户的类就多了，因为需要根据不同的业务场景创建不同的业务实现类，这时解决的方法：<ol>
+<li>再封装一层，将实现类的权限降低，只暴露给用户创建实现类的方法。</li>
+<li>用工厂模式产生类。</li>
+<li>用map将类型与类加...</li></ol></li></ol>
+            
+            <span class="read-more"><a href="/2018/11/10/java基础/如何避免过多的ifelse/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/设计模式">
+                  <b>「 </b>设计模式<b> 」</b>
+                </a>
+            
+            十月 17, 2018
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2018/10/17/设计模式/观察者模式与事件监听器/" title="观察者模式与事件监听器" class="posttitle">观察者模式与事件监听器</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.5k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/todo/">todo</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>观察者模式和事件监听器的区别，以及各自的使用场景。</p>
+<a id="more"></a>
+<p>参考 -&gt; <a href="https://juejin.im/post/5a14e9edf265da4312808d86">观察者模式 vs 发布-订阅模式</a></p>
+<p>观察者模式和发布订阅模式最大的<code>区别</code>应该是，前者的Observer明确的知道Publisher，而后者，Publisher和Observer之间还有一个Coordinator，Publisher和Observer都不知道对方，只通过事件，由Coordinator实现消息的通信。</p>
+<p></p>
+<p>两者都有松耦合的功效，在一个应用之中，通常是使用观察者模式。在跨系统或跨服务的场景下，通常是使用发布订阅模式。</p>
+<p><a href="https://www.atatech.org//articles/136618/?flag_data_from=mail_daily_headline&amp;uid=446066">Java...</a></p>
+            
+            <span class="read-more"><a href="/2018/10/17/设计模式/观察者模式与事件监听器/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/设计模式">
+                  <b>「 </b>设计模式<b> 」</b>
+                </a>
+            
+            十月 13, 2018
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2018/10/13/设计模式/代理模式/" title="代理模式" class="posttitle">代理模式</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        17k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        16 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/todo/">todo</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>协调调用者和被调用者，降低了系统的耦合度</li>
+<li>代理对象作为客户端和目标对象之间的中介，起到了保护目标对象的作用</li>
+</ol>
+<a id="more"></a>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>由于在客户端和真实主题之间增加了代理对象，因此会造成请求的处理速度变慢；</li>
+<li>实现代理模式需要额外的工作（有些代理模式的实现非常复杂），从而增加了系统实现的复杂度。 </li>
+</ol>
+<p>其实就是针对优点的一些使用场景：</p>
+<ol>
+<li>因为安全原因需要屏蔽客户端直接访问对象。</li>
+<li>在远程调用中需要使用代理类处理远程方法调用的技术细节 (如 <a href="https://blog.csdn.net/lmy86263/article/details/72594760">RMI</a>)。</li>
+<li>为了提升系统性能，对真实对象进行封装，从而达到延迟加载的目的...</li></ol>
+            
+            <span class="read-more"><a href="/2018/10/13/设计模式/代理模式/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/elasticsearch">
+                  <b>「 </b>ELASTICSEARCH<b> 」</b>
+                </a>
+            
+            九月 03, 2018
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2018/09/03/elastic/Elasticsearch的集群节点和分区/" title="Elasticsearch的集群节点和分区" class="posttitle">Elasticsearch的集群节点和分区</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/todo/">todo</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/分布式/">分布式</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/索引/">索引</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在存储方面，elasticsearch可以看作一个分布式数据库。<br>每一个节点可以看作是一个库，这些节点（分库）在集群内协同工作。一个索引可以看作是库里的表。</p>
+<a id="more"></a>
+<p>一个节点(node)就是一个Elasticsearch实例。</p>
+<p>一个集群(cluster)由一个或多个节点组成，它们具有相同<code>cluster.name</code>，它们协同工作，分享数据和负载。当加入新的节点或者删除一个节点时，集群就会感知到并平衡数据。</p>
+<p>集群中一个节点会被选举为主节点(master)，它将临时管理集群级别的一些变更，例如<strong>新建或删除索引、增...</strong></p>
+            
+            <span class="read-more"><a href="/2018/09/03/elastic/Elasticsearch的集群节点和分区/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
 <div class="post" id="post">
     <div class="post-cover animated fadeIn" style="
             background-image:
@@ -717,7 +944,7 @@
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["", "重拾初心，砥砺前行"],
+                strings: ["", ""],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,

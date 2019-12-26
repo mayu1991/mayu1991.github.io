@@ -138,9 +138,9 @@ SQL的,">
 </ol>
 <h1 id="为什么使用连接池"><a href="#为什么使用连接池" class="headerlink" title="为什么使用连接池"></a>为什么使用连接池</h1><h2 id="为什么使用长连接"><a href="#为什么使用长连接" class="headerlink" title="为什么使用长连接"></a>为什么使用长连接</h2><p>当客户端需要和数据库建立连接的时候，有短连接和长连接两种选择：</p>
 <ul>
-<li><p>短连接：只在程序和数据库通信的时候建立连接，执行操作后，连接关闭。</p>
+<li><p>短连接<br>  只在程序和数据库通信的时候建立连接，执行操作后，连接关闭。</p>
 </li>
-<li><p>长连接：程序之间的连接在建立之后，就一直打开，被后续程序复用。</p>
+<li><p>长连接<br>  程序之间的连接在建立之后，就一直打开，被后续程序复用。</p>
 </li>
 </ul>
 <p>短连接的优点是简单，占用内存资源较小。缺点是在流量大的场景下可能产生性能问题。</p>
@@ -242,7 +242,7 @@ SQL的,">
 </ol>
 <h1 id="知识点补充"><a href="#知识点补充" class="headerlink" title="知识点补充"></a>知识点补充</h1><p><a href="https://segmentfault.com/a/1190000014044351">一篇搞懂TCP、HTTP、Socket、Socket连接池</a></p>
 <h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><ol>
-<li>java并发编程的艺术</li>
+<li>《java并发编程的艺术》</li>
 <li><a href="https://juejin.im/post/5b7944c6e51d4538c86cf195#heading-8">数据库连接池技术详解</a></li>
 </ol>
 
@@ -280,7 +280,7 @@ SQL的,">
                     </dl>
                 </div>
                 <ul>
-                    <li><a href="/">26 <p>文章</p></a></li>
+                    <li><a href="/">30 <p>文章</p></a></li>
                     <li><a href="/categories">13 <p>分类</p></a></li>
                     <li><a href="/tags">32 <p>标签</p></a></li>
                 </ul>
@@ -499,7 +499,7 @@ SQL的,">
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["", "重拾初心，砥砺前行"],
+                strings: ["", ""],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,

@@ -46,7 +46,7 @@
                 <div class="content animated fadeIn">
                     <div class="set">
                         <h1 style="text-align: center">时间轴</h1>
-                        <p style="text-align: center">「 26 」</p>
+                        <p style="text-align: center">「 30 」</p>
                         <ul class="timeline timeline-centered">
                             
                             
@@ -58,6 +58,68 @@
                                         <h2 class="timeline-title">十二月 2019</h2>
                                     </div>
                                 </li>
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">十二月 26, 2019</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2019/12/26/数据库/索引的原理/">索引的原理</a>
+                                        <p>
+                                            数据库的索引的原理索引的使用场景常见的索引有哪些聚集索引
+非聚集索引聚集索引与非聚集索引的区别https://www.cnblogs.com/aspwebchh/p/6652855.html
+全文索引https://blog.csdn.net/shb_derek1/article/details/77478691
+组合索引前缀索引反向索引索引失效的问题遇到过索引失效的情况没，什么时候可能会出...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">十二月 19, 2019</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2019/12/19/分布式/分布式全局ID设计/"></a>
+                                        <p>
+                                            # 
+
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">十二月 19, 2019</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2019/12/19/分布式/分布式锁/"></a>
+                                        <p>
+                                            # 
+
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">十二月 19, 2019</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2019/12/19/分布式/幂等接口设计/"></a>
+                                        <p>
+                                            # 
+
+                                        </p>
+                                    </div>
+                                </li>
+                            
                                 
                                 <li class="timeline-item">
                                     <div class="timeline-info">
@@ -280,16 +342,13 @@ Raft协议
                                     </div>
                                     <div class="timeline-marker"></div>
                                     <div class="timeline-content">
-                                        <a class="timeline-title" target="_self" href="/2019/03/04/链路监控/自己动手写一个简单的javaagent（一）/">自己动手写一个简单的探针（一）</a>
+                                        <a class="timeline-title" target="_self" href="/2019/03/04/dubbo/dubbo源码学习/">dubbo学习</a>
                                         <p>
-                                            需求
-实现一个简单的javaagent。
+                                            dubbo的拓展点机制官方博客解释
+参考：DUBBO原理、应用
+自适应类自适应类，dubbo的每一个拓展点都会有一个自适应类，如果我们没有提供，dubbo会帮我们动态的生成一个。
+TIPS字节码生成工具动态加载
 
-
-编码Step1 搭建agent的框架，实现动态加载
-Premain.java
-
-1234567public class Premain &#123;    public static void premain(String agentArgs, Instrumentation inst) throws ClassNotFoundException...
                                         </p>
                                     </div>
                                 </li>
@@ -301,13 +360,16 @@ Premain.java
                                     </div>
                                     <div class="timeline-marker"></div>
                                     <div class="timeline-content">
-                                        <a class="timeline-title" target="_self" href="/2019/03/04/dubbo/dubbo源码学习/">dubbo学习</a>
+                                        <a class="timeline-title" target="_self" href="/2019/03/04/链路监控/自己动手写一个简单的javaagent（一）/">自己动手写一个简单的探针（一）</a>
                                         <p>
-                                            dubbo的拓展点机制官方博客解释
-参考：DUBBO原理、应用
-自适应类自适应类，dubbo的每一个拓展点都会有一个自适应类，如果我们没有提供，dubbo会帮我们动态的生成一个。
-TIPS字节码生成工具动态加载
+                                            需求
+实现一个简单的javaagent。
 
+
+编码Step1 搭建agent的框架，实现动态加载
+Premain.java
+
+1234567public class Premain &#123;    public static void premain(String agentArgs, Instrumentation inst) throws ClassNotFoundException...
                                         </p>
                                     </div>
                                 </li>
@@ -885,7 +947,7 @@ source ~/.bash_profile使其生...
         var typedTextEl = $('.typed-text');
         if (typedTextEl && typedTextEl.length > 0) {
             var typed = new Typed('.typed-text', {
-                strings: ["", "重拾初心，砥砺前行"],
+                strings: ["", ""],
                 typeSpeed: 90,
                 loop: true,
                 loopCount: Infinity,
