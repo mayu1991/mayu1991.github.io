@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>密斯特马的技术笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="消息队列的使用场景https://blog.csdn.net/seven__________7/article/details/70225830（1）异步处理（异步提高接口的并发量）（2）应用解耦（系统间解耦）（3）流量削峰（秒杀系统用固定长度的消息队列控制访问数）（4）日志处理（kafka，解决大量日志传输的问题） 消息的重发补偿解决思路http://manzhizhen.iteye.com/b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="密斯特马的技术笔记">
+<meta property="og:url" content="https://mayu1991.github.io/2020/01/08/常用中间件/消息队列知识点梳理/index.html">
+<meta property="og:site_name" content="密斯特马的技术笔记">
+<meta property="og:description" content="消息队列的使用场景https://blog.csdn.net/seven__________7/article/details/70225830（1）异步处理（异步提高接口的并发量）（2）应用解耦（系统间解耦）（3）流量削峰（秒杀系统用固定长度的消息队列控制访问数）（4）日志处理（kafka，解决大量日志传输的问题） 消息的重发补偿解决思路http://manzhizhen.iteye.com/b">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-08T08:14:49.119Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="密斯特马的技术笔记">
+<meta name="twitter:description" content="消息队列的使用场景https://blog.csdn.net/seven__________7/article/details/70225830（1）异步处理（异步提高接口的并发量）（2）应用解耦（系统间解耦）（3）流量削峰（秒杀系统用固定长度的消息队列控制访问数）（4）日志处理（kafka，解决大量日志传输的问题） 消息的重发补偿解决思路http://manzhizhen.iteye.com/b">
+  
+    <link rel="alternate" href="/atom.xml" title="密斯特马的技术笔记" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/longmao_logo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/longmao_logo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 border-width: 0px;  margin-top: 10px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="80px" height="80px" alt="Hike News" src="/css/images/longmao_logo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">主页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">总览</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">目录</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder>
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-常用中间件/消息队列知识点梳理" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+    <div class="article-meta">
+      
+	<a href="/2020/01/08/常用中间件/消息队列知识点梳理/" class="article-date">
+	  <time datetime="2020-01-08T08:06:28.217Z" itemprop="datePublished">2020-01-08</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="消息队列的使用场景"><a href="#消息队列的使用场景" class="headerlink" title="消息队列的使用场景"></a>消息队列的使用场景</h1><p><a href="https://blog.csdn.net/seven__________7/article/details/70225830">https://blog.csdn.net/seven__________7/article/details/70225830</a><br>（1）异步处理（异步提高接口的并发量）<br>（2）应用解耦（系统间解耦）<br>（3）流量削峰（秒杀系统用固定长度的消息队列控制访问数）<br>（4）日志处理（kafka，解决大量日志传输的问题）</p>
+<h1 id="消息的重发补偿解决思路"><a href="#消息的重发补偿解决思路" class="headerlink" title="消息的重发补偿解决思路"></a>消息的重发补偿解决思路</h1><p><a href="http://manzhizhen.iteye.com/blog/2092136">http://manzhizhen.iteye.com/blog/2092136</a></p>
+<h1 id="消息的幂等性解决思路"><a href="#消息的幂等性解决思路" class="headerlink" title="消息的幂等性解决思路"></a>消息的幂等性解决思路</h1><p><a href="https://www.jianshu.com/p/8b77d4583bab?utm_campaign">https://www.jianshu.com/p/8b77d4583bab?utm_campaign</a></p>
+<h1 id="消息的堆积解决思路"><a href="#消息的堆积解决思路" class="headerlink" title="消息的堆积解决思路"></a>消息的堆积解决思路</h1><p><a href="https://docs.oracle.com/cd/E19148-01/820-0843/6nci9sed1/index.html">https://docs.oracle.com/cd/E19148-01/820-0843/6nci9sed1/index.html</a></p>
+<h1 id="一般消息队列如何保证消息的有序性"><a href="#一般消息队列如何保证消息的有序性" class="headerlink" title="一般消息队列如何保证消息的有序性"></a>一般消息队列如何保证消息的有序性</h1><p><a href="https://yq.aliyun.com/articles/73672">https://yq.aliyun.com/articles/73672</a></p>
+<h1 id="消息队列可达性、幂等性和延时架构设计"><a href="#消息队列可达性、幂等性和延时架构设计" class="headerlink" title="消息队列可达性、幂等性和延时架构设计"></a>消息队列可达性、幂等性和延时架构设计</h1><p><a href="http://www.keplerstar.cn/index.php/2017/09/14/">http://www.keplerstar.cn/index.php/2017/09/14/</a></p>
+<h1 id="kafka怎么实现消息队列的有序性"><a href="#kafka怎么实现消息队列的有序性" class="headerlink" title="kafka怎么实现消息队列的有序性"></a>kafka怎么实现消息队列的有序性</h1><p>kafka的概述：<a href="https://www.cnblogs.com/lsx1993/p/4627465.html">https://www.cnblogs.com/lsx1993/p/4627465.html</a><br>kafka的有序性：<a href="https://blog.csdn.net/chunlongyu/article/details/53977819">https://blog.csdn.net/chunlongyu/article/details/53977819</a></p>
+<h1 id="kafka分区partition的理解"><a href="#kafka分区partition的理解" class="headerlink" title="kafka分区partition的理解"></a>kafka分区partition的理解</h1><h1 id="kafka副本列表机制"><a href="#kafka副本列表机制" class="headerlink" title="kafka副本列表机制"></a>kafka副本列表机制</h1><p><a href="https://blog.csdn.net/lizhitao/article/details/51718185">https://blog.csdn.net/lizhitao/article/details/51718185</a></p>
+<h1 id="为什么Kafka可以这么快"><a href="#为什么Kafka可以这么快" class="headerlink" title="为什么Kafka可以这么快"></a>为什么Kafka可以这么快</h1><p><a href="https://blog.csdn.net/qq838642798/article/details/70808557">https://blog.csdn.net/qq838642798/article/details/70808557</a></p>
+<h1 id="消息队列使用的场景介绍和作用（应用耦合、异步消息、流量削锋等）；"><a href="#消息队列使用的场景介绍和作用（应用耦合、异步消息、流量削锋等）；" class="headerlink" title="消息队列使用的场景介绍和作用（应用耦合、异步消息、流量削锋等）；"></a>消息队列使用的场景介绍和作用（应用耦合、异步消息、流量削锋等）；</h1><h1 id="如何解决消息队列丢失消息和重复消费问题（Kafka）；"><a href="#如何解决消息队列丢失消息和重复消费问题（Kafka）；" class="headerlink" title="如何解决消息队列丢失消息和重复消费问题（Kafka）；"></a>如何解决消息队列丢失消息和重复消费问题（Kafka）；</h1><h1 id="Kafka使用过吗，什么是幂等性？怎么保证一致性，持久化怎么做，分区partition的理解，LEO是什么意思，如何保证多个partition之间数据一致性的（ISR机制），为什么Kafka可以这么快（基于磁盘的顺序读写）；"><a href="#Kafka使用过吗，什么是幂等性？怎么保证一致性，持久化怎么做，分区partition的理解，LEO是什么意思，如何保证多个partition之间数据一致性的（ISR机制），为什么Kafka可以这么快（基于磁盘的顺序读写）；" class="headerlink" title="Kafka使用过吗，什么是幂等性？怎么保证一致性，持久化怎么做，分区partition的理解，LEO是什么意思，如何保证多个partition之间数据一致性的（ISR机制），为什么Kafka可以这么快（基于磁盘的顺序读写）；"></a>Kafka使用过吗，什么是幂等性？怎么保证一致性，持久化怎么做，分区partition的理解，LEO是什么意思，如何保证多个partition之间数据一致性的（ISR机制），为什么Kafka可以这么快（基于磁盘的顺序读写）；</h1><h1 id="异步队列怎么实现；高并发情况下怎么办；"><a href="#异步队列怎么实现；高并发情况下怎么办；" class="headerlink" title="异步队列怎么实现；高并发情况下怎么办；"></a>异步队列怎么实现；高并发情况下怎么办；</h1>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>manoo
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2020/01/08/常用中间件/消息队列知识点梳理/" target="_blank" title>https://mayu1991.github.io/2020/01/08/常用中间件/消息队列知识点梳理/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+</div></div>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/01/14/设计模式/汇总/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          设计模式整理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/08/常用中间件/redis知识点梳理/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">redis知识点梳理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#消息队列的使用场景"><span class="nav-number">1.</span> <span class="nav-text">消息队列的使用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消息的重发补偿解决思路"><span class="nav-number">2.</span> <span class="nav-text">消息的重发补偿解决思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消息的幂等性解决思路"><span class="nav-number">3.</span> <span class="nav-text">消息的幂等性解决思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消息的堆积解决思路"><span class="nav-number">4.</span> <span class="nav-text">消息的堆积解决思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一般消息队列如何保证消息的有序性"><span class="nav-number">5.</span> <span class="nav-text">一般消息队列如何保证消息的有序性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消息队列可达性、幂等性和延时架构设计"><span class="nav-number">6.</span> <span class="nav-text">消息队列可达性、幂等性和延时架构设计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kafka怎么实现消息队列的有序性"><span class="nav-number">7.</span> <span class="nav-text">kafka怎么实现消息队列的有序性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kafka分区partition的理解"><span class="nav-number">8.</span> <span class="nav-text">kafka分区partition的理解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kafka副本列表机制"><span class="nav-number">9.</span> <span class="nav-text">kafka副本列表机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么Kafka可以这么快"><span class="nav-number">10.</span> <span class="nav-text">为什么Kafka可以这么快</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消息队列使用的场景介绍和作用（应用耦合、异步消息、流量削锋等）；"><span class="nav-number">11.</span> <span class="nav-text">消息队列使用的场景介绍和作用（应用耦合、异步消息、流量削锋等）；</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何解决消息队列丢失消息和重复消费问题（Kafka）；"><span class="nav-number">12.</span> <span class="nav-text">如何解决消息队列丢失消息和重复消费问题（Kafka）；</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka使用过吗，什么是幂等性？怎么保证一致性，持久化怎么做，分区partition的理解，LEO是什么意思，如何保证多个partition之间数据一致性的（ISR机制），为什么Kafka可以这么快（基于磁盘的顺序读写）；"><span class="nav-number">13.</span> <span class="nav-text">Kafka使用过吗，什么是幂等性？怎么保证一致性，持久化怎么做，分区partition的理解，LEO是什么意思，如何保证多个partition之间数据一致性的（ISR机制），为什么Kafka可以这么快（基于磁盘的顺序读写）；</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异步队列怎么实现；高并发情况下怎么办；"><span class="nav-number">14.</span> <span class="nav-text">异步队列怎么实现；高并发情况下怎么办；</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2020 密斯特马的技术笔记 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">总览</a>
+  
+    <a href="/categories" class="mobile-nav-link">目录</a>
+  
+    <a href="/tags" class="mobile-nav-link">标签</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            密斯特马的技术笔记
+          </div>
+          <div class="panel-body">
+            Copyright © 2020 manoo All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

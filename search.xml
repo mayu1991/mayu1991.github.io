@@ -4,11 +4,145 @@
   
     
     <entry>
+      <title>网络协议总结</title>
+      <link href="/2020/06/08/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/"/>
+      <url>/2020/06/08/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h1><ol><li><p>OSI七层结构</p><ul><li>应用层</li><li>表示层</li><li>会话层：半双工、单工和全双工的方式建立会话。</li><li>传输层：该层的主要任务是：向用户提供可靠的端到端的差错和流量控制，保证报文的正确传输。该层常见的协议：TCP协议、UDP协议。</li><li>网络层：寻址</li><li>数据链路层：流量控制，将物理层的数据</li><li><p>物理层：计算机之间基础的比特流</p><p><a href="https://blog.csdn.net/yaopeng_2005/article/details/7064869">OSI七层模型详解</a></p></li></ul></li><li><p>OSI七层模型分别对应着五层模型的哪一部分；<br> OSI模型            TCP/IP分层<br> 应用层（HTTP）<br> 表示层（HTML）<br> 会话层 ———-&gt; 应用层<br> 传输层 ———-&gt; 传输层（TCP、UDP）<br> 网络层 ———-&gt; 互联网络层（IP）<br> 数据链路层（ARP）-&gt; 网卡层<br> 物理层 ———-&gt; 硬件层</p></li><li><p>网络模型的分层、IP和Mac地址在那个层、TCP和HTTP分别在那个层；</p><ul><li>ip和mac地址在网络层</li><li>tcp在数据传输层</li><li>http在应用层</li></ul></li></ol><h1 id="HTTP-HTTPS"><a href="#HTTP-HTTPS" class="headerlink" title="HTTP/HTTPS"></a>HTTP/HTTPS</h1><ol><li><p>Https和Http有什么区别；<br> 一、HTTPS协议需要到证书颁发机构CA申请证书，HTTP不用申请证书；</p><p> 二、HTTP是超文本传输协议，属于应用层信息传输，HTTPS 则是具有SSL加密传安全性传输协议，对数据的传输进行加密，相当于HTTP的升级版；</p><p> 三、HTTP和HTTPS使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</p><p> 四、HTTP的连接很简单，是<strong>无状态</strong>的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比HTTP协议安全。</p><p> <a href="https://blog.csdn.net/xiaoming100001/article/details/81109617?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase">参考：https和http有哪些区别</a></p></li><li><p>https的加密怎么实现的<br> CA证书+SSL加密</p></li><li><p>Http为什么是无状态的；</p><ol><li>原先http协议只是用来访问静态页面，无需状态。</li><li>后来http协议得到广泛使用，某些场景需要记录状态，针对这种场景可以用session或者cookies来记录状态，无需对http自身进行改造。</li></ol></li><li><p>http1.0、http 1.1和http2.0的区别；<br><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gf53f6mk58j31ja0fcwhw.jpg" alt="http演化历史"></p><ul><li><p>http/1.0：如需要发送多个请求必须创建多个 TCP 连接，并且浏览器对于单域名请求有数量限制（一般6个），其连接无法被复用</p></li><li><p>http/1.1：引入流水线（Pipelining）技术，但先天 FIFO（先进先出）机制导致当前请求的执行依赖于上一个请求执行的完成，容易引起报头阻塞，并没有从根本上解决问题</p></li><li><p>http/2：重新定义底层 http 语义映射，允许同一个连接上使用请求和响应双向数据流。同一域名只需占用一个 TCP 连接，通过数据流（Stream）以帧为基本协议单位，从根本上解决了问题，避免了因频繁创建连接产生的延迟，减少了内存消耗，提升了使用性能</p></li></ul></li></ol><h1 id="RPC-在dubbo篇重点看"><a href="#RPC-在dubbo篇重点看" class="headerlink" title="RPC(在dubbo篇重点看)"></a>RPC(在dubbo篇重点看)</h1><p>什么是RPC、如何实现RPC、RPC 的实现原理</p><h1 id="网络IO"><a href="#网络IO" class="headerlink" title="网络IO"></a>网络IO</h1><p><a href="https://blog.csdn.net/historyasamirror/article/details/5778378">1. 什么是阻塞、非阻塞、同步、异步</a></p><p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-edntwk/index.html?ca=drs-">2. 使用事件驱动模型实现高效稳定的网络服务器程序</a><br>    参考多路复用，在netty篇重点看</p><h1 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h1><ol><li><p>什么是长连接和短连接</p><p> 所谓长连接，指在一个TCP连接上可以连续发送多个数据包，在TCP连接保持期间，如果没有数据包发送，需要双方发检测包以维持此连接，一般需要自己做在线维持。<br> 短连接是指通信双方有数据交互时，就建立一个TCP连接，数据发送完成后，则断开此TCP连接，一般银行都使用短连接。<br> 比如http的，只是连接、请求、关闭，过程时间较短,服务器若是一段时间内没有收到请求即可关闭连接。<br>其实长连接是相对于通常的短连接而说的，也就是长时间保持客户端与服务端的连接状态。 </p></li><li><p>长连接与短连接的操作过程</p><p> 通常的短连接操作步骤是：<br> 连接→数据传输→关闭连接； </p><p> 而长连接通常就是：<br> 连接→数据传输→保持连接(心跳)→数据传输→保持连接(心跳)→……→关闭连接；<br> 这就要求长连接在没有数据通信时，定时发送数据包(心跳)，以维持连接状态，短连接在没有数据传输时直接关闭就行了 </p></li><li><p>什么时候用长连接，短连接？ </p><p> 长连接多用于操作频繁，点对点的通讯，而且连接数不能太多情况。每个TCP连接都需要三步握手，这需要时间，如果每个操作都是先连接，再操作的话那么处理速度会降低很多，所以每个操作完后都不断开，下次处理时直接发送数据包就OK了，不用建立TCP连接。例如：数据库的连接用长连接， 如果用短连接频繁的通信会造成socket错误，而且频繁的socket 创建也是对资源的浪费。 </p><p> 而像WEB网站的http服务一般都用短链接，因为长连接对于服务端来说会耗费一定的资源，而像WEB网站这么频繁的成千上万甚至上亿客户端的连接用短连接会更省一些资源，如果用长连接，而且同时有成千上万的用户，如果每个用户都占用一个连接的话，那可想而知吧。所以并发量大，但每个用户无需频繁操作情况下需用短连好。 </p><p> 总之，长连接和短连接的选择要视情况而定。 </p></li></ol><h1 id="TCP、IP-UDP协议（传输层）"><a href="#TCP、IP-UDP协议（传输层）" class="headerlink" title="TCP、IP/UDP协议（传输层）"></a>TCP、IP/UDP协议（传输层）</h1><blockquote><p>tcp可以参照这两个文档，讲的比较清楚<br><a href="http://www.52im.net/thread-513-1-1.html">深入理解TCP协议（上）：理论基础</a><br><a href="http://www.52im.net/thread-515-1-1.html">深入理解TCP协议（下）：RTT、滑动窗口、拥塞处理</a></p></blockquote><h2 id="tcp重点关注的知识点"><a href="#tcp重点关注的知识点" class="headerlink" title="tcp重点关注的知识点"></a>tcp重点关注的知识点</h2><ol><li>三次握手、四次挥手和状态流转</li><li>建立socket依靠多路复用</li><li>失败重传</li><li>重复数据处理</li><li>可靠传输、包乱序问题</li><li>流量控制（滑动窗口）</li><li>拥堵处理（粘包、拆包）</li></ol><h2 id="知识点列表"><a href="#知识点列表" class="headerlink" title="知识点列表"></a>知识点列表</h2><ol><li><p>全双工、半双工、单工</p><ul><li>全双工（Full Duplex）是指在发送数据的同时也能够接收数据，两者同步进行，这好像我们平时打电话一样，说话的同时也能够听到对方的声音。目前的网卡一般都支持全双工。</li><li>半双工（Half Duplex），所谓半双工就是指一个时间段内只有一个动作发生，举个简单例子，一条窄窄的马路，同时只能有一辆车通过，当目前有两量车对开，这种情况下就只能一辆先过，等到头儿后另一辆再开，这个例子就形象的说明了半双工的原理。早期的对讲机、以及早期集线器等设备都是基于半双工的产品。随着技术的不断进步，半双工会逐渐退出历史舞台.</li><li>单工通信是指通信线路上的数据按单一方向传送.</li></ul></li><li><p>三次握手<br> 建立连接前的校验动作，确保双方都是可以接收数据的。</p></li><li><p>为什么握手不是两次或者四次，是三次？<br> TCP 需要 seq 序列号来做可靠重传或接收，而避免连接复用时无法分辨出 seq 是延迟或者是旧链接的 seq，因此需要三次握手来约定确定双方的 ISN（初始 seq 序列号）。 </p></li><li><p>TCP三次握手数据丢失了怎么办？那如果后面又找到了呢？<br> 数据丢失，快速重发（SACK）<br> 重复数据过滤，Duplicate SACK，当ack大于后面的SACK时，发送方就知道这个数据已经发送过，丢失的应该是ACK。</p></li><li><p>TCP的失败重传</p><ol><li>超时重传</li><li>快速重传</li><li>SACK方法</li><li>Duplicate SACK方法</li></ol></li><li><p>四次挥手是什么，为什么不能减少为三次，或者变得更多？<br> <a href="https://hit-alibaba.github.io/interview/basic/network/TCP.html#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B">四次挥手是啥</a><br> <a href="https://www.zhihu.com/question/67013338">为什么最后一次挥手要等待2MSL</a></p></li><li><p>SYN攻击<br> 使用随机的ip，伪造SYN请求，将机器的syn连接的队列耗尽。</p><ol><li>tcp_synack_retries 可以用他来减少重试次数；</li><li>tcp_max_syn_backlog，可以增大SYN连接数</li><li>tcp_abort_on_overflow 处理不过来干脆就直接拒绝连接了。</li></ol></li><li><p>tcp的状态流转<br><img src="http://www.52im.net/data/attachment/forum/201609/01/135701r8w35cg7o2y887o7.png" alt="tcp状态流转"></p></li><li><p>tcp在time_wait状态到closed状态为什么要等待两个MSL</p><ol><li>TIME_WAIT确保有足够的时间让对端收到了ACK，如果被动关闭的那方没有收到Ack，就会触发被动端重发Fin，一来一去正好2个MSL</li><li>有足够的时间让这个连接不会跟后面的连接混在一起（你要知道，有些自做主张的路由器会缓存IP数据包，如果连接被重用了，那么这些延迟收到的包就有可能会跟新连接混在一起）</li></ol></li><li><p>RTT算法<br> 记录消息从发送到接收回来消耗的时长，存在以下问题？<br> 重传的时间要不要计算进去？</p><ol><li>经典算法，计算了重传时间</li><li>改良算法，没有计算重传时间，当网络抖动需要重传很多时，会有大问题，所以这里取巧，如果发生重传，超时时间*2</li><li>继续改良，将重传时间加权，用加权因子，整出一个公式，调的一手好参数。</li></ol></li><li><p>tcp的流控，sliding windows 滑动窗口<br><img src="http://www.52im.net/data/attachment/forum/201609/03/101120ihanzfsth0hhcllk.png" alt="发送方窗口示例"></p></li><li><p>TCP的拥塞控制、流量控制详细说明？</p></li><li><p>什么是TCP 粘包/拆包，TCP粘包/拆包的解决办法<br><a href="https://www.jianshu.com/p/7947991db5a3">TCP 粘包/拆包的原因及解决方法</a></p></li><li><p>UDP协议和TCP协议的比较、TCP为什么可靠；<br><a href="https://blog.csdn.net/baidu_35692628/article/details/78255476?locationNum=4&amp;fps=1">TCP/IP协议-为什么说TCP是可靠连接</a><br><a href="http://www.52im.net/thread-1277-1-1.html">快速理解为什么说UDP有时比TCP更有优势</a></p></li></ol><h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><ol><li><p>两个不同ip地址的计算机之间如何通信；<br><a href="https://blog.csdn.net/gui951753/article/details/79386734#%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E6%98%AF%E5%A6%82%E4%BD%95%E4%BA%92%E7%9B%B8%E9%80%9A%E4%BF%A1%E7%9A%84">计算机之间是如何互相通信的</a></p></li><li><p>地址解析协议ARP；<br> <a href="https://blog.csdn.net/u013309870/article/details/77427112">计算机网络–ARP地址解析协议详解</a></p><p> 【是什么】<br> 透过目标设备的ip地址，查询目标设备的mac地址，以保证通信的顺利进行。</p><p> 【怎么做】（缓存-&gt;广播-&gt;匹配-&gt;更新缓存）</p><ol><li>每个运行tcp/ip协议的主机上都会有arp高速缓存表，缓存了目标ip地址与mac地址的映射关系。</li><li>先从缓存中找，找不到会在本局域网上发送广播。</li><li>局域网内所有接收到的arp进程，会取报文跟自身比较ip地址，如果匹配，向发送方发送消息。</li><li>发送方接收到之后，更新本地缓存表。</li></ol></li><li>从浏览器中输入URL到页面加载的发生了什么？<br><a href="https://blog.csdn.net/gui951753/article/details/79386734#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%A6%82%E4%BD%95%E8%AE%BF%E9%97%AEinternet">计算机如何访问internet</a></li></ol><h2 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h2><ol><li><p>数据链路层是做什么的?</p><ul><li>主要的作用：将不稳定的物理层传输，转化为稳定的数据链路传输，将比特流聚合转为帧</li><li>因为两端数据处理能力的不同，数据链路层，需要具备流量控制的能力</li></ul></li><li><p>数据链路层的流量控制方法？<br> <a href="https://blog.csdn.net/starter_____/article/details/102458362">流量控制的基本概念</a><br> <a href="https://blog.csdn.net/baidu_35534327/article/details/53542020?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase">TCP层与数据链路层流量控制的区别</a></p></li></ol><h1 id="相关联问题"><a href="#相关联问题" class="headerlink" title="相关联问题"></a>相关联问题</h1><ol start="2"><li><p>C10k问题<br><a href="https://segmentfault.com/a/1190000007240744">高性能网络编程(二)：上一个10年，著名的C10K并发连接问题</a></p></li><li><p>长短URL相互转换方案（同笔试题，问我方案可以有多少不同URL，高并发怎么办，怎样建立索引以及怎样分布式）<br> <a href="https://cloud.tencent.com/developer/article/1181632">参考</a><br> <strong>在分布式系列中重点看</strong></p></li><li><p>多路复用<br> <strong>在netty篇重点看</strong></p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网络协议 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络协议 </tag>
+            
+            <tag> http </tag>
+            
+            <tag> tcp </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>IO设计模式</title>
+      <link href="/2020/01/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/IO%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2020/01/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/IO%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近看到多路复用这个设计理念，遂在网上搜了搜，想了解。不想大部分的文章都讲得云里雾里。故综合几篇文章，自己总结了下IO的相关概念。</p><h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><h2 id="什么是IO"><a href="#什么是IO" class="headerlink" title="什么是IO"></a>什么是IO</h2><p>IO是Input/Output的缩写。</p><p>在计算机科学中指计算机之间或人与计算机之间的信息交换。比如两台计算机通过网卡进行交互，比如向硬盘写入数据或读取硬盘数据，比如人敲击鼠标键盘等，都是I/O。</p><p>对于软件系统的IO，通常是指磁盘和网络。我们可以认为IO是除cpu之外的数据读取/写入动作。</p><h2 id="IO调用和IO执行"><a href="#IO调用和IO执行" class="headerlink" title="IO调用和IO执行"></a>IO调用和IO执行</h2><p>其实IO本质上是操作系统的事，对应用来说，只是发起了IO调用，操作系统接收到IO调用之后执行IO，这一步可以视作IO执行。</p><p>把一个IO事件分为IO调用和IO执行区分之后，针对这两个步骤就引申出了同步和阻塞概念。</p><h2 id="同步和异步的区别"><a href="#同步和异步的区别" class="headerlink" title="同步和异步的区别"></a>同步和异步的区别</h2><p>同步：发起IO调用时，等待执行结果。<br>异步：发起IO调用时，不等待执行结果，直接返回。</p><h2 id="阻塞和非阻塞的区别"><a href="#阻塞和非阻塞的区别" class="headerlink" title="阻塞和非阻塞的区别"></a>阻塞和非阻塞的区别</h2><p>阻塞：操作系统在准备IO执行时，条件没有就绪，一直等待条件就绪。<br>非阻塞：操作系统在准备IO执行时，条件没有就绪时，先执行其他任务，等条件就绪之后，再执行。</p><blockquote><p>可以参考这两篇文章，看完基本就理解上面的概念了。<br><a href="https://www.jianshu.com/p/8fb6d43a6692">什么是IO</a><br><a href="https://www.jianshu.com/p/5a76d4e74596">彻底搞懂Java的网络IO</a></p></blockquote><h1 id="IO设计遇到的问题"><a href="#IO设计遇到的问题" class="headerlink" title="IO设计遇到的问题"></a>IO设计遇到的问题</h1><p>cpu和磁盘的运行速度差异带来的性能或效率问题。cpu和内存的速度远远高于外部设备。如何解决这个问题，成为了IO设计的关键。</p><h1 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h1><p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1gb34sq33sqj31hm0mq40l.jpg" alt></p><p>现在我们有四种模型：</p><ul><li>同步阻塞</li><li>同步非阻塞</li><li>异步阻塞</li><li>异步非阻塞</li></ul><p>好莱坞法则<br>多路复用<br>Reactor模式<br>Proactor模式</p><p>事件驱动模式的应用场景</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>设计模式整理</title>
+      <link href="/2020/01/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%B1%87%E6%80%BB/"/>
+      <url>/2020/01/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%B1%87%E6%80%BB/</url>
+      
+        <content type="html"><![CDATA[<p>设计模式的的六大原则及其含义</p><p>开闭原则说一下；</p><p>常见的设计模式</p><p>常见的单例模式以及各种实现方式的优缺点，哪一种最好，手写常见的单例模式</p><p>模板方法模式；</p><p>设计模式在实际场景中的应用</p><p>Spring中用到了哪些设计模式</p><p>MyBatis中用到了哪些设计模式</p><p>你项目中有使用哪些设计模式</p><p>说说常用开源框架中设计模式使用分析</p><p>动态代理很重要！！</p><p>树（二叉查找树、平衡二叉树、红黑树、B树、B+树）</p><p>深度有限算法、广度优先算法</p><p>克鲁斯卡尔算法、普林母算法、迪克拉斯算法</p><p>什么是一致性Hash及其原理、Hash环问题</p><p>常见的排序算法和查找算法：快排、折半查找、堆排序等</p><p>反射的作用与实现原理；</p><p>Java中的回调机制；</p><p>发布/订阅使用场景；</p><p>KMP算法（一种改进的字符串匹配算法）；</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2020/01/08/%E5%B8%B8%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/"/>
+      <url>/2020/01/08/%E5%B8%B8%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="消息队列的使用场景"><a href="#消息队列的使用场景" class="headerlink" title="消息队列的使用场景"></a>消息队列的使用场景</h1><p><a href="https://blog.csdn.net/seven__________7/article/details/70225830">https://blog.csdn.net/seven__________7/article/details/70225830</a><br>（1）异步处理（异步提高接口的并发量）<br>（2）应用解耦（系统间解耦）<br>（3）流量削峰（秒杀系统用固定长度的消息队列控制访问数）<br>（4）日志处理（kafka，解决大量日志传输的问题）</p><h1 id="消息的重发补偿解决思路"><a href="#消息的重发补偿解决思路" class="headerlink" title="消息的重发补偿解决思路"></a>消息的重发补偿解决思路</h1><p><a href="http://manzhizhen.iteye.com/blog/2092136">http://manzhizhen.iteye.com/blog/2092136</a></p><h1 id="消息的幂等性解决思路"><a href="#消息的幂等性解决思路" class="headerlink" title="消息的幂等性解决思路"></a>消息的幂等性解决思路</h1><p><a href="https://www.jianshu.com/p/8b77d4583bab?utm_campaign">https://www.jianshu.com/p/8b77d4583bab?utm_campaign</a></p><h1 id="消息的堆积解决思路"><a href="#消息的堆积解决思路" class="headerlink" title="消息的堆积解决思路"></a>消息的堆积解决思路</h1><p><a href="https://docs.oracle.com/cd/E19148-01/820-0843/6nci9sed1/index.html">https://docs.oracle.com/cd/E19148-01/820-0843/6nci9sed1/index.html</a></p><h1 id="一般消息队列如何保证消息的有序性"><a href="#一般消息队列如何保证消息的有序性" class="headerlink" title="一般消息队列如何保证消息的有序性"></a>一般消息队列如何保证消息的有序性</h1><p><a href="https://yq.aliyun.com/articles/73672">https://yq.aliyun.com/articles/73672</a></p><h1 id="消息队列可达性、幂等性和延时架构设计"><a href="#消息队列可达性、幂等性和延时架构设计" class="headerlink" title="消息队列可达性、幂等性和延时架构设计"></a>消息队列可达性、幂等性和延时架构设计</h1><p><a href="http://www.keplerstar.cn/index.php/2017/09/14/">http://www.keplerstar.cn/index.php/2017/09/14/</a></p><h1 id="kafka怎么实现消息队列的有序性"><a href="#kafka怎么实现消息队列的有序性" class="headerlink" title="kafka怎么实现消息队列的有序性"></a>kafka怎么实现消息队列的有序性</h1><p>kafka的概述：<a href="https://www.cnblogs.com/lsx1993/p/4627465.html">https://www.cnblogs.com/lsx1993/p/4627465.html</a><br>kafka的有序性：<a href="https://blog.csdn.net/chunlongyu/article/details/53977819">https://blog.csdn.net/chunlongyu/article/details/53977819</a></p><h1 id="kafka分区partition的理解"><a href="#kafka分区partition的理解" class="headerlink" title="kafka分区partition的理解"></a>kafka分区partition的理解</h1><h1 id="kafka副本列表机制"><a href="#kafka副本列表机制" class="headerlink" title="kafka副本列表机制"></a>kafka副本列表机制</h1><p><a href="https://blog.csdn.net/lizhitao/article/details/51718185">https://blog.csdn.net/lizhitao/article/details/51718185</a></p><h1 id="为什么Kafka可以这么快"><a href="#为什么Kafka可以这么快" class="headerlink" title="为什么Kafka可以这么快"></a>为什么Kafka可以这么快</h1><p><a href="https://blog.csdn.net/qq838642798/article/details/70808557">https://blog.csdn.net/qq838642798/article/details/70808557</a></p><h1 id="消息队列使用的场景介绍和作用（应用耦合、异步消息、流量削锋等）；"><a href="#消息队列使用的场景介绍和作用（应用耦合、异步消息、流量削锋等）；" class="headerlink" title="消息队列使用的场景介绍和作用（应用耦合、异步消息、流量削锋等）；"></a>消息队列使用的场景介绍和作用（应用耦合、异步消息、流量削锋等）；</h1><h1 id="如何解决消息队列丢失消息和重复消费问题（Kafka）；"><a href="#如何解决消息队列丢失消息和重复消费问题（Kafka）；" class="headerlink" title="如何解决消息队列丢失消息和重复消费问题（Kafka）；"></a>如何解决消息队列丢失消息和重复消费问题（Kafka）；</h1><h1 id="Kafka使用过吗，什么是幂等性？怎么保证一致性，持久化怎么做，分区partition的理解，LEO是什么意思，如何保证多个partition之间数据一致性的（ISR机制），为什么Kafka可以这么快（基于磁盘的顺序读写）；"><a href="#Kafka使用过吗，什么是幂等性？怎么保证一致性，持久化怎么做，分区partition的理解，LEO是什么意思，如何保证多个partition之间数据一致性的（ISR机制），为什么Kafka可以这么快（基于磁盘的顺序读写）；" class="headerlink" title="Kafka使用过吗，什么是幂等性？怎么保证一致性，持久化怎么做，分区partition的理解，LEO是什么意思，如何保证多个partition之间数据一致性的（ISR机制），为什么Kafka可以这么快（基于磁盘的顺序读写）；"></a>Kafka使用过吗，什么是幂等性？怎么保证一致性，持久化怎么做，分区partition的理解，LEO是什么意思，如何保证多个partition之间数据一致性的（ISR机制），为什么Kafka可以这么快（基于磁盘的顺序读写）；</h1><h1 id="异步队列怎么实现；高并发情况下怎么办；"><a href="#异步队列怎么实现；高并发情况下怎么办；" class="headerlink" title="异步队列怎么实现；高并发情况下怎么办；"></a>异步队列怎么实现；高并发情况下怎么办；</h1>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>redis知识点梳理</title>
+      <link href="/2020/01/08/%E5%B8%B8%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/"/>
+      <url>/2020/01/08/%E5%B8%B8%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Redis中zSet跳跃表问题；"><a href="#Redis中zSet跳跃表问题；" class="headerlink" title="Redis中zSet跳跃表问题；"></a>Redis中zSet跳跃表问题；</h1><h1 id="Redis的set的应用场合？"><a href="#Redis的set的应用场合？" class="headerlink" title="Redis的set的应用场合？"></a>Redis的set的应用场合？</h1><h1 id="Redis高级特性了解吗？"><a href="#Redis高级特性了解吗？" class="headerlink" title="Redis高级特性了解吗？"></a>Redis高级特性了解吗？</h1><h1 id="Redis的pipeline有什么用处？"><a href="#Redis的pipeline有什么用处？" class="headerlink" title="Redis的pipeline有什么用处？"></a>Redis的pipeline有什么用处？</h1><h1 id="Redis集群宕机如何处理，怎么样进行数据的迁移；"><a href="#Redis集群宕机如何处理，怎么样进行数据的迁移；" class="headerlink" title="Redis集群宕机如何处理，怎么样进行数据的迁移；"></a>Redis集群宕机如何处理，怎么样进行数据的迁移；</h1><h1 id="Redis的集群方案；"><a href="#Redis的集群方案；" class="headerlink" title="Redis的集群方案；"></a>Redis的集群方案；</h1><h1 id="Redis原子操作怎么用比较好；"><a href="#Redis原子操作怎么用比较好；" class="headerlink" title="Redis原子操作怎么用比较好；"></a>Redis原子操作怎么用比较好；</h1><h1 id="Redis过期策略是怎么实现的呢？"><a href="#Redis过期策略是怎么实现的呢？" class="headerlink" title="Redis过期策略是怎么实现的呢？"></a>Redis过期策略是怎么实现的呢？</h1><h1 id="tair和redis的区别"><a href="#tair和redis的区别" class="headerlink" title="tair和redis的区别"></a>tair和redis的区别</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 知识点 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 知识点 </tag>
+            
+            <tag> 并发 </tag>
+            
+            <tag> redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2020/01/03/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%E6%B3%A8%E5%85%A5%E9%97%AE%E9%A2%98/"/>
+      <url>/2020/01/03/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%E6%B3%A8%E5%85%A5%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<p># </p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>索引的原理</title>
       <link href="/2019/12/26/%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8E%9F%E7%90%86/"/>
       <url>/2019/12/26/%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8E%9F%E7%90%86/</url>
       
-        <content type="html"><![CDATA[<h1 id="数据库的索引的原理"><a href="#数据库的索引的原理" class="headerlink" title="数据库的索引的原理"></a>数据库的索引的原理</h1><h1 id="索引的使用场景"><a href="#索引的使用场景" class="headerlink" title="索引的使用场景"></a>索引的使用场景</h1><h1 id="常见的索引有哪些"><a href="#常见的索引有哪些" class="headerlink" title="常见的索引有哪些"></a>常见的索引有哪些</h1><h2 id="聚集索引"><a href="#聚集索引" class="headerlink" title="聚集索引"></a>聚集索引</h2><p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1ga9654d1vij30go0a8mxd.jpg" alt="聚集索引"></p><h2 id="非聚集索引"><a href="#非聚集索引" class="headerlink" title="非聚集索引"></a>非聚集索引</h2><h2 id="聚集索引与非聚集索引的区别"><a href="#聚集索引与非聚集索引的区别" class="headerlink" title="聚集索引与非聚集索引的区别"></a>聚集索引与非聚集索引的区别</h2><p><a href="https://www.cnblogs.com/aspwebchh/p/6652855.html">https://www.cnblogs.com/aspwebchh/p/6652855.html</a></p><h2 id="全文索引"><a href="#全文索引" class="headerlink" title="全文索引"></a>全文索引</h2><p><a href="https://blog.csdn.net/shb_derek1/article/details/77478691">https://blog.csdn.net/shb_derek1/article/details/77478691</a></p><h2 id="组合索引"><a href="#组合索引" class="headerlink" title="组合索引"></a>组合索引</h2><h2 id="前缀索引"><a href="#前缀索引" class="headerlink" title="前缀索引"></a>前缀索引</h2><h2 id="反向索引"><a href="#反向索引" class="headerlink" title="反向索引"></a>反向索引</h2><h1 id="索引失效的问题"><a href="#索引失效的问题" class="headerlink" title="索引失效的问题"></a>索引失效的问题</h1><p>遇到过索引失效的情况没，什么时候可能会出现，如何解决<br>什么情况下设置了索引但无法使用，索引无效</p><p>1) 以”%”开头的LIKE语句，模糊匹配：红色标识位置的百分号会导致相关列的索引无法使用</p><p>2) Or语句前后没有同时使用索引</p><p>3) 数据类型出现隐式转化（如varchar不加单引号的话可能会自动转换为int型，会使索引无效，产生全表扫描。）</p><p>4) 在索引列上使用IS NULL 或IS NOT NULL操作。索引是不索引空值的，所以这样的操作不能使用索引，可以用其他的办法处理，例如：数字类型，判断大于0，字符串类型设置一个默认值，判断是否等于默认值即可</p><p>5) 在索引字段上使用not，&lt;&gt;，!=，eg&lt;&gt; 操作符（不等于）：不等于操作符是永远不会用到索引的，因此对它的处理只会产生全表扫描。 用其它相同功能的操作运算代替，如 a&lt;&gt;0 改为 a&gt;0 or a&lt;0</p><ol><li>索引类别（B+树索引、全文索引、哈希索引）</li><li>索引使用的注意事项</li></ol><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ol><li><a href="https://www.cnblogs.com/aspwebchh/p/6652855.html">https://www.cnblogs.com/aspwebchh/p/6652855.html</a></li></ol>]]></content>
+        <content type="html"><![CDATA[<h1 id="数据库的索引的原理"><a href="#数据库的索引的原理" class="headerlink" title="数据库的索引的原理"></a>数据库的索引的原理</h1><h1 id="索引的使用场景"><a href="#索引的使用场景" class="headerlink" title="索引的使用场景"></a>索引的使用场景</h1><h1 id="常见的索引有哪些"><a href="#常见的索引有哪些" class="headerlink" title="常见的索引有哪些"></a>常见的索引有哪些</h1><p>聚集索引、非聚集索引<br>全文索引<br>组合索引<br>前缀索引<br>反向索引<br>B+树/B-树索引</p><h2 id="聚集索引"><a href="#聚集索引" class="headerlink" title="聚集索引"></a>聚集索引</h2><p>根据主键创建的索引，节点是主键，叶子对应的是表数据。</p><p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1ga9654d1vij30go0a8mxd.jpg" alt="聚集索引"></p><h2 id="非聚集索引"><a href="#非聚集索引" class="headerlink" title="非聚集索引"></a>非聚集索引</h2><h2 id="聚集索引与非聚集索引的区别"><a href="#聚集索引与非聚集索引的区别" class="headerlink" title="聚集索引与非聚集索引的区别"></a>聚集索引与非聚集索引的区别</h2><p><a href="https://www.cnblogs.com/aspwebchh/p/6652855.html">https://www.cnblogs.com/aspwebchh/p/6652855.html</a></p><h2 id="全文索引"><a href="#全文索引" class="headerlink" title="全文索引"></a>全文索引</h2><p><a href="https://blog.csdn.net/shb_derek1/article/details/77478691">https://blog.csdn.net/shb_derek1/article/details/77478691</a></p><h2 id="组合索引-联合索引-复合索引"><a href="#组合索引-联合索引-复合索引" class="headerlink" title="组合索引/联合索引/复合索引"></a>组合索引/联合索引/复合索引</h2><p>索引最左匹配原则</p><h2 id="前缀索引"><a href="#前缀索引" class="headerlink" title="前缀索引"></a>前缀索引</h2><h2 id="反向索引"><a href="#反向索引" class="headerlink" title="反向索引"></a>反向索引</h2><h2 id="B-树索引和B-树索引"><a href="#B-树索引和B-树索引" class="headerlink" title="B-树索引和B+树索引"></a>B-树索引和B+树索引</h2><p><a href="https://juejin.im/post/5d4d82caf265da039c6360ff#heading-4">https://juejin.im/post/5d4d82caf265da039c6360ff#heading-4</a></p><h1 id="索引失效的问题"><a href="#索引失效的问题" class="headerlink" title="索引失效的问题"></a>索引失效的问题</h1><p>遇到过索引失效的情况没，什么时候可能会出现，如何解决<br>什么情况下设置了索引但无法使用，索引无效</p><p>1) 以”%”开头的LIKE语句，模糊匹配：红色标识位置的百分号会导致相关列的索引无法使用</p><p>2) Or语句前后没有同时使用索引</p><p>3) 数据类型出现隐式转化（如varchar不加单引号的话可能会自动转换为int型，会使索引无效，产生全表扫描。）</p><p>4) 在索引列上使用IS NULL 或IS NOT NULL操作。索引是不索引空值的，所以这样的操作不能使用索引，可以用其他的办法处理，例如：数字类型，判断大于0，字符串类型设置一个默认值，判断是否等于默认值即可</p><p>5) 在索引字段上使用not，&lt;&gt;，!=，eg&lt;&gt; 操作符（不等于）：不等于操作符是永远不会用到索引的，因此对它的处理只会产生全表扫描。 用其它相同功能的操作运算代替，如 a&lt;&gt;0 改为 a&gt;0 or a&lt;0</p><ol><li>索引类别（B+树索引、全文索引、哈希索引）</li><li>索引使用的注意事项</li></ol><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ol><li><a href="https://www.cnblogs.com/aspwebchh/p/6652855.html">https://www.cnblogs.com/aspwebchh/p/6652855.html</a></li></ol>]]></content>
       
       
       <categories>
@@ -20,9 +154,9 @@
       
         <tags>
             
-            <tag> 索引 </tag>
-            
             <tag> 数据库 </tag>
+            
+            <tag> 索引 </tag>
             
         </tags>
       
@@ -35,7 +169,7 @@
       <link href="/2019/12/26/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%A8%E5%B1%80ID%E8%AE%BE%E8%AE%A1/"/>
       <url>/2019/12/26/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%A8%E5%B1%80ID%E8%AE%BE%E8%AE%A1/</url>
       
-        <content type="html"><![CDATA[<p>todo</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h1><p><a href="https://youzhixueyuan.com/how-to-generate-distributed-unique-id.html">1.分布式系统全局唯一id简介、特点、5种生成方式</a></p><p>什么是分布式全局唯一id<br>为什么需要<br>有哪些方式可以生成<br>存在哪些技术难点<br>链路监控中的应用<br>主流框架的生成方式<br>sofa<br>dubbo<br>skywalking</p>]]></content>
       
       
       <categories>
@@ -57,8 +191,8 @@
     
     <entry>
       <title>幂等接口设计</title>
-      <link href="/2019/12/26/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%B9%82%E7%AD%89%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1/"/>
-      <url>/2019/12/26/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%B9%82%E7%AD%89%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1/</url>
+      <link href="/2019/12/26/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89/"/>
+      <url>/2019/12/26/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89/</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -75,33 +209,6 @@
             <tag> 分布式 </tag>
             
             <tag> 幂等 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>分布式锁</title>
-      <link href="/2019/12/26/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"/>
-      <url>/2019/12/26/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> 分布式 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 分布式 </tag>
-            
-            <tag> 锁 </tag>
             
         </tags>
       
@@ -195,7 +302,7 @@
       <link href="/2019/11/06/java%E5%9F%BA%E7%A1%80/HashMap%E6%95%B4%E7%90%86/"/>
       <url>/2019/11/06/java%E5%9F%BA%E7%A1%80/HashMap%E6%95%B4%E7%90%86/</url>
       
-        <content type="html"><![CDATA[<h1 id="HashMap-的工作原理及代码实现"><a href="#HashMap-的工作原理及代码实现" class="headerlink" title="HashMap 的工作原理及代码实现"></a>HashMap 的工作原理及代码实现</h1><h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><ul><li>关键属性  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transient</span> Entry[] table;<span class="comment">//存储元素的实体数组（桶）</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> size;<span class="comment">//存放元素的个数</span></span><br><span class="line"><span class="keyword">int</span> threshold; <span class="comment">//临界值= 加载因子*容量，当实际大小超过临界值时 </span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">float</span> loadFactor; <span class="comment">//加载因子，记录数/容量，默认值0.75</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> modCount;<span class="comment">//被修改的次数，HashMap内部结构发生变化的次数</span></span><br></pre></td></tr></table></figure></li></ul><ul><li><p>关键动作</p><ul><li>初始化<ul><li>容量，默认16</li><li>负载因子，默认0.75f</li></ul></li><li><p>hash</p><ul><li><p>hashcode的生成</p><ul><li>Object对象：内存地址</li><li>String对象：char数组每一位都参与运算，对于相同值的String，hashcode是相同的</li><li>Integer：Integer的value</li></ul></li><li><p>key的hash<br>一次扰动（高位也参与异或计算，增加hash的分散性）</p></li></ul></li><li>散列函数<br>  (length-1)&amp;hash</li><li>扩容<ul><li>扩容后的容量<ul><li>当前容量的两倍</li><li>先插入再扩容</li></ul></li><li>再hash</li></ul></li><li>插入</li><li>删除</li><li>查询</li></ul></li></ul><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="size和threshold的区别"><a href="#size和threshold的区别" class="headerlink" title="size和threshold的区别"></a>size和threshold的区别</h3><ul><li>size是map中实际存在的键值对数量</li><li>threshold是map内最大装载的元素的个数</li><li>当size达到threshold时，就会触发reSize和reHash</li></ul><h3 id="为什么HashMap的桶的大小为2的指数倍？"><a href="#为什么HashMap的桶的大小为2的指数倍？" class="headerlink" title="为什么HashMap的桶的大小为2的指数倍？"></a>为什么HashMap的桶的大小为2的指数倍？</h3><p>我们在使用hashmap的时候，肯定是期望碰撞越小越好。</p><blockquote><p>那么如何达到这个目的呢？</p></blockquote><p>我觉得可以从以下三点入手：</p><ul><li>更大的存储空间，当然可以使数据的分布更分散</li><li>更好的的散列函数，使数据的分布更均匀</li><li>解决冲突的方法</li></ul><blockquote><p>怎么实现更大的存储空间呢？</p></blockquote><ul><li>增加内存空间</li><li>增加负载因子</li></ul><p>内存空间和负载因子的抉择，就是经典的「时间-空间」问题。是牺牲时间换取空间，还是牺牲空间换取时间？视实际情况而定。可以用一句话总结：「负载因子越大，碰撞的概率越大；负载因子越小，碰撞的概率变小，但是内存闲置的概率也会增加」</p><p>HashMap的初始空间和初始的负载因子分别是16和0.75f，通常不建议改变负载因子，初始空间建议按照expectSize/0.75 + 1来设置，为什么这么设计，因为扩容是一个很耗资源的操作，我们如果能预估到map中元素的个数，依照这个预估值设置容量，可以减少扩容的操作。</p><blockquote><p>更好的散列函数？</p></blockquote><p>我们知道其实hash就是一个以空间换时间的设计。每一个key通过散列函数的计算，放入相应的位置上。最好的方式是根据桶的大小（hashmap的）计算取余。</p><ul><li>桶的大小怎么设计才合理</li><li>散列函数怎么设计才合理</li></ul><p>桶的大小<br>有证明其实素数在打散的效果上是更好的，可以参考这个文章<a href="https://blog.csdn.net/liuqiyao_01/article/details/14475159">为什么一般的hashTable的桶数会取一个素数</a>。但是HashMap还是选择了2的指数幂作为桶数。这就引出了「为什么HashMap的桶的大小为2的指数倍」这个问题。</p><p>散列函数<br>为什么HashMap的桶的大小为2的指数倍？<br>这是从性能角度出发的，为了优化用位运算代替取余运算，同时也方便在扩容时优化。</p><ul><li>只有长度为2的指数幂的时候，位运算和取余运算才相等，这个时候散列函数计算结果比较分散。</li><li>网上有一种说法，如果length为奇数，length-1为偶数，最后一位肯定是0，这时位运算之后，最后一位永远是零，散列就不分散了。我觉得这个说法不是这个问题的原因，而是结果。</li></ul><p>总结一下，因为选择用位运算代替除法来作为散列函数，而为了保证位运算的足够分散，选择了2的指数幂作为标准。（ps：因为选择了2的指数幂，在扩容时还可以更快捷）</p><h3 id="为什么扩容之后的size是两倍"><a href="#为什么扩容之后的size是两倍" class="headerlink" title="为什么扩容之后的size是两倍"></a>为什么扩容之后的size是两倍</h3><p>因为hashmap的容量是2的指数幂，所以扩容之后也必须是2的指数幂，扩容的倍数当然也是2的指数幂。<br>至于为什么是两倍，这应该是一个取舍，一下子不需要扩太多。</p><h3 id="为什么先插入再扩容而不是先扩容再插入"><a href="#为什么先插入再扩容而不是先扩容再插入" class="headerlink" title="为什么先插入再扩容而不是先扩容再插入"></a>为什么先插入再扩容而不是先扩容再插入</h3><ol><li>hashmap的插入有可能是覆盖原有的值，这个时候size并没有增加，如果是先扩容后插入，会造成资源浪费。</li><li>因为hashmap是数组+链表，并且有负载因子，所以先插入并不会带来溢出的问题。而扩容是很耗资源的操作，能避免则避免。</li></ol><h3 id="rehash带来的死锁"><a href="#rehash带来的死锁" class="headerlink" title="rehash带来的死锁"></a>rehash带来的死锁</h3><h2 id="ConcurrentHashMap-的工作原理及代码实现"><a href="#ConcurrentHashMap-的工作原理及代码实现" class="headerlink" title="ConcurrentHashMap 的工作原理及代码实现"></a>ConcurrentHashMap 的工作原理及代码实现</h2><blockquote><p>如何统计所有的元素个数??</p></blockquote><p><strong>锁分段技术</strong></p><ul><li>获取segment<br>  根据concurrentLevel确定segment数组的大小，其实就是确定锁的多少<br>  获取hash，需要再散列，为了把分布打散，比hashMap打散的更彻底</li><li>get<br>volitile修饰所有变量，保持可见性</li><li>put<br>  （1）判断容量是否足够，如果不够的话，对segment扩容，新建一个2倍大小的数组插入，先判断后扩容，hash是先扩容后判断<br>  （2）加锁插入，其实segment内部的实现跟hashmap很相似</li><li>size<br>将所有的segment的大小相加，但是在多线程的时候，不能保证count的值在计算的过程中不变化，所以会尝试两次计算size，如果两次都失败了，再锁住所有segment，进行容量计算。</li></ul><h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><ul><li><p>HashMap 和 Hashtable 的区别<br><a href="http://www.importnew.com/24822.html">http://www.importnew.com/24822.html</a><br>（1）hashtable是线程安全的，所有的方法都加上了synchronized<br>（2）初始容量、扩容和hash算法不同<br>hashMap 16，扩容是*2，hash直接用位运算取模，效率高但是偶数分布不均匀，所以又跟length-1与了一下，将hash打散<br>hashTable 11，扩容是*2+1，hash用除法取模，分布均匀但是效率比较低<br>（3）1.8以及以后，hashmap的链表用红黑树存储了，提高了查询效率</p></li><li><p>HashMap 和 HashSet 区别<br><a href="https://blog.csdn.net/u010698072/article/details/52802179">https://blog.csdn.net/u010698072/article/details/52802179</a><br>hashSet其实内部就是用hashMap实现的，hashSet服务于对象，在add的时候将这个对象作为map的key，set内部会new一个final类型修饰的Object作为value。</p></li><li><p>HashMap 和 ConcurrentHashMap 的区别<br>ConcurrentHashMap是线程安全的，ConcurrentHashMap使用了锁分段技术，维护了一个继承ReetrantLock的的segment数组，每一个segment对象对应部分Entry。</p></li><li><p>java 1.7和1.8版本中hashmap的区别</p></li></ul><h1 id="常见方案"><a href="#常见方案" class="headerlink" title="常见方案"></a>常见方案</h1><ul><li><p>hashMap的优化方案<br><a href="http://www.importnew.com/21429.html">http://www.importnew.com/21429.html</a></p></li><li><p>谈谈HashMap，哈希表解决hash冲突的方法；</p><ul><li>开放定址</li><li>再hash</li><li>链地址法</li><li>建立公共溢出区<br><a href="https://www.cnblogs.com/wuchaodzxx/p/7396599.html">参考</a></li></ul></li></ul><blockquote><p>java 8 在链表长度达到8，桶的数量达到64的时候，会建一个红黑树来保存元素</p></blockquote><ul><li><p>多线程情况下HashMap死循环的问题<br>两个线程在rehash的时候，因为有next = e.next;e = next;的操作，有可能形成环路。<br><a href="https://coolshell.cn/articles/9606.html">参考</a></p></li><li><p>hashMap什么时候用到红黑树<br><a href="https://blog.csdn.net/u011240877/article/details/53358305">java1.8中当单链的长度超过8的时候会转化为红黑树</a><br><a href="https://blog.csdn.net/u011240877/article/details/53329023">什么是红黑树</a><br><a href="https://blog.csdn.net/sun_tttt/article/details/65445754">https://blog.csdn.net/sun_tttt/article/details/65445754</a></p></li><li><p>HashMap出现Hash DOS攻击的问题<br>把key都设计成一个hash，这样插入就成为一个单链表结构了<br><a href="https://coolshell.cn/articles/6424.html">https://coolshell.cn/articles/6424.html</a></p></li><li><p>一致性hash算法<br>  <a href="https://juejin.im/post/5ae1476ef265da0b8d419ef2">参考</a></p></li></ul><h1 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h1><p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">HashMap的求余%和与运算&amp;转换问题</a><br><a href="https://tech.meituan.com/2016/06/24/java-hashmap.html">HashMap原理和源码分析</a><br><a href="https://blog.csdn.net/liuqiyao_01/article/details/14475159">HashTable的桶数为什么取素数</a><br><a href="https://blog.csdn.net/qq_36520235/article/details/82417949">HashMap的结构，1.7和1.8有哪些区别</a><br><a href="https://blog.csdn.net/mgl934973491/article/details/60466487">HashMap的扩容机制</a><br><a href="http://www.cnblogs.com/ITtangtang/p/3948406.html">HashMap源码解析</a><br><a href="https://juejin.im/post/5ab99afff265da23a2291dee">HashMap的hash方法剖析</a></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="HashMap-的工作原理及代码实现"><a href="#HashMap-的工作原理及代码实现" class="headerlink" title="HashMap 的工作原理及代码实现"></a>HashMap 的工作原理及代码实现</h1><h2 id="基础属性"><a href="#基础属性" class="headerlink" title="基础属性"></a>基础属性</h2><ul><li>关键属性  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transient</span> Entry[] table;<span class="comment">//存储元素的实体数组（桶）</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> size;<span class="comment">//存放元素的个数</span></span><br><span class="line"><span class="keyword">int</span> threshold; <span class="comment">//临界值= 加载因子*容量，当实际大小超过临界值时 </span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">float</span> loadFactor; <span class="comment">//加载因子，记录数/容量，默认值0.75</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> modCount;<span class="comment">//被修改的次数，HashMap内部结构发生变化的次数</span></span><br></pre></td></tr></table></figure></li></ul><ul><li><p>关键动作</p><ul><li>初始化<ul><li>容量，默认16</li><li>负载因子，默认0.75f</li></ul></li><li><p>hash</p><ul><li><p>hashcode的生成</p><ul><li>Object对象：内存地址</li><li>String对象：char数组每一位都参与运算，对于相同值的String，hashcode是相同的</li><li>Integer：Integer的value</li></ul></li><li><p>key的hash<br>一次扰动（高位也参与异或计算，增加hash的分散性）</p></li></ul></li><li>散列函数<br>  (length-1)&amp;hash</li><li>扩容<ul><li>扩容后的容量<ul><li>当前容量的两倍</li><li>先插入再扩容</li></ul></li><li>再hash</li></ul></li><li>插入</li><li>删除</li><li>查询</li></ul></li></ul><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="size和threshold的区别"><a href="#size和threshold的区别" class="headerlink" title="size和threshold的区别"></a>size和threshold的区别</h3><ul><li>size是map中实际存在的键值对数量，也就map里存储了多少数据</li><li>threshold就是阈值，当size达到threshold时，就会触发reSize和reHash</li></ul><h3 id="初始容量和最大容量"><a href="#初始容量和最大容量" class="headerlink" title="初始容量和最大容量"></a>初始容量和最大容量</h3><p>初始容量：1&lt;&lt;4<br>最大容量：1&lt;&lt;30</p><h3 id="为什么HashMap的桶的大小为2的指数倍？"><a href="#为什么HashMap的桶的大小为2的指数倍？" class="headerlink" title="为什么HashMap的桶的大小为2的指数倍？"></a>为什么HashMap的桶的大小为2的指数倍？</h3><p>大家知道，hashMap采用了桶+链表的结构，优化了存储空间，既然桶的个数小于实际容量，那么肯定会有参数碰撞的问题。当然我们肯定希望碰撞出现的频率越小越好。</p><blockquote><p>那么如何达到这个目的呢？</p></blockquote><p>我觉得可以从以下三点入手：</p><ul><li>更大的存储空间，当然可以使数据的分布更分散</li><li>更好的的散列函数，使数据的分布更均匀</li><li>解决冲突的方法</li></ul><blockquote><p>怎么实现更大的存储空间呢？</p></blockquote><ul><li>增加内存空间</li><li>增加负载因子</li></ul><p>内存空间和负载因子的抉择，就是经典的「时间-空间」问题。是牺牲时间换取空间，还是牺牲空间换取时间？视实际情况而定。可以用一句话总结：「负载因子越大，碰撞的概率越大；负载因子越小，碰撞的概率变小，但是内存闲置的概率也会增加」</p><p>HashMap的初始空间和初始的负载因子分别是16和0.75f，通常不建议改变负载因子，初始空间建议按照expectSize/0.75 + 1来设置，为什么这么设计，因为扩容是一个很耗资源的操作，我们如果能预估到map中元素的个数，依照这个预估值设置容量，可以减少扩容的操作。</p><blockquote><p>更好的散列函数？</p></blockquote><p>我们知道其实hash就是一个以时间换空间的设计。每一个key通过散列函数的计算，放入相应的位置上。最好的方式是根据桶的大小（hashmap的）计算取余。</p><ul><li>桶的大小怎么设计才合理</li><li>散列函数怎么设计才合理</li></ul><p>桶的大小<br>有证明其实素数在打散的效果上是更好的，可以参考这个文章<a href="https://blog.csdn.net/liuqiyao_01/article/details/14475159">为什么一般的hashTable的桶数会取一个素数</a>。但是HashMap还是选择了2的指数幂作为桶数。这就引出了「为什么HashMap的桶的大小为2的指数倍」这个问题。</p><p>散列函数<br>为什么HashMap的桶的大小为2的指数倍？<br>这是从性能角度出发的，为了优化用位运算代替取余运算，同时也方便在扩容时优化。</p><ul><li>只有长度为2的指数幂的时候，位运算和取余运算才相等，这个时候散列函数计算结果比较分散。</li><li>网上有一种说法，如果length为奇数，length-1为偶数，最后一位肯定是0，这时位运算之后，最后一位永远是零，散列就不分散了。我觉得这个说法不是这个问题的原因，而是结果。</li></ul><p>总结一下，因为选择用位运算代替除法来作为散列函数，而为了保证位运算的足够分散，选择了2的指数幂作为标准。（ps：因为选择了2的指数幂，在扩容时还可以更快捷）</p><h3 id="为什么扩容之后的size是两倍"><a href="#为什么扩容之后的size是两倍" class="headerlink" title="为什么扩容之后的size是两倍"></a>为什么扩容之后的size是两倍</h3><p>因为hashmap的容量是2的指数幂，所以扩容之后也必须是2的指数幂，扩容的倍数当然也是2的指数幂。<br>至于为什么是两倍，这应该是一个取舍，一下子不需要扩太多。</p><h3 id="为什么先插入再扩容而不是先扩容再插入"><a href="#为什么先插入再扩容而不是先扩容再插入" class="headerlink" title="为什么先插入再扩容而不是先扩容再插入"></a>为什么先插入再扩容而不是先扩容再插入</h3><ol><li>hashmap的插入有可能是覆盖原有的值，这个时候size并没有增加，如果是先扩容后插入，会造成资源浪费。</li><li>因为hashmap是数组+链表，并且有负载因子，所以先插入并不会带来溢出的问题。而扩容是很耗资源的操作，能避免则避免。</li></ol><h3 id="rehash带来的死锁"><a href="#rehash带来的死锁" class="headerlink" title="rehash带来的死锁"></a>rehash带来的死锁</h3><h2 id="ConcurrentHashMap-的工作原理及代码实现"><a href="#ConcurrentHashMap-的工作原理及代码实现" class="headerlink" title="ConcurrentHashMap 的工作原理及代码实现"></a>ConcurrentHashMap 的工作原理及代码实现</h2><blockquote><p>如何统计所有的元素个数??</p></blockquote><p><strong>锁分段技术</strong></p><ul><li>获取segment<br>  根据concurrentLevel确定segment数组的大小，其实就是确定锁的多少<br>  获取hash，需要再散列，为了把分布打散，比hashMap打散的更彻底</li><li>get<br>volitile修饰所有变量，保持可见性</li><li>put<br>  （1）判断容量是否足够，如果不够的话，对segment扩容，新建一个2倍大小的数组插入，先判断后扩容，hash是先扩容后判断<br>  （2）加锁插入，其实segment内部的实现跟hashmap很相似</li><li>size<br>将所有的segment的大小相加，但是在多线程的时候，不能保证count的值在计算的过程中不变化，所以会尝试两次计算size，如果两次都失败了，再锁住所有segment，进行容量计算。</li></ul><h3 id="weakHashMap原理"><a href="#weakHashMap原理" class="headerlink" title="weakHashMap原理"></a>weakHashMap原理</h3><p>类加载器中为什么要使用weakHashMap?<br><a href="https://blog.csdn.net/u012129558/article/details/51980883">https://blog.csdn.net/u012129558/article/details/51980883</a></p><p><a href="https://www.cnblogs.com/shamo89/p/9216529.html">https://www.cnblogs.com/shamo89/p/9216529.html</a></p><h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><ul><li><p>HashMap 和 Hashtable 的区别<br><a href="http://www.importnew.com/24822.html">http://www.importnew.com/24822.html</a><br>（1）hashtable是线程安全的，所有的方法都加上了synchronized<br>（2）初始容量、扩容和hash算法不同<br>hashMap 16，扩容是*2，hash直接用位运算取模，效率高但是偶数分布不均匀，所以又跟length-1与了一下，将hash打散<br>hashTable 11，扩容是*2+1，hash用除法取模，分布均匀但是效率比较低<br>（3）1.8以及以后，hashmap的链表用红黑树存储了，提高了查询效率</p></li><li><p>HashMap 和 HashSet 区别<br><a href="https://blog.csdn.net/u010698072/article/details/52802179">https://blog.csdn.net/u010698072/article/details/52802179</a><br>hashSet其实内部就是用hashMap实现的，hashSet服务于对象，在add的时候将这个对象作为map的key，set内部会new一个final类型修饰的Object作为value。</p></li><li><p>HashMap 和 ConcurrentHashMap 的区别<br>ConcurrentHashMap是线程安全的，ConcurrentHashMap使用了锁分段技术，维护了一个继承ReetrantLock的的segment数组，每一个segment对象对应部分Entry。</p></li><li><p>java 1.7和1.8版本中hashmap的区别</p></li></ul><h1 id="常见方案"><a href="#常见方案" class="headerlink" title="常见方案"></a>常见方案</h1><ul><li><p>hashMap的优化方案<br><a href="http://www.importnew.com/21429.html">http://www.importnew.com/21429.html</a></p></li><li><p>谈谈HashMap，哈希表解决hash冲突的方法；</p><ul><li>开放定址</li><li>再hash</li><li>链地址法</li><li>建立公共溢出区<br><a href="https://www.cnblogs.com/wuchaodzxx/p/7396599.html">参考</a></li></ul></li></ul><blockquote><p>java 8 在链表长度达到8，桶的数量达到64的时候，会建一个红黑树来保存元素</p></blockquote><ul><li><p>多线程情况下HashMap死循环的问题<br>两个线程在rehash的时候，因为有next = e.next;e = next;的操作，有可能形成环路。<br><a href="https://coolshell.cn/articles/9606.html">参考</a></p></li><li><p>hashMap什么时候用到红黑树<br><a href="https://blog.csdn.net/u011240877/article/details/53358305">java1.8中当单链的长度超过8的时候会转化为红黑树</a><br><a href="https://blog.csdn.net/u011240877/article/details/53329023">什么是红黑树</a><br><a href="https://blog.csdn.net/sun_tttt/article/details/65445754">https://blog.csdn.net/sun_tttt/article/details/65445754</a></p></li><li><p>HashMap出现Hash DOS攻击的问题<br>把key都设计成一个hash，这样插入就成为一个单链表结构了<br><a href="https://coolshell.cn/articles/6424.html">https://coolshell.cn/articles/6424.html</a></p></li><li><p>一致性hash算法<br>  <a href="https://juejin.im/post/5ae1476ef265da0b8d419ef2">参考</a></p></li></ul><h1 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h1><p><a href="https://www.cnblogs.com/ysocean/p/9054804.html">HashMap的求余%和与运算&amp;转换问题</a><br><a href="https://tech.meituan.com/2016/06/24/java-hashmap.html">HashMap原理和源码分析</a><br><a href="https://blog.csdn.net/liuqiyao_01/article/details/14475159">HashTable的桶数为什么取素数</a><br><a href="https://blog.csdn.net/qq_36520235/article/details/82417949">HashMap的结构，1.7和1.8有哪些区别</a><br><a href="https://blog.csdn.net/mgl934973491/article/details/60466487">HashMap的扩容机制</a><br><a href="http://www.cnblogs.com/ITtangtang/p/3948406.html">HashMap源码解析</a><br><a href="https://juejin.im/post/5ab99afff265da23a2291dee">HashMap的hash方法剖析</a><br><a href="https://www.jianshu.com/p/aacb2116c286">HashMap实现原理、源码解析（jdk1.8）</a></p>]]></content>
       
       
       <categories>
@@ -221,8 +328,8 @@
     
     <entry>
       <title>分布式编程知识点汇总</title>
-      <link href="/2019/11/04/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B8%8E%E9%94%81/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B8%8E%E9%94%81/"/>
-      <url>/2019/11/04/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B8%8E%E9%94%81/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B8%8E%E9%94%81/</url>
+      <link href="/2019/11/04/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B8%8E%E9%94%81/"/>
+      <url>/2019/11/04/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B8%8E%E9%94%81/</url>
       
         <content type="html"><![CDATA[<h1 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h1><ol><li><p>说说 CountDownLatch、CyclicBarrier 原理和区别</p><ul><li><p>CountDownLatch 允许一个线程或多个线程等待其他线程完成工作。<br>一个获取共享状态的同步器。</p></li><li><p>CyclicBarrier 允许多个线程在都达到一个屏障的时候再放开屏障。<br>一个锁，用锁的condition来操作，await()<br>区别：</p></li><li>CyclicBarrier 可以重置计数器，适合比较复杂的业务场景，提供的方法也比较多</li></ul></li><li><p>说说 Semaphore 原理<br> 控制同一时间并发的线程数（共享式的同步器）<br> 在构造函数里输入并发的数量，用acquire和release来控制同步块</p></li><li>说说 Exchanger 原理<br> 线程间协作，两个线程在到达同一时刻之后，可以交换数据（wait/notify）<br>执行exchange（）方法</li><li>ThreadLocal 原理分析，ThreadLocal为什么会出现OOM，出现的深层次原理 ？？？？<br><a href="https://juejin.im/post/5a64a581f265da3e3b7aa02d">https://juejin.im/post/5a64a581f265da3e3b7aa02d</a></li><li>常见的原子操作类<br>AtomicInteger、AtomicLong、AtomicBoolean、AtomicReference</li><li>AtomicInteger底层实现原理；<br> 一个volatile类型的value值，封装了原子性读改写的方法，利用了unsafe类的compareAndSwagObject/int/long<br>value这个字段在AtomicInteger类的内存中相对于该类首地址的偏移量</li><li>Java 8并法包下常见的并发类，用过并发包下边的哪些类</li><li>AQS同步队列(ReetrantLock依赖AQS)<ul><li>同步状态state控制获取锁的方式（共享、独占、可重入）。</li><li>同步队列实现，实现线程的排队、等待和唤醒的工作。</li></ul></li><li>fork/join<br> <a href="https://juejin.im/post/59be875e5188257e6b6d91c1">https://juejin.im/post/59be875e5188257e6b6d91c1</a></li><li>JMM不保证对64位的long和double型变量的写操作具有原子性<br><a href="https://blog.csdn.net/luoyoub/article/details/80275539">https://blog.csdn.net/luoyoub/article/details/80275539</a></li></ol><h1 id="线程与线程池"><a href="#线程与线程池" class="headerlink" title="线程与线程池"></a>线程与线程池</h1><ol start="12"><li><p>一个线程连着调用start两次会出现什么情况？<br>会抛出一个IllegalThreadStateException</p></li><li><p>wait方法能不能被重写，wait能不能被中断；<br>不能被重写，是final修饰的，不可以被中断，wait方法会抛出中断异常。</p></li><li><p>线程池的几种实现方式</p></li><li>讲讲线程池的实现原理</li><li><p>线程池的实现？四种线程池？重要参数及原理？饱和策略有哪几种？</p></li><li><p>线程和进程的概念、并行和并发的概念<br>线程是操作系统执行的最小单元。<br>并行：多个cpu<br>并发：在同一个cpu里，多个线程同事执行同一个任务</p></li><li><p>创建线程的方式及实现<br>三种方式：<br>（1）继承一个线程Thread，并实现run方法<br>（2）实现一个runnable接口<br>（3）实现一个callable接口，这个接口支持获取线程执行的返回值</p></li><li><p>进程间通信的方式<br><a href="https://www.cnblogs.com/LUO77/p/5816326.html">https://www.cnblogs.com/LUO77/p/5816326.html</a></p></li><li><p>说说线程安全问题，什么是线程安全，如何保证线程安全</p></li><li><p>线程状态以及API怎么操作会发生这种转换；<br>NEW new<br>RUNNALBLE start<br>BLOCKED 尝试进入synchonized区域<br>TERMINATED 执行完run的时候<br>WAITING wait、join、sleep（time——waiting状态，时间到了自己唤醒自己）</p></li></ol><h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><ol><li><p>重入锁的概念，重入锁为什么可以防止死锁<br>支持重进入的锁，可重入锁对象在线程尝试去获取同步状态的时候，会先判断状态，如果等于0，那就是第一次进入，进行正常的锁获取，如果大于0的时候，判断当然锁是不是只属于当前线程，如果是，状态值就是获取锁的次数。</p></li><li><p>产生死锁的四个条件<br>（互斥、请求与保持、不剥夺、循环等待）</p></li><li><p>如何检查死锁（通过jConsole检查死锁）</p></li><li><p>常用的避免死锁方法；</p><ul><li>避免一个线程同时获取多个锁。</li><li>避免一个线程在锁内同时占用多个资源，尽量保证每个锁只占用一个资源。</li><li>尝试使用定时锁，使用 lock.tryLock(timeout) 来替代使用内部锁机制。</li><li>对于数据库锁，加锁和解锁必须在一个数据库连接里，否则会出现解锁失败的情况。</li></ul></li><li><p>CAS无锁的概念、乐观锁和悲观锁<br> 利用java提供的cmpxchg指令，完成操作的同步。<br> 对于竞争比较小的，占用资源时间比较短的业务场景，可以使用CAS的模式来代替加锁，这种方式响应时间快，但是如果一直自旋的话也会消耗大量的cpu。<br> 如果加了锁的话，所有获取该锁的线程都要处于阻塞状态，响应时间慢，追求吞吐量。</p><p> 乐观锁：cas的概念，乐观的认为出现竞争的机会比较小，通过比较原始值和最新值的方式来更新。<br> 悲观锁：同步的概念，悲观的认为每次更新都有可能会出错，所以锁住这个资源，同一时刻只允许一个线程操作。</p></li><li><p>CAS机制会出现什么问题；</p><ul><li><p>乐观锁只能保证一个共享变量的原子操作。如上例子，自旋过程中只能保证value变量的原子性，这时如果多一个或几个变量，乐观锁将变得力不从心，但互斥锁能轻易解决，不管对象数量多少及对象颗粒度大小。</p></li><li><p>长时间自旋可能导致开销大。假如CAS长时间不成功而一直自旋，会给CPU带来很大的开销。</p></li><li><p>ABA问题。CAS的核心思想是通过比对内存值与预期值是否一样而判断内存值是否被改过，但这个判断逻辑不严谨，假如内存值原来是A，后来被一条线程改为B，最后又被改成了A，则CAS认为此内存值并没有发生改变，但实际上是有被其他线程改过的，这种情况对依赖过程值的情景的运算结果影响很大。解决的思路是引入版本号，每次变量更新都把版本号加一。</p></li></ul></li><li>什么是ABA问题，出现ABA问题JDK是如何解决的<br>Cas带来的问题，因为cas的机制是对比历史值，在某些场景下，有可能其他线程修改完之后改成了历史值，这个时候cas也是可以成功的。<br>在jdk里有一个atomicStampedReference类，可以在比较的时候再加上标签比较。</li><li><p>乐观锁的业务场景及实现方式<br> 读取频繁用乐观锁，写入频繁用悲观锁<br> <a href="https://blog.csdn.net/claram/article/details/53959367">https://blog.csdn.net/claram/article/details/53959367</a></p></li><li><p>偏向锁、轻量级锁、重量级锁、自旋锁的，自适应自旋锁，锁消除，锁粗化，锁的升级</p></li><li><p>synchronized与ReentraLock哪个是公平锁；<br>Synchronized 是非公平锁，因为它无法保证释放的锁会被哪个线程获取到。<br>Reentrant 既有公平锁也有非公平锁</p></li><li><p>synchronized 与 lock 的区别</p><ul><li>lock ：虽然它缺少了（通过synchronized块或者方法所提供的）隐式获取释放锁的便捷性，但是却拥有了锁获取与释放的可操作性、可中断的获取锁以及超时获取锁等多种synchronized关键字所不具备的同步特性。<ul><li>尝试非阻塞地获取锁</li><li>能被中断地获取锁</li><li>超时获取锁</li><li>Lock是基于同步队列实现的</li></ul></li><li>synchronized<ul><li>使用synchronized关键字将会隐式地获取锁，但是它将锁的获取和释放固化了，也就是先获取再释放。当然，这种方式简化了同步的管理，可是扩展性没有显示的锁获取和释放来的好。</li><li>synchronized是jvm内部实现的</li></ul></li></ul></li></ol>]]></content>
       
@@ -238,9 +345,9 @@
             
             <tag> 知识点 </tag>
             
-            <tag> 锁 </tag>
+            <tag> 分布式 </tag>
             
-            <tag> 分布式编程 </tag>
+            <tag> 锁 </tag>
             
             <tag> 线程池 </tag>
             
@@ -346,11 +453,11 @@
       
         <tags>
             
-            <tag> todo </tag>
-            
             <tag> spring </tag>
             
             <tag> validation </tag>
+            
+            <tag> todo </tag>
             
         </tags>
       
@@ -360,8 +467,8 @@
     
     <entry>
       <title>分布式一致性协议</title>
-      <link href="/2019/04/02/%E5%88%86%E5%B8%83%E5%BC%8F/%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE/"/>
-      <url>/2019/04/02/%E5%88%86%E5%B8%83%E5%BC%8F/%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE/</url>
+      <link href="/2019/04/02/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE/"/>
+      <url>/2019/04/02/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE/</url>
       
         <content type="html"><![CDATA[<h1 id="Paxos协议"><a href="#Paxos协议" class="headerlink" title="Paxos协议"></a>Paxos协议</h1><p><a href="https://blog.csdn.net/cnh294141800/article/details/53768464">https://blog.csdn.net/cnh294141800/article/details/53768464</a></p><p><a href="https://www.zhihu.com/question/19787937">https://www.zhihu.com/question/19787937</a></p><h1 id="Raft协议"><a href="#Raft协议" class="headerlink" title="Raft协议"></a>Raft协议</h1>]]></content>
       
@@ -375,9 +482,9 @@
       
         <tags>
             
-            <tag> 分布式 </tag>
-            
             <tag> todo </tag>
+            
+            <tag> 分布式 </tag>
             
             <tag> 一致性协议 </tag>
             
@@ -389,8 +496,8 @@
     
     <entry>
       <title>dubbo学习</title>
-      <link href="/2019/03/04/dubbo/dubbo%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/"/>
-      <url>/2019/03/04/dubbo/dubbo%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/</url>
+      <link href="/2019/03/04/%E5%B8%B8%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/dubbo/dubbo%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2019/03/04/%E5%B8%B8%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/dubbo/dubbo%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/</url>
       
         <content type="html"><![CDATA[<h1 id="dubbo的拓展点机制"><a href="#dubbo的拓展点机制" class="headerlink" title="dubbo的拓展点机制"></a>dubbo的拓展点机制</h1><p><a href="http://dubbo.apache.org/zh-cn/blog/introduction-to-dubbo-spi.html">官方博客解释</a></p><p>参考：<br><a href="https://www.imooc.com/article/266672">DUBBO原理、应用</a></p><h2 id="自适应类"><a href="#自适应类" class="headerlink" title="自适应类"></a>自适应类</h2><p>自适应类，dubbo的每一个拓展点都会有一个自适应类，如果我们没有提供，dubbo会帮我们动态的生成一个。</p><h1 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h1><h2 id="字节码生成工具"><a href="#字节码生成工具" class="headerlink" title="字节码生成工具"></a>字节码生成工具</h2><p>动态加载</p>]]></content>
       
@@ -404,9 +511,9 @@
       
         <tags>
             
-            <tag> dubbo </tag>
-            
             <tag> java </tag>
+            
+            <tag> dubbo </tag>
             
         </tags>
       
@@ -431,11 +538,11 @@
       
         <tags>
             
-            <tag> java </tag>
-            
             <tag> 链路监控 </tag>
             
             <tag> javaagent </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -460,11 +567,11 @@
       
         <tags>
             
-            <tag> java </tag>
-            
             <tag> 链路监控 </tag>
             
             <tag> javaagent </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -474,8 +581,8 @@
     
     <entry>
       <title>分布式事务常见解决方案</title>
-      <link href="/2019/03/02/%E5%88%86%E5%B8%83%E5%BC%8F/%E4%BA%8B%E5%8A%A1/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%B8%B8%E8%A7%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-      <url>/2019/03/02/%E5%88%86%E5%B8%83%E5%BC%8F/%E4%BA%8B%E5%8A%A1/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%B8%B8%E8%A7%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+      <link href="/2019/03/02/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%B8%B8%E8%A7%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+      <url>/2019/03/02/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%B8%B8%E8%A7%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
       
         <content type="html"><![CDATA[<h2 id="Fescar"><a href="#Fescar" class="headerlink" title="Fescar"></a>Fescar</h2><p><a href="https://github.com/alibaba/fescar/">Fescar: Fast &amp; Easy Commit And Rollback</a><br><a href="http://os.51cto.com/art/201901/590738.htm">关于开源分布式事务中间件Fescar的提问</a><br><a href="https://www.jianshu.com/p/82b98f037034">FESCAR：阿里重磅开源分布式事务解决方案</a></p><a id="more"></a><h2 id="XA"><a href="#XA" class="headerlink" title="XA"></a>XA</h2><h2 id="基于消息的最终一致"><a href="#基于消息的最终一致" class="headerlink" title="基于消息的最终一致"></a>基于消息的最终一致</h2><h2 id="TCC"><a href="#TCC" class="headerlink" title="TCC"></a>TCC</h2><h2 id="Saga"><a href="#Saga" class="headerlink" title="Saga"></a>Saga</h2>]]></content>
       
@@ -489,11 +596,11 @@
       
         <tags>
             
-            <tag> 分布式 </tag>
-            
             <tag> todo </tag>
             
             <tag> JAVA </tag>
+            
+            <tag> 分布式 </tag>
             
             <tag> RPC </tag>
             
@@ -507,8 +614,8 @@
     
     <entry>
       <title>Elasticsearch运维的思考</title>
-      <link href="/2019/02/23/elastic/Elasticsearch%E8%BF%90%E7%BB%B4%E7%9A%84%E6%80%9D%E8%80%83/"/>
-      <url>/2019/02/23/elastic/Elasticsearch%E8%BF%90%E7%BB%B4%E7%9A%84%E6%80%9D%E8%80%83/</url>
+      <link href="/2019/02/23/%E5%B8%B8%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch/Elasticsearch%E8%BF%90%E7%BB%B4%E7%9A%84%E6%80%9D%E8%80%83/"/>
+      <url>/2019/02/23/%E5%B8%B8%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch/Elasticsearch%E8%BF%90%E7%BB%B4%E7%9A%84%E6%80%9D%E8%80%83/</url>
       
         <content type="html"><![CDATA[<h2 id="当前的情况"><a href="#当前的情况" class="headerlink" title="当前的情况"></a>当前的情况</h2><ul><li><p>当前每一个租户一共会创建95个索引。</p></li><li><p>分片的设置是：indexShardsNumber=2，indexReplicasNumber=0。</p></li><li><p>集群一共有四个节点，每一个节点有60G的空间。</p></li><li><p>目前线上共有6个租户，计算下来一共是1,140个分片</p></li></ul><a id="more"></a><h2 id="产生了哪些问题"><a href="#产生了哪些问题" class="headerlink" title="产生了哪些问题"></a>产生了哪些问题</h2><ul><li><p>副本数为0，没有备份，当主分区出现故障的时候，容错缺失。</p></li><li><p>分区数设置不合理，一般情况下分区数应该是节点数的1.5——3倍（因为es的分区数设置之后再调整很麻烦，所以评估好数据规模很重要），目前有4个节点，合理的分区数应该是6-18之间。</p></li><li><p>目前节点的容量以及数量很有可能跟不上业务的发展，如果大规模推广，存储机器的成本压力很大。</p></li></ul><h2 id="如何解决这些问题"><a href="#如何解决这些问题" class="headerlink" title="如何解决这些问题"></a>如何解决这些问题</h2><h3 id="1-预估集群大小"><a href="#1-预估集群大小" class="headerlink" title="1. 预估集群大小"></a>1. 预估集群大小</h3><p>索引吞吐量<br>文档大小<br>搜索吞吐量<br>查询类型<br>热点索引文档数量<br>保留策略<br>响应时间需求<br>SLA 级别  </p><h3 id="2-优化索引设计"><a href="#2-优化索引设计" class="headerlink" title="2. 优化索引设计"></a>2. 优化索引设计</h3><h3 id="3-扩大集群容量"><a href="#3-扩大集群容量" class="headerlink" title="3. 扩大集群容量"></a>3. 扩大集群容量</h3><ul><li><p>数据迁移</p><p>  步骤1：按照新需求，创建你需要分片的索引。<br>  步骤2：<a href="https://blog.csdn.net/u013613428/article/details/78227277">reindex迁移</a></p></li></ul><h2 id="解决了这些问题之后，带来的变化"><a href="#解决了这些问题之后，带来的变化" class="headerlink" title="解决了这些问题之后，带来的变化"></a>解决了这些问题之后，带来的变化</h2><h2 id="问题解决之后的思考"><a href="#问题解决之后的思考" class="headerlink" title="问题解决之后的思考"></a>问题解决之后的思考</h2><h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://blog.csdn.net/alan_liuyue/article/details/79585345">Elasticsearch之如何合理分配索引分片</a><br><a href="https://cloud.tencent.com/developer/article/1361274">Elasticsearch最佳实践之分片使用优化</a><br><a href="http://www.cnblogs.com/richaaaard/p/5227477.html">深入理解Shard和Lucene Index</a><br><a href="https://www.infoq.cn/article/elasticsearch-performance-tuning-practice-at-ebay">ebay的Elasticsearch调优实践</a></p>]]></content>
       
@@ -522,11 +629,11 @@
       
         <tags>
             
+            <tag> todo </tag>
+            
             <tag> 分布式 </tag>
             
             <tag> elasticsearch </tag>
-            
-            <tag> todo </tag>
             
             <tag> 运维 </tag>
             
@@ -538,8 +645,8 @@
     
     <entry>
       <title>RPC与REST理解</title>
-      <link href="/2019/02/18/%E5%88%86%E5%B8%83%E5%BC%8F/%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6/RPC%E4%B8%8EREST/"/>
-      <url>/2019/02/18/%E5%88%86%E5%B8%83%E5%BC%8F/%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6/RPC%E4%B8%8EREST/</url>
+      <link href="/2019/02/18/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E8%B0%83%E7%94%A8/RPC%E4%B8%8EREST/"/>
+      <url>/2019/02/18/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E8%B0%83%E7%94%A8/RPC%E4%B8%8EREST/</url>
       
         <content type="html"><![CDATA[<p>什么是采样率，采样率有什么作用？</p><a id="more"></a><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="Web-Service"><a href="#Web-Service" class="headerlink" title="Web Service"></a>Web Service</h3><p>简单地说, 也就是服务器如何向客户端提供服务.</p><p>常用的方法有:</p><ul><li>RPC 所谓的远程过程调用 (面向方法)</li><li>SOA 所谓的面向服务的架构(面向消息)</li><li>REST 所谓的 Representational state transfer (面向资源)</li></ul><h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3><p>RPC是Remote Procedure Call的缩写，字面意思是远程过程调用。但是说白了就是从本地机器去执行服务器上的一个函数。所以说 RPC 指的是一类日常的操作，是个很宽泛的概念。</p><p>RPC的思想是把本地函数映射到API，也就是说一个API对应的是一个方法。比如本地有一个getAllUsers，远程也能通过某种约定的协议来调用这个getAllUsers。至于这个协议是Socket、是HTTP还是别的什么并不重要（gRPC就是基于Http2.0的RPC框架）。</p><p>RPC中的主体都是动作，是个动词。</p><p>RPC像调用本地方法一样调用远程方法，通信协议大多采用二进制方式</p><h3 id="REST"><a href="#REST" class="headerlink" title="REST"></a>REST</h3><p>REST是Representational State Transfer的缩写，翻译过来是表现层状态转换。如果一个架构符合<a href="https://blog.csdn.net/ruojingzhang/article/details/79443329">REST原则</a>，就称它为RESTful架构。</p><p>REST是一种架构风格，汲取了WWW的成功经验：无状态，以资源为中心，充分利用HTTP协议和URI协议，提供统一的接口定义，使得它作为一种设计Web服务的方法而变得流行。在某种意义上，通过强调URI和HTTP等早期Internet标准，REST是对大型应用程序服务器时代之前的Web方式的回归。</p><p>REST的主体都是资源，是名词。</p><p>REST通常是Http+json、Http+xml，常见的http api都可以称为Rest接口。</p><h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><ol><li>什么是资源呢？就是我们平常上网访问的一张图片、一个文档、一个视频等。这些资源我们通过URI来定位，也就是一个URI表示一个资源。</li><li>面向资源是什么意思？和面向动作比较优劣点在哪里？</li></ol><h2 id="差异"><a href="#差异" class="headerlink" title="差异"></a>差异</h2><h3 id="主体"><a href="#主体" class="headerlink" title="主体"></a>主体</h3><p>HTTP请求往往围绕资源，而RPC的请求往往围绕一个动作。</p><h3 id="调用协议"><a href="#调用协议" class="headerlink" title="调用协议"></a>调用协议</h3><p>接口调用通常包含两个部分，序列化和通信协议。</p><ul><li>常见的序列化协议包括Json、Xml、Hession、Protobuf、Thrift、Text、Bytes等；　　</li><li>通信比较流行的是HTTP、soap、websockect、TCP等。　</li></ul><h4 id="通信协议"><a href="#通信协议" class="headerlink" title="通信协议"></a>通信协议</h4><ul><li><p>RPC通常基于<a href="http://www.ruanyifeng.com/blog/2017/06/tcp-protocol.html">TCP协议</a>实现，常用框架例如gRpc，Netty、Mina、Thrift。</p></li><li><p>RESTful是基于<a href="feng.com/blog/2016/08/http.html">HTTP</a>协议实现。</p></li><li><p>RPC和RESTful的差别很大程度上是使用<a href="https://www.jianshu.com/p/947a2673102a">HTTP和TCP协议的区别</a>。</p></li></ul><h4 id="序列化协议"><a href="#序列化协议" class="headerlink" title="序列化协议"></a>序列化协议</h4><ul><li><p>HTTP通常使用Json。</p></li><li><p>RPC通常是使用RPC框架，这些RPC框架采用的序列化协议比如Protobuf、Thrift性能都高于Json或者XML。</p></li><li><p><a href="https://tech.meituan.com/2015/02/26/serialization-vs-deserialization.html">几种序列化协议的比较</a></p></li></ul><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul><li><p>Http相对更规范，更标准，更通用，无论哪种语言都支持Http协议。</p></li><li><p>RPC服务则需要客户端接口与服务端保持一致（会带来一些耦合），服务端提供一个方法，客户端通过接口直接发起调用，业务开发人员仅需要关注业务方法的调用即可，不再关注网络传输的细节，在开发上更为高效。</p></li><li><p>通常在公司内部接口调用会选择RPC，简单高效。对外开放的API通常选择REST，标准规范通用。</p></li></ul><h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="http://www.cnblogs.com/mindsbook/archive/2009/11/17/web_service_RESTvsRPC.html">Web Service实践之REST vs RPC</a><br><a href="https://zhuanlan.zhihu.com/p/44096204">HTTP 请求和 JSON-RPC</a><br><a href="https://tech.meituan.com/2015/02/26/serialization-vs-deserialization.html">序列化和反序列化</a><br><a href="http://www.ruanyifeng.com/blog/2016/08/http.html">HTTP协议入门</a><br><a href="http://www.ruanyifeng.com/blog/2017/06/tcp-protocol.html">TCP协议入门</a></p>]]></content>
       
@@ -553,9 +660,9 @@
       
         <tags>
             
-            <tag> 分布式 </tag>
-            
             <tag> JAVA </tag>
+            
+            <tag> 分布式 </tag>
             
             <tag> RPC </tag>
             
@@ -599,7 +706,7 @@
       <link href="/2018/10/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E4%B8%8E%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%E5%99%A8/"/>
       <url>/2018/10/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E4%B8%8E%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%E5%99%A8/</url>
       
-        <content type="html"><![CDATA[<p>观察者模式和事件监听器的区别，以及各自的使用场景。</p><a id="more"></a><h2 id="观察者模式和发布-订阅模式"><a href="#观察者模式和发布-订阅模式" class="headerlink" title="观察者模式和发布-订阅模式"></a>观察者模式和发布-订阅模式</h2><p>参考 -&gt; <a href="https://juejin.im/post/5a14e9edf265da4312808d86">观察者模式 vs 发布-订阅模式</a></p><p>观察者模式和发布订阅模式最大的<code>区别</code>应该是，前者的Observer明确的知道Publisher，而后者，Publisher和Observer之间还有一个Coordinator，Publisher和Observer都不知道对方，只通过事件，由Coordinator实现消息的通信。</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g16zdl3ykdj30sq0my76i.jpg" alt="观察者模式和发布订阅模式的区别"></p><p>两者都有松耦合的功效，在一个应用之中，通常是使用观察者模式。在跨系统或跨服务的场景下，通常是使用发布订阅模式。</p><p><a href="https://www.atatech.org//articles/136618/?flag_data_from=mail_daily_headline&amp;uid=446066">Java 9 的响应式编程</a></p><h2 id="监听器模式"><a href="#监听器模式" class="headerlink" title="监听器模式"></a>监听器模式</h2><p><a href="https://segmentfault.com/a/1190000013240470">监听器入门看这篇就够了</a></p><h2 id="事件监听器和观察者模式的异同"><a href="#事件监听器和观察者模式的异同" class="headerlink" title="事件监听器和观察者模式的异同"></a>事件监听器和观察者模式的异同</h2><p>参考 -&gt; <a href="https://my.oschina.net/u/923324/blog/792857">java设计模式-回调、事件监听器、观察者模式</a></p><h2 id="发布订阅模式在dubbo的应用"><a href="#发布订阅模式在dubbo的应用" class="headerlink" title="发布订阅模式在dubbo的应用"></a>发布订阅模式在dubbo的应用</h2><h3 id="dubbo的订阅和注册怎么实现的"><a href="#dubbo的订阅和注册怎么实现的" class="headerlink" title="dubbo的订阅和注册怎么实现的"></a>dubbo的订阅和注册怎么实现的</h3><p><a href="https://corsairmaster.github.io/2018/12/04/Dubbo%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">Dubbo原理及其所涉及到的设计模式</a></p>]]></content>
+        <content type="html"><![CDATA[<p>观察者模式和事件监听器的区别，以及各自的使用场景。</p><h2 id="观察者模式和发布-订阅模式"><a href="#观察者模式和发布-订阅模式" class="headerlink" title="观察者模式和发布-订阅模式"></a>观察者模式和发布-订阅模式</h2><p>参考 -&gt; <a href="https://juejin.im/post/5a14e9edf265da4312808d86">观察者模式 vs 发布-订阅模式</a></p><p>观察者模式和发布订阅模式最大的<code>区别</code>应该是，前者的Observer明确的知道Publisher，而后者，Publisher和Observer之间还有一个Coordinator，Publisher和Observer都不知道对方，只通过事件，由Coordinator实现消息的通信。</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g16zdl3ykdj30sq0my76i.jpg" alt="观察者模式和发布订阅模式的区别"></p><p>两者都有松耦合的功效，在一个应用之中，通常是使用观察者模式。在跨系统或跨服务的场景下，通常是使用发布订阅模式。</p><p><a href="https://www.atatech.org//articles/136618/?flag_data_from=mail_daily_headline&amp;uid=446066">Java 9 的响应式编程</a></p><h2 id="监听器模式"><a href="#监听器模式" class="headerlink" title="监听器模式"></a>监听器模式</h2><p><a href="https://segmentfault.com/a/1190000013240470">监听器入门看这篇就够了</a></p><h2 id="事件监听器和观察者模式的异同"><a href="#事件监听器和观察者模式的异同" class="headerlink" title="事件监听器和观察者模式的异同"></a>事件监听器和观察者模式的异同</h2><p>参考 -&gt; <a href="https://my.oschina.net/u/923324/blog/792857">java设计模式-回调、事件监听器、观察者模式</a></p><h2 id="发布订阅模式在dubbo的应用"><a href="#发布订阅模式在dubbo的应用" class="headerlink" title="发布订阅模式在dubbo的应用"></a>发布订阅模式在dubbo的应用</h2><h3 id="dubbo的订阅和注册怎么实现的"><a href="#dubbo的订阅和注册怎么实现的" class="headerlink" title="dubbo的订阅和注册怎么实现的"></a>dubbo的订阅和注册怎么实现的</h3><p><a href="https://corsairmaster.github.io/2018/12/04/Dubbo%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">Dubbo原理及其所涉及到的设计模式</a></p>]]></content>
       
       
       <categories>
@@ -650,8 +757,8 @@
     
     <entry>
       <title>Elasticsearch的集群节点和分区</title>
-      <link href="/2018/09/03/elastic/Elasticsearch%E7%9A%84%E9%9B%86%E7%BE%A4%E8%8A%82%E7%82%B9%E5%92%8C%E5%88%86%E5%8C%BA/"/>
-      <url>/2018/09/03/elastic/Elasticsearch%E7%9A%84%E9%9B%86%E7%BE%A4%E8%8A%82%E7%82%B9%E5%92%8C%E5%88%86%E5%8C%BA/</url>
+      <link href="/2018/09/03/%E5%B8%B8%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch/Elasticsearch%E7%9A%84%E9%9B%86%E7%BE%A4%E8%8A%82%E7%82%B9%E5%92%8C%E5%88%86%E5%8C%BA/"/>
+      <url>/2018/09/03/%E5%B8%B8%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch/Elasticsearch%E7%9A%84%E9%9B%86%E7%BE%A4%E8%8A%82%E7%82%B9%E5%92%8C%E5%88%86%E5%8C%BA/</url>
       
         <content type="html"><![CDATA[<p>在存储方面，elasticsearch可以看作一个分布式数据库。<br>每一个节点可以看作是一个库，这些节点（分库）在集群内协同工作。一个索引可以看作是库里的表。</p><a id="more"></a><h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><p>一个节点(node)就是一个Elasticsearch实例。</p><h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><p>一个集群(cluster)由一个或多个节点组成，它们具有相同<code>cluster.name</code>，它们协同工作，分享数据和负载。当加入新的节点或者删除一个节点时，集群就会感知到并平衡数据。</p><p>集群中一个节点会被选举为主节点(master)，它将临时管理集群级别的一些变更，例如<strong>新建或删除索引、增加或移除节点</strong>等。主节点不参与文档级别的变更或搜索，这意味着在流量增长的时候，该主节点不会成为集群的瓶颈。任何节点都可以成为主节点。</p><p>做为用户，我们能够与集群中的任何节点通信，包括主节点。每一个节点都知道文档存在于哪个节点上，它们可以转发请求到相应的节点上。我们访问的节点负责收集各节点返回的数据，最后一起返回给客户端。这一切都由Elasticsearch处理。</p><ul><li>主节点是否保存数据？</li><li>因为节点之间存在负载均衡，所以我们访问的节点可以是集群中的任意一个节点，当我们请求一个节点时，我们需要的文档不一定在该节点上，此时该节点负责收集各节点返回的数据。如果是这样的原理，那么确实要求每一个节点都知道文档的存放位置。</li></ul><h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h2 id="添加索引"><a href="#添加索引" class="headerlink" title="添加索引"></a>添加索引</h2><p>为了将数据添加到Elasticsearch，我们需要索引(index)——一个存储关联数据的地方。实际上，索引只是一个用来指向一个或多个分片(shards)的“逻辑命名空间(logical namespace)”.</p><p>一个分片(shard)是一个最小级别“工作单元(worker unit)”,它只是保存了<strong>索引中所有数据的一部分</strong><a href="水平切分还是垂直切分？应该是垂直切分的，这样才有意义。"> ^如何切分</a>。我们的文档存储在分片中，并且在分片中被索引，但是我们的应用程序不会直接与它们通信，取而代之的是，直接与索引通信。</p>]]></content>
       
@@ -665,13 +772,13 @@
       
         <tags>
             
-            <tag> 分布式 </tag>
+            <tag> todo </tag>
             
-            <tag> elasticsearch </tag>
+            <tag> 分布式 </tag>
             
             <tag> 索引 </tag>
             
-            <tag> todo </tag>
+            <tag> elasticsearch </tag>
             
         </tags>
       
@@ -681,8 +788,8 @@
     
     <entry>
       <title>Elasticsearch的分布式设计原理</title>
-      <link href="/2018/09/01/elastic/Elasticsearch%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/"/>
-      <url>/2018/09/01/elastic/Elasticsearch%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/</url>
+      <link href="/2018/09/01/%E5%B8%B8%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch/Elasticsearch%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/"/>
+      <url>/2018/09/01/%E5%B8%B8%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch/Elasticsearch%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/</url>
       
         <content type="html"><![CDATA[<p><a href="https://www.jianshu.com/p/61dd9fb7d785">ElasticSearch 如何保证数据一致性,实时性</a><br><a href="https://blog.csdn.net/wzdxt/article/details/50868031">为什么ES不适合做数据存储</a></p><p>Elastic主节点选举算法？？？</p>]]></content>
       
@@ -696,11 +803,11 @@
       
         <tags>
             
+            <tag> todo </tag>
+            
             <tag> 分布式 </tag>
             
             <tag> elasticsearch </tag>
-            
-            <tag> todo </tag>
             
         </tags>
       
@@ -762,8 +869,8 @@
     
     <entry>
       <title>Linux常用指令</title>
-      <link href="/2018/07/01/%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/linux/Linux%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4-1/"/>
-      <url>/2018/07/01/%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/linux/Linux%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4-1/</url>
+      <link href="/2018/07/01/%E5%A4%87%E6%B3%A8/linux/Linux%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4-1/"/>
+      <url>/2018/07/01/%E5%A4%87%E6%B3%A8/linux/Linux%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4-1/</url>
       
         <content type="html"><![CDATA[<h2 id="给目录设置用户和用户组"><a href="#给目录设置用户和用户组" class="headerlink" title="给目录设置用户和用户组"></a>给目录设置用户和用户组</h2><p><code>chown -R admin:admin admin/</code></p><a id="more"></a><h2 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h2><p>userdel [用户名]<br>删除某一个用户，eg：删除admin用户<code>userdel admin</code> </p><h2 id="修改账户密码"><a href="#修改账户密码" class="headerlink" title="修改账户密码"></a>修改账户密码</h2><p>passwd [账户名]<br>    修改某一个账户的密码，eg：修改admin的密码<code>passwd admin</code> </p><p>passwd<br>    修改root账户的密码</p><h2 id="新增账户"><a href="#新增账户" class="headerlink" title="新增账户"></a>新增账户</h2><p>adduser [用户名]<br>    创建用户密码和目录</p><p>useradd [用户名]<br>    只创建用户，不创建目录</p><h2 id="安装lsrz"><a href="#安装lsrz" class="headerlink" title="安装lsrz"></a>安装lsrz</h2><p>yum -y install lrzsz;</p><h2 id="压缩和解压"><a href="#压缩和解压" class="headerlink" title="压缩和解压"></a>压缩和解压</h2><h3 id="安装zip命令"><a href="#安装zip命令" class="headerlink" title="安装zip命令"></a>安装zip命令</h3><p>yum -y install unzip zip</p><h3 id="解压到指定目录"><a href="#解压到指定目录" class="headerlink" title="解压到指定目录"></a>解压到指定目录</h3><p>tar xvf filename.tar -C /specific dir</p><p>##给admin账号sudo权限<br>vi /etc/sudoers<br>admin    ALL=(ALL)       ALL</p><h2 id="修改别名"><a href="#修改别名" class="headerlink" title="修改别名"></a>修改别名</h2><p>vi ~/.bashrc<br>source ~/.bashrc</p><h2 id="查看目录树下各个文件的大小"><a href="#查看目录树下各个文件的大小" class="headerlink" title="查看目录树下各个文件的大小"></a>查看目录树下各个文件的大小</h2><p>du -m [文件目录]<br><code>-m</code> 表示以M为单位</p><h2 id="查看监听端口"><a href="#查看监听端口" class="headerlink" title="查看监听端口"></a>查看监听端口</h2><p>netstat -tulpn | grep LISTEN</p><h2 id="文件夹复制"><a href="#文件夹复制" class="headerlink" title="文件夹复制"></a>文件夹复制</h2><p>cp -r [source] [target]<br>将source文件夹下的内容复制到target文件夹下。<br><code>-r</code> 遍历文件夹下所有目录</p><p>eg:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -r /home/admin/kk-apm-web /home/admin/kk-apm/1.0.3/</span><br></pre></td></tr></table></figure>]]></content>
       
@@ -787,8 +894,8 @@
     
     <entry>
       <title>Mac下设置指令别名</title>
-      <link href="/2018/06/20/%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/mac/Mac%E4%B8%8B%E5%A2%9E%E5%8A%A0%E6%8C%87%E4%BB%A4%E5%88%AB%E5%90%8D-1/"/>
-      <url>/2018/06/20/%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/mac/Mac%E4%B8%8B%E5%A2%9E%E5%8A%A0%E6%8C%87%E4%BB%A4%E5%88%AB%E5%90%8D-1/</url>
+      <link href="/2018/06/20/%E5%A4%87%E6%B3%A8/mac/Mac%E4%B8%8B%E5%A2%9E%E5%8A%A0%E6%8C%87%E4%BB%A4%E5%88%AB%E5%90%8D-1/"/>
+      <url>/2018/06/20/%E5%A4%87%E6%B3%A8/mac/Mac%E4%B8%8B%E5%A2%9E%E5%8A%A0%E6%8C%87%E4%BB%A4%E5%88%AB%E5%90%8D-1/</url>
       
         <content type="html"><![CDATA[<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>alias [别名]=’[指令名称]’</p><a id="more"></a><h2 id="临时有效（重启失效）"><a href="#临时有效（重启失效）" class="headerlink" title="临时有效（重启失效）"></a>临时有效（重启失效）</h2><ol><li>在命令行中输入别名指令，如：<code>alias ll=&#39;ls -alh</code></li></ol><p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1g0t67tazupj30l801ut8w.jpg" alt="在mac终端控制台直接输入指令"></p><ol start="2"><li>取消的命令为：<code>unalias ll</code></li></ol><h2 id="永久生效"><a href="#永久生效" class="headerlink" title="永久生效"></a>永久生效</h2><ol><li><p>在bash_profile文件中<code>vim ~/.bash_profile</code>加入别名指令，如：<br> <img src="https://ws1.sinaimg.cn/large/006tKfTcly1g0t65q2kzvj30kg09qgn2.jpg" alt="修改bash_profile文件"></p><blockquote><p>等号两边均无空格，指令名称中如有空格，需用引号包裹</p></blockquote></li><li><p>source ~/.bash_profile使其生效</p></li><li>也可以修改 /etc/profile文件，不过这个是全家配置脚本，修改了所有用户都会生效。</li></ol><h2 id="登录shell会话的启动文件"><a href="#登录shell会话的启动文件" class="headerlink" title="登录shell会话的启动文件"></a>登录shell会话的启动文件</h2><table><thead><tr><th>文件</th><th>内容</th></tr></thead><tbody><tr><td>/etc/profile</td><td>应用于所有用户的全局配置脚本</td></tr><tr><td>~/.bash_profile</td><td>用户私人的启动文件</td></tr><tr><td>~/.bash_login</td><td>如果~/.bash_profile没有找到，会尝试读取这个文件</td></tr><tr><td>~/.profile</td><td>如果~/.bash_profile和~/.bash_login没有找到，会尝试读取这个文件</td></tr></tbody></table>]]></content>
       
@@ -812,8 +919,8 @@
     
     <entry>
       <title>从零开始搭建个人博客</title>
-      <link href="/2018/06/10/%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-      <url>/2018/06/10/%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+      <link href="/2018/06/10/%E5%A4%87%E6%B3%A8/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+      <url>/2018/06/10/%E5%A4%87%E6%B3%A8/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
       
         <content type="html"><![CDATA[<p>从零开始搭建一个个人博客系统记录。</p><a id="more"></a><h2 id="准备git"><a href="#准备git" class="headerlink" title="准备git"></a>准备git</h2><p>安装git，并将本地的公钥维护到github，这样可以免密提交代码【<a href="https://www.jianshu.com/p/7edb6b838a2e">MAC上Git安装与GitHub基本使用</a>】</p><ol><li>在本机安装git</li><li><p>设置user.name和user.email配置信息，加global是全局变量，也可以在单个项目目录里单独设置局部变量，去掉global即可。</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;你的GitHub用户名&quot;</span><br><span class="line">git config --global user.email &quot;你的GitHub注册邮箱&quot;</span><br></pre></td></tr></table></figure></li><li><p>生成本地ssh密钥文件，输入：<code>ssh-keygen -t rsa -C &quot;你的GitHub注册邮箱&quot;</code></p></li><li>将本地生成的公钥维护到github里</li><li>测试是否成功，输入：<code>ssh git@github.com</code>，查看是否有返回。</li></ol><h2 id="安装node"><a href="#安装node" class="headerlink" title="安装node"></a>安装node</h2><p><a href="https://www.jianshu.com/p/3b30c4c846d1">在mac上安装node.js</a></p><h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>在本地创建文件夹，以存放hexo代码，以及博客文章。</p><ol><li><p>进入博客文件夹下，使用npm命令安装Hexo，输入：<code>npm install -g hexo-cli</code></p></li><li><p>安装完成后，初始化博客，输入：<code>hexo init blog</code></p></li><li><p>部署网站，绑定github的repositories<br> 在blog目录下，修改_config.yml文件。  </p><ul><li>type : git</li><li>repo : github pages托管的资源库地址+”.git”</li><li>branch : master</li></ul></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">   type: git</span><br><span class="line">   repo: https://github.com/mayu1991/mayu1991.github.io.git</span><br><span class="line">   branch: master</span><br></pre></td></tr></table></figure><ol start="4"><li>安装Git部署插件，在博客文件夹下，输入命令：<code>npm install hexo-deployer-git --save</code>，如果不执行这个命令，在hexo d的时候会报错。</li></ol><h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><blockquote><p><a href="https://yanyinhong.github.io/2017/11/15/Resolve-npm-missing-write-access-problem/">Mac下安装npm全局包提示权限不够</a></p></blockquote><h2 id="启动Hexo"><a href="#启动Hexo" class="headerlink" title="启动Hexo"></a>启动Hexo</h2><ol><li>清除缓存 <code>hexo clean</code></li><li>启动服务预览 <code>hexo s</code> == <code>hexo server</code></li><li>部署到git <code>hexo d</code> == <code>hexo deploy</code><br><br> 这一步是将本地hexo编译后的js推送github代码库，然后利用github pages实现博客在公网发布。</li></ol><blockquote><p>hexo指令列表</p></blockquote><ul><li>新建文章 <code>hexo n &quot;我的博客&quot;</code> == <code>hexo new &quot;我的博客&quot;</code></li><li>清除缓存 <code>hexo clean</code></li><li>生成<code>hexo g</code> == <code>hexo generate</code></li><li>启动服务预览<code>hexo s</code> == <code>hexo server</code></li><li>部署<code>hexo d</code> == <code>hexo deploy</code></li></ul><h2 id="更换Hexo主题"><a href="#更换Hexo主题" class="headerlink" title="更换Hexo主题"></a>更换Hexo主题</h2><p><a href="https://hexo.io/themes/">Hexo主题库</a></p><p>我用了melody这个主题<br><a href="https://molunerfinn.com/">主题作者的博客</a><br><a href="https://github.com/Molunerfinn/hexo-theme-melody">git地址</a></p><p><strong>主题接入步骤</strong></p><ol><li><p>将主题下载到博客所在theme文件夹下</p><p> 路径：<code>/Users/mayu/Documents/blogs/blog/themes</code><br> 指令：<code>git clone -b master https://github.com/Molunerfinn/hexo-theme-melody</code></p></li><li><p>安装了一个插件<br> 指令：npm install hexo-renderer-jade hexo-renderer-stylus</p></li><li><p>按照<a href="https://molunerfinn.com/hexo-theme-melody-doc/zh-Hans/quick-start.html">接入文档</a>操作</p></li></ol><h2 id="调整博客设置"><a href="#调整博客设置" class="headerlink" title="调整博客设置"></a>调整博客设置</h2><ol><li>头像</li><li>标签</li><li>目录</li><li>相册</li><li>搜索</li><li><p><a href="https://molunerfinn.com/hexo-theme-melody-doc/#/zh-Hans/third-party-support?id=%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97uv%E5%92%8Cpv">访问日志</a></p></li><li><p>字数统计<br> 要为theme-melody配上字数统计特性, 你需要如下几个步骤:</p><ul><li><p>打开hexo工作目录</p><p><code>npm install hexo-wordcount --save</code>或者<code>yarn add hexo-wordcount</code></p></li><li><p>配置melody.yml:</p></li></ul></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wordcount:</span><br><span class="line">  enable: true</span><br></pre></td></tr></table></figure><h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ol><li>评论功能</li><li>集成 Baidu Analytics 和 Google Analytics</li><li>绑定域名</li></ol><h2 id="常用的工具"><a href="#常用的工具" class="headerlink" title="常用的工具"></a>常用的工具</h2><ol><li><a href="http://www.atool.org/colorpicker.php">在线颜色选择器</a></li><li><a href="https://toolinbox.net/iPic/">iPic图床-图片上传</a></li></ol><h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="https://zhuanlan.zhihu.com/p/26625249">1. GitHub+Hexo 搭建个人网站详细教程</a><br><a href="https://www.jianshu.com/p/834d7cc0668d">2. 我的博客是如何搭建的（github pages + HEXO + 域名绑定）</a><br><a href="https://molunerfinn.com/hexo-theme-melody-doc/#/zh-Hans/">3. melody主题博客接入文档</a><br><a href="http://ijiaober.github.io/categories/hexo/">4. hexo教程</a><br><a href="https://www.jianshu.com/p/3b30c4c846d1">5. 在mac上安装node.js</a></p>]]></content>
       
